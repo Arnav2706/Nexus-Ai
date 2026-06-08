@@ -1,21 +1,24 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AppLayout } from './components/layout/AppLayout';
+import { Dashboard } from './pages/Dashboard';
+
+import '@progress/kendo-theme-default/dist/all.css';
+import './index.css';
 
 function App() {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden text-white flex flex-col items-center justify-center">
-      {/* Background Glow */}
-      <div className="absolute inset-0 bg-hero-glow opacity-60 pointer-events-none" />
-      
-      {/* Content */}
-      <div className="z-10 text-center space-y-6">
-        <h1 className="text-5xl font-extrabold tracking-tight">
-          Nexus <span className="text-primary">AI</span>
-        </h1>
-        <p className="text-lg text-gray-400 max-w-md mx-auto">
-          Personal Conference Intelligence Agent
-        </p>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="schedule" element={<div className="p-8">Schedule coming soon</div>} />
+          <Route path="network" element={<div className="p-8">Network coming soon</div>} />
+          <Route path="insights" element={<div className="p-8">Insights coming soon</div>} />
+          <Route path="settings" element={<div className="p-8">Settings coming soon</div>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
