@@ -4,6 +4,7 @@ import { AppLayout } from './components/layout/AppLayout';
 import { Dashboard } from './pages/Dashboard';
 import { SchedulePage } from './pages/SchedulePage';
 import { NetworkPage } from './pages/NetworkPage';
+import { InsightsPage } from './pages/InsightsPage';
 
 import '@progress/kendo-theme-default/dist/all.css';
 import './index.css';
@@ -16,7 +17,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="schedule" element={<SchedulePage />} />
           <Route path="network" element={<NetworkPage />} />
-          <Route path="insights" element={<div className="p-8">Insights coming soon</div>} />
+          <Route path="insights" element={<InsightsPage />} />
           <Route path="settings" element={<div className="p-8">Settings coming soon</div>} />
         </Route>
       </Routes>
