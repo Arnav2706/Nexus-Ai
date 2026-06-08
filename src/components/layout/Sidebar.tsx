@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, Calendar, Users, Activity, Settings, Cpu } from 'lucide-react';
+import { LayoutDashboard, Calendar, Users, Activity, Settings, Cpu, MapPin } from 'lucide-react';
 
 const navItems = [
   { name: 'Copilot', path: '/', icon: Cpu },
   { name: 'Schedule', path: '/schedule', icon: Calendar },
+  { name: 'Map', path: '/map', icon: MapPin },
   { name: 'Network', path: '/network', icon: Users },
   { name: 'Insights', path: '/insights', icon: Activity },
   { name: 'Settings', path: '/settings', icon: Settings },
