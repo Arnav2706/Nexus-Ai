@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import { AICopilot } from '../components/dashboard/AICopilot';
 import { SpeakerExplorer } from '../components/dashboard/SpeakerExplorer';
+import { SessionIntelligenceCard } from '../components/dashboard/SessionIntelligenceCard';
 
 export const Dashboard: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ export const Dashboard: React.FC = () => {
       <div className="mt-12">
         <AICopilot />
         <SpeakerExplorer />
+        <SessionIntelligenceCard />
       </div>
     </div>
   );
