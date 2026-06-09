@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
+import { LandingPage } from './pages/LandingPage';
 import { Dashboard } from './pages/Dashboard';
 import { SchedulePage } from './pages/SchedulePage';
 import { NetworkPage } from './pages/NetworkPage';
@@ -18,6 +19,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Landing page — outside app shell */}
+        <Route path="/landing" element={<LandingPage />} />
+
+        {/* App shell with sidebar */}
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="schedule" element={<SchedulePage />} />
@@ -28,7 +33,7 @@ function App() {
           <Route path="graph" element={<KnowledgeGraphPage />} />
           <Route path="career" element={<CareerPage />} />
           <Route path="pulse" element={<PulseDashboard />} />
-          <Route path="settings" element={<div className="p-8">Settings coming soon</div>} />
+          <Route path="settings" element={<div className="p-8 text-white">Settings coming soon</div>} />
         </Route>
       </Routes>
     </BrowserRouter>
