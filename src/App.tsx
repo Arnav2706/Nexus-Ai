@@ -7,6 +7,7 @@ import { NetworkPage } from './pages/NetworkPage';
 import { InsightsPage } from './pages/InsightsPage';
 import { MapPage } from './pages/MapPage';
 import { MemoryPage } from './pages/MemoryPage';
+import { KnowledgeGraphPage } from './pages/KnowledgeGraphPage';
 
 import '@progress/kendo-theme-default/dist/all.css';
 import './index.css';
@@ -22,6 +23,7 @@ function App() {
           <Route path="network" element={<NetworkPage />} />
           <Route path="insights" element={<InsightsPage />} />
           <Route path="memory" element={<MemoryPage />} />
+          <Route path="graph" element={<KnowledgeGraphPage />} />
           <Route path="settings" element={<div className="p-8">Settings coming soon</div>} />
         </Route>
       </Routes>
