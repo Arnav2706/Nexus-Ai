@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { GlowingBackground } from './GlowingBackground';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FloatingAssistant } from '../chat/FloatingAssistant';
 
 export const AppLayout: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ export const AppLayout: React.FC = () => {
           </motion.div>
         </AnimatePresence>
       </main>
+      <FloatingAssistant />
     </div>
   );
 };
