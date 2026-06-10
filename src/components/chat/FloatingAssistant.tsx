@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Sparkles } from 'lucide-react';
+import { X, Sparkles } from 'lucide-react';
 import { Chat } from '@progress/kendo-react-conversational-ui';
 
-const user = { id: 1, avatarUrl: "https://i.pravatar.cc/150?img=11" };
-const bot = { id: 0, name: "Nexus AI" };
+const MY_ID = 1;
+const BOT_ID = 0;
 
 const initialMessages = [
   {
-    author: bot,
+    authorId: BOT_ID,
+    author: { id: BOT_ID, name: 'Nexus AI' },
     text: "Hi Alex! I see you're about to meet David Miller. Need some icebreakers?",
-    timestamp: new Date()
+    timestamp: new Date(),
+    id: 0,
   }
 ];
 
@@ -18,18 +20,26 @@ export const FloatingAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<any[]>(initialMessages);
 
-  const addNewMessage = (event: any) => {
-    setMessages([...messages, event.message]);
+  const handleSend = (event: any) => {
+    const userMsg = {
+      ...event.message,
+      authorId: MY_ID,
+      author: { id: MY_ID, name: 'You' },
+      id: messages.length,
+    };
+    setMessages(prev => [...prev, userMsg]);
     setTimeout(() => {
       setMessages(prev => [
         ...prev,
         {
-          author: bot,
-          text: "I suggest asking him about his latest work on WASM. It aligns perfectly with your current startup focus.",
-          timestamp: new Date()
+          authorId: BOT_ID,
+          author: { id: BOT_ID, name: 'Nexus AI' },
+          text: "I suggest asking him about his latest WASM work — it aligns perfectly with your startup focus!",
+          timestamp: new Date(),
+          id: prev.length,
         }
       ]);
-    }, 1000);
+    }, 900);
   };
 
   return (
@@ -66,11 +76,12 @@ export const FloatingAssistant: React.FC = () => {
               </button>
             </div>
 
-            <div className="flex-1 [&_.k-chat]:!border-none [&_.k-chat]:!bg-transparent [&_.k-message-box]:!bg-transparent [&_.k-message-input]:!bg-surface [&_.k-message-input]:!border-white/10 [&_.k-message-input]:!text-white">
+            <div className="flex-1 overflow-hidden [&_.k-chat]:!border-none [&_.k-chat]:!bg-transparent [&_.k-message-box]:!bg-transparent">
               <Chat
+                authorId={MY_ID}
                 messages={messages}
-                onMessageSend={addNewMessage}
-                placeholder="Ask for suggestions..."
+                onSendMessage={handleSend}
+                style={{ height: '100%' }}
               />
             </div>
           </motion.div>
