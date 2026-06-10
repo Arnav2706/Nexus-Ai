@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppLayout } from './components/layout/AppLayout';
 import { LandingPage } from './pages/LandingPage';
@@ -20,10 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Landing page — outside app shell */}
         <Route path="/landing" element={<LandingPage />} />
-
-        {/* App shell with sidebar */}
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="schedule" element={<SchedulePage />} />

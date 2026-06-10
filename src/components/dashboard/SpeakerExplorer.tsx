@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Mic, Star } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardBody } from '@progress/kendo-react-layout';
 import { Chart, ChartSeries, ChartSeriesItem, ChartCategoryAxis, ChartCategoryAxisItem } from '@progress/kendo-react-charts';
 
 const speakerData = {
@@ -34,8 +33,8 @@ export const SpeakerExplorer: React.FC = () => {
         </div>
       </div>
 
-      <Card className="!bg-surface/40 !border-white/10 !text-white backdrop-blur-md overflow-hidden">
-        <CardBody className="flex flex-col md:flex-row items-center gap-8 p-6">
+      <div className="glass-panel rounded-2xl overflow-hidden">
+        <div className="flex flex-col md:flex-row items-center gap-8 p-6">
           <div className="flex-1 space-y-4">
             <div className="flex items-center gap-4">
               <img src="https://i.pravatar.cc/150?img=32" alt="Speaker" className="w-20 h-20 rounded-full border-2 border-orange-500/50 shadow-[0_0_20px_rgba(249,115,22,0.3)]" />
@@ -58,17 +57,16 @@ export const SpeakerExplorer: React.FC = () => {
               </button>
             </div>
           </div>
-          
+
           <div className="w-full md:w-64 h-64">
-            {/* Radar chart using Kendo Chart */}
             <Chart style={{ height: '100%', width: '100%' }} className="[&_.k-chart-surface]:!bg-transparent">
               <ChartCategoryAxis>
                 <ChartCategoryAxisItem categories={speakerData.expertise.map(e => e.category)} labels={{ color: 'rgba(255,255,255,0.7)' }} />
               </ChartCategoryAxis>
               <ChartSeries>
-                <ChartSeriesItem 
-                  type="radarArea" 
-                  data={speakerData.expertise.map(e => e.value)} 
+                <ChartSeriesItem
+                  type="radarArea"
+                  data={speakerData.expertise.map(e => e.value)}
                   color="#f97316"
                   line={{ width: 2 }}
                   opacity={0.4}
@@ -76,8 +74,8 @@ export const SpeakerExplorer: React.FC = () => {
               </ChartSeries>
             </Chart>
           </div>
-        </CardBody>
-      </Card>
+        </div>
+      </div>
     </motion.div>
   );
 };

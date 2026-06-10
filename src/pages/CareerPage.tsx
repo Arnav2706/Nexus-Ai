@@ -1,49 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Target, TrendingUp, Star } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardBody } from '@progress/kendo-react-layout';
-import { Grid, GridColumn } from '@progress/kendo-react-grid';
+import { Grid, GridColumn, GridCellProps } from '@progress/kendo-react-grid';
 
 const opportunities = [
-  {
-    id: 1,
-    company: 'DeepMind',
-    role: 'Research Scientist',
-    match: 94,
-    type: 'Research',
-    contact: 'Dr. Elena Sato',
-    status: 'Active',
-  },
-  {
-    id: 2,
-    company: 'Andreessen Horowitz',
-    role: 'AI Portfolio Advisor',
-    match: 88,
-    type: 'Investing',
-    contact: 'Mark Chen',
-    status: 'Warm Lead',
-  },
-  {
-    id: 3,
-    company: 'Vercel',
-    role: 'Staff Engineer',
-    match: 82,
-    type: 'Engineering',
-    contact: 'Sarah Kim',
-    status: 'Active',
-  },
-  {
-    id: 4,
-    company: 'Hugging Face',
-    role: 'Developer Advocate',
-    match: 76,
-    type: 'DevRel',
-    contact: 'Tom Wright',
-    status: 'Active',
-  },
+  { id: 1, company: 'DeepMind', role: 'Research Scientist', match: 94, type: 'Research', contact: 'Dr. Elena Sato', status: 'Active' },
+  { id: 2, company: 'Andreessen Horowitz', role: 'AI Portfolio Advisor', match: 88, type: 'Investing', contact: 'Mark Chen', status: 'Warm Lead' },
+  { id: 3, company: 'Vercel', role: 'Staff Engineer', match: 82, type: 'Engineering', contact: 'Sarah Kim', status: 'Active' },
+  { id: 4, company: 'Hugging Face', role: 'Developer Advocate', match: 76, type: 'DevRel', contact: 'Tom Wright', status: 'Active' },
 ];
 
-const StatusCell = (props: any) => {
+const StatusCell = (props: GridCellProps) => {
   const status = props.dataItem.status;
   return (
     <td className="!border-b !border-white/5 !bg-transparent">
@@ -58,14 +25,11 @@ const StatusCell = (props: any) => {
   );
 };
 
-const MatchCell = (props: any) => (
+const MatchCell = (props: GridCellProps) => (
   <td className="!border-b !border-white/5 !bg-transparent">
     <div className="flex items-center gap-2">
       <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
-          style={{ width: `${props.dataItem.match}%` }}
-        />
+        <div className="h-full bg-gradient-to-r from-primary to-accent rounded-full" style={{ width: `${props.dataItem.match}%` }} />
       </div>
       <span className="text-white text-sm font-bold">{props.dataItem.match}%</span>
     </div>
@@ -89,18 +53,13 @@ export const CareerPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
           { icon: Target, label: 'Opportunities Found', value: '24', color: 'text-teal-400', bg: 'bg-teal-500/20 border-teal-500/30' },
           { icon: Star, label: 'Top Match Score', value: '94%', color: 'text-amber-400', bg: 'bg-amber-500/20 border-amber-500/30' },
           { icon: TrendingUp, label: 'Trending Industries', value: 'AI/ML', color: 'text-primary', bg: 'bg-primary/20 border-primary/30' },
         ].map(({ icon: Icon, label, value, color, bg }) => (
-          <motion.div
-            key={label}
-            whileHover={{ y: -3 }}
-            className={`glass-panel rounded-2xl p-5 flex items-center gap-4 border ${bg}`}
-          >
+          <motion.div key={label} whileHover={{ y: -3 }} className={`glass-panel rounded-2xl p-5 flex items-center gap-4 border ${bg}`}>
             <div className={`p-3 rounded-xl ${bg}`}>
               <Icon className={`w-6 h-6 ${color}`} />
             </div>
@@ -112,7 +71,6 @@ export const CareerPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Opportunities Grid */}
       <div className="glass-panel rounded-3xl p-6">
         <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
           <Briefcase className="w-5 h-5 text-teal-400" />
@@ -124,8 +82,8 @@ export const CareerPage: React.FC = () => {
             <GridColumn field="role" title="Role" />
             <GridColumn field="type" title="Type" />
             <GridColumn field="contact" title="Key Contact" />
-            <GridColumn field="match" title="AI Match" cell={MatchCell} />
-            <GridColumn field="status" title="Status" cell={StatusCell} />
+            <GridColumn field="match" title="AI Match" cells={{ data: MatchCell }} />
+            <GridColumn field="status" title="Status" cells={{ data: StatusCell }} />
           </Grid>
         </div>
       </div>

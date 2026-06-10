@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { TrendingUp, Target, Handshake } from 'lucide-react';
+import { Target } from 'lucide-react';
 import { ArcGauge } from '@progress/kendo-react-gauges';
 
 export const ValuePredictor: React.FC = () => {
@@ -12,25 +11,25 @@ export const ValuePredictor: React.FC = () => {
         </div>
         <h3 className="text-xl font-bold">Meeting Value Predictor</h3>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col items-center justify-center">
           <div className="relative w-32 h-24 mb-2">
             <ArcGauge
               value={85}
               colors={[{ to: 100, color: '#6366f1' }]}
-              className="absolute inset-0 [&_.k-arcgauge-label]:!text-white [&_.k-arcgauge-label]:!font-bold [&_.k-arcgauge-label]:!text-xl"
+              className="absolute inset-0"
             />
           </div>
           <div className="text-sm font-medium text-gray-300">Collaboration Potential</div>
         </div>
-        
+
         <div className="bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col items-center justify-center">
           <div className="relative w-32 h-24 mb-2">
             <ArcGauge
               value={92}
               colors={[{ to: 100, color: '#f59e0b' }]}
-              className="absolute inset-0 [&_.k-arcgauge-label]:!text-white [&_.k-arcgauge-label]:!font-bold [&_.k-arcgauge-label]:!text-xl"
+              className="absolute inset-0"
             />
           </div>
           <div className="text-sm font-medium text-gray-300">Hiring Opportunity</div>
@@ -41,7 +40,7 @@ export const ValuePredictor: React.FC = () => {
             <ArcGauge
               value={78}
               colors={[{ to: 100, color: '#10b981' }]}
-              className="absolute inset-0 [&_.k-arcgauge-label]:!text-white [&_.k-arcgauge-label]:!font-bold [&_.k-arcgauge-label]:!text-xl"
+              className="absolute inset-0"
             />
           </div>
           <div className="text-sm font-medium text-gray-300">Research Relevance</div>

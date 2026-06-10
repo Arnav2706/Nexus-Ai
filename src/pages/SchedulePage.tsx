@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Scheduler, TimelineView, DayView, AgendaView } from '@progress/kendo-react-scheduler';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar as CalendarIcon, Clock, MapPin } from 'lucide-react';
+import { Clock } from 'lucide-react';
+import { Scheduler, TimelineView, DayView, AgendaView } from '@progress/kendo-react-scheduler';
 
 const currentYear = new Date().getFullYear();
 const currentMonth = new Date().getMonth();
@@ -14,8 +14,7 @@ const sampleData = [
     start: new Date(currentYear, currentMonth, currentDay, 10, 0),
     end: new Date(currentYear, currentMonth, currentDay, 12, 0),
     isAllDay: false,
-    roomId: 1,
-    priority: 'high'
+    priority: 'high',
   },
   {
     id: 2,
@@ -23,16 +22,15 @@ const sampleData = [
     start: new Date(currentYear, currentMonth, currentDay, 13, 0),
     end: new Date(currentYear, currentMonth, currentDay, 14, 0),
     isAllDay: false,
-    roomId: 2,
-    priority: 'critical'
-  }
+    priority: 'critical',
+  },
 ];
 
 const CustomItem = (props: any) => {
   return (
-    <div className={`h-full w-full p-2 rounded-lg border border-white/20 backdrop-blur-md shadow-lg transition-all
-      ${props.dataItem.priority === 'critical' ? 'bg-accent/40 border-accent/50' : 'bg-primary/40 border-primary/50'}`}
-    >
+    <div className={`h-full w-full p-2 rounded-lg border border-white/20 backdrop-blur-md shadow-lg ${
+      props.dataItem.priority === 'critical' ? 'bg-accent/40 border-accent/50' : 'bg-primary/40 border-primary/50'
+    }`}>
       <div className="font-bold text-sm text-white mb-1">{props.dataItem.title}</div>
       <div className="flex items-center gap-1 text-xs text-white/80">
         <Clock className="w-3 h-3" />
@@ -43,7 +41,7 @@ const CustomItem = (props: any) => {
 };
 
 export const SchedulePage: React.FC = () => {
-  const [date, setDate] = useState(new Date(currentYear, currentMonth, currentDay));
+  const [date, setDate] = React.useState(new Date(currentYear, currentMonth, currentDay));
 
   return (
     <motion.div
@@ -53,7 +51,7 @@ export const SchedulePage: React.FC = () => {
     >
       <header className="flex items-center gap-4 mb-4 shrink-0">
         <div className="w-12 h-12 rounded-2xl bg-accent/20 flex items-center justify-center border border-accent/30">
-          <CalendarIcon className="w-6 h-6 text-accent" />
+          <Clock className="w-6 h-6 text-accent" />
         </div>
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Smart Schedule Builder</h1>
