@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Trophy, Award, Medal, Zap, Users, BookOpen } from 'lucide-react';
+import { Star, Trophy, Award, Zap, Users, BookOpen } from 'lucide-react';
 import { ProgressBar } from '@progress/kendo-react-progressbars';
 
 const badges = [
