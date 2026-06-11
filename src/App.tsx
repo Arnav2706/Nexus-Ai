@@ -11,6 +11,7 @@ import { MemoryPage } from './pages/MemoryPage';
 import { KnowledgeGraphPage } from './pages/KnowledgeGraphPage';
 import { CareerPage } from './pages/CareerPage';
 import { PulseDashboard } from './pages/PulseDashboard';
+import { WowFeatures } from './pages/WowFeatures';
 
 import '@progress/kendo-theme-default/dist/all.css';
 import './index.css';
@@ -33,6 +34,7 @@ function App() {
           <Route path="graph" element={<KnowledgeGraphPage />} />
           <Route path="career" element={<CareerPage />} />
           <Route path="pulse" element={<PulseDashboard />} />
+          <Route path="wow" element={<WowFeatures />} />
           <Route path="settings" element={<div className="p-8 text-white">Settings coming soon</div>} />
         </Route>
       </Routes>
