@@ -95,22 +95,21 @@ export const KnowledgeGraphPage: React.FC = () => {
               onMouseLeave={() => setHoveredNode(null)}
               className="cursor-pointer"
             >
-              <motion.circle
-                cx={`${node.x}%`}
-                cy={`${node.y}%`}
-                r={node.type === 'self' ? 22 : 16}
-                fill={`${node.color}30`}
-                stroke={node.color}
-                strokeWidth={hoveredNode === node.id ? 3 : 1.5}
-                initial={{ r: 0, opacity: 0 }}
-                animate={{
-                  r: hoveredNode === node.id
-                    ? (node.type === 'self' ? 28 : 20)
-                    : (node.type === 'self' ? 22 : 16),
-                  opacity: 1,
-                }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-              />
+                <motion.circle
+                  cx={`${node.x}%`}
+                  cy={`${node.y}%`}
+                  r={node.type === 'self' ? 22 : 16}
+                  fill={`${node.color}30`}
+                  stroke={node.color}
+                  strokeWidth={hoveredNode === node.id ? 3 : 1.5}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{
+                    scale: hoveredNode === node.id ? 1.3 : 1,
+                    opacity: 1,
+                  }}
+                  style={{ transformOrigin: `${node.x}% ${node.y}%` }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                />
               {/* Pulse for self node */}
               {node.type === 'self' && (
                 <motion.circle
@@ -120,7 +119,8 @@ export const KnowledgeGraphPage: React.FC = () => {
                   fill="none"
                   stroke={node.color}
                   strokeWidth={1}
-                  animate={{ r: [28, 40], opacity: [0.6, 0] }}
+                  style={{ transformOrigin: `${node.x}% ${node.y}%` }}
+                  animate={{ scale: [1, 1.5], opacity: [0.6, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
               )}
