@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, Users, Activity, Settings, Cpu, MapPin, Zap, Network, Briefcase, Flame, Lightbulb } from 'lucide-react';
+import { Calendar, Users, Activity, Settings, Cpu, MapPin, Zap, Network, Briefcase, Flame, Lightbulb, Medal } from 'lucide-react';
 
 const navItems = [
   { name: 'Copilot', path: '/', icon: Cpu },
@@ -14,6 +14,7 @@ const navItems = [
   { name: 'Career', path: '/career', icon: Briefcase },
   { name: 'Pulse', path: '/pulse', icon: Flame },
   { name: 'WOW', path: '/wow', icon: Lightbulb },
+  { name: 'Achievements', path: '/achievements', icon: Medal },
   { name: 'Settings', path: '/settings', icon: Settings },
 ];
 

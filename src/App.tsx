@@ -12,6 +12,7 @@ import { CareerPage } from './pages/CareerPage';
 import { PulseDashboard } from './pages/PulseDashboard';
 import { WowFeatures } from './pages/WowFeatures';
 import { SettingsPage } from './pages/SettingsPage';
+import { AchievementsPage } from './pages/AchievementsPage';
 
 import '@progress/kendo-theme-default/dist/all.css';
 import './index.css';
@@ -32,6 +33,7 @@ function App() {
           <Route path="career" element={<CareerPage />} />
           <Route path="pulse" element={<PulseDashboard />} />
           <Route path="wow" element={<WowFeatures />} />
+          <Route path="achievements" element={<AchievementsPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
