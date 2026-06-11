@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Settings, User, Bell, Eye, Palette, Globe, Shield, ChevronRight } from 'lucide-react';
+import { Settings, User, Bell, Shield, ChevronRight } from 'lucide-react';
 import { Switch } from '@progress/kendo-react-inputs';
 
 const settingsSections = [
