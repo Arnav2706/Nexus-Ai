@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Ghost, Shuffle, Lightbulb, Rocket, FlaskConical } from 'lucide-react';
+import { Ghost, Shuffle, Rocket, FlaskConical, Lightbulb } from 'lucide-react';
 
 const wowCards = [
   {
     id: 1,
     icon: Ghost,
     title: 'AI Twin',
-    subtitle: 'Missing a session? Your digital twin attends for you.',
-    description: 'Your AI clone attends sessions you can\'t make it to — generating notes, summaries, and actionable follow-ups.',
+    subtitle: "Missing a session? Your digital twin attends for you.",
+    description: "Your AI clone attends sessions you can't make it to — generating notes, summaries, and actionable follow-ups.",
     color: 'from-indigo-500 to-violet-600',
     glow: 'shadow-[0_0_40px_rgba(99,102,241,0.3)]',
     badge: 'Experimental',
@@ -20,7 +20,7 @@ const wowCards = [
     icon: Shuffle,
     title: 'Serendipity Engine',
     subtitle: 'Discover the unexpected connection you never knew you needed.',
-    description: 'Hidden opportunities surface through our probabilistic graph traversal — find the speaker you never planned to meet.',
+    description: 'Hidden opportunities surface through probabilistic graph traversal — find the speaker you never planned to meet.',
     color: 'from-fuchsia-500 to-pink-600',
     glow: 'shadow-[0_0_40px_rgba(217,70,239,0.3)]',
     badge: 'AI Powered',
@@ -53,19 +53,6 @@ const wowCards = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.12 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { type: 'spring', bounce: 0.3 } }
-};
-
 export const WowFeatures: React.FC = () => {
   return (
     <motion.div
@@ -83,23 +70,18 @@ export const WowFeatures: React.FC = () => {
         </div>
       </header>
 
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-      >
-        {wowCards.map((card) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {wowCards.map((card, i) => (
           <motion.div
             key={card.id}
-            variants={itemVariants}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.12, type: 'spring', stiffness: 200 }}
             whileHover={{ y: -8, scale: 1.02 }}
             className={`glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer ${card.glow} hover:shadow-none transition-all duration-500`}
           >
-            {/* Background gradient blob */}
             <div className={`absolute -top-16 -right-16 w-48 h-48 rounded-full bg-gradient-to-br ${card.color} blur-[80px] opacity-20 group-hover:opacity-35 transition-opacity duration-500`} />
 
-            {/* Status badge */}
             <div className="flex items-center justify-between mb-6">
               <span className={`px-3 py-1 rounded-full text-xs font-bold border ${card.badgeColor}`}>
                 {card.badge}
@@ -113,32 +95,16 @@ export const WowFeatures: React.FC = () => {
               </span>
             </div>
 
-            {/* Icon */}
             <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${card.color} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
               <card.icon className="w-7 h-7 text-white" />
             </div>
 
-            <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-white transition-colors">
-              {card.title}
-            </h3>
-            <p className="text-base font-medium text-gray-300 mb-4 leading-snug">
-              {card.subtitle}
-            </p>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              {card.description}
-            </p>
-
-            {/* Hover arrow */}
-            <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              whileHover={{ opacity: 1, x: 0 }}
-              className="absolute bottom-8 right-8 text-white/40 group-hover:text-white/80 transition-colors"
-            >
-              →
-            </motion.div>
+            <h3 className="text-2xl font-bold text-white mb-2">{card.title}</h3>
+            <p className="text-base font-medium text-gray-300 mb-4 leading-snug">{card.subtitle}</p>
+            <p className="text-sm text-gray-500 leading-relaxed">{card.description}</p>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </motion.div>
   );
 };

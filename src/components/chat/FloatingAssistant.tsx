@@ -4,7 +4,7 @@ import { MessageSquare, X, Sparkles } from 'lucide-react';
 import { Chat } from '@progress/kendo-react-conversational-ui';
 
 const user = { id: 1, avatarUrl: "https://i.pravatar.cc/150?img=11" };
-const bot = { id: 0, name: "Nexus AI", avatarUrl: "https://i.pravatar.cc/150?img=3" };
+const bot = { id: 0, name: "Nexus AI" };
 
 const initialMessages = [
   {
@@ -20,11 +20,9 @@ export const FloatingAssistant: React.FC = () => {
 
   const addNewMessage = (event: any) => {
     setMessages([...messages, event.message]);
-    
-    // Simulate AI response
     setTimeout(() => {
       setMessages(prev => [
-        ...prev, 
+        ...prev,
         {
           author: bot,
           text: "I suggest asking him about his latest work on WASM. It aligns perfectly with your current startup focus.",
@@ -60,20 +58,19 @@ export const FloatingAssistant: React.FC = () => {
                 </div>
                 <h3 className="font-bold text-white">Live Copilot</h3>
               </div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="p-2 hover:bg-white/10 rounded-full transition-colors"
               >
                 <X className="w-5 h-5 text-gray-400 hover:text-white" />
               </button>
             </div>
-            
-            <div className="flex-1 [&_.k-chat]:!border-none [&_.k-chat]:!bg-transparent [&_.k-message]:!bg-primary/20 [&_.k-message]:!text-white [&_.k-message]:!rounded-2xl [&_.k-message-box]:!bg-transparent [&_.k-author]:!text-gray-400 [&_.k-message-input]:!bg-surface [&_.k-message-input]:!border-white/10 [&_.k-message-input]:!text-white">
-              <Chat 
-                user={user} 
-                messages={messages} 
-                onMessageSend={addNewMessage} 
-                placeholder="Ask for suggestions..." 
+
+            <div className="flex-1 [&_.k-chat]:!border-none [&_.k-chat]:!bg-transparent [&_.k-message-box]:!bg-transparent [&_.k-message-input]:!bg-surface [&_.k-message-input]:!border-white/10 [&_.k-message-input]:!text-white">
+              <Chat
+                messages={messages}
+                onMessageSend={addNewMessage}
+                placeholder="Ask for suggestions..."
               />
             </div>
           </motion.div>

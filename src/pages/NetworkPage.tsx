@@ -68,7 +68,7 @@ export const NetworkPage: React.FC = () => {
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-4">
                 <div className="relative">
-                  <Avatar type="image" shape="circle" className="!w-14 !h-14 !border-2 !border-white/10">
+                  <Avatar type="image" className="!w-14 !h-14 !border-2 !border-white/10">
                     <img src={`https://i.pravatar.cc/150?img=${match.id + 20}`} alt={match.name} />
                   </Avatar>
                   {match.status === 'online' && (

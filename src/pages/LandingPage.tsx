@@ -1,40 +1,30 @@
 import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Cpu, ArrowRight, Sparkles, Brain, Calendar, Users, Network, BarChart3, Zap } from 'lucide-react';
 
 const features = [
   { icon: Brain, title: 'AI Event Copilot', desc: 'Your personal AI agent that knows your goals, skills, and curates everything accordingly.', color: 'from-violet-500 to-purple-600' },
-  { icon: Calendar, title: 'Smart Scheduler', desc: 'Drop drag-and-drop scheduling with AI conflict resolution and priority scoring.', color: 'from-blue-500 to-cyan-500' },
+  { icon: Calendar, title: 'Smart Scheduler', desc: 'Drag-and-drop scheduling with AI conflict resolution and priority scoring.', color: 'from-blue-500 to-cyan-500' },
   { icon: Users, title: 'Networking Matchmaker', desc: 'Find the right people. 92% match scores with AI-powered compatibility analysis.', color: 'from-pink-500 to-rose-500' },
   { icon: Network, title: 'Knowledge Graph', desc: 'Explore the living map of connections between people, sessions, and ideas.', color: 'from-amber-500 to-orange-500' },
   { icon: BarChart3, title: 'Live Insight Feed', desc: 'Real-time event intelligence. Trending sessions, crowd heatmaps, and live feedback.', color: 'from-emerald-500 to-teal-500' },
   { icon: Zap, title: 'Memory Engine', desc: 'Post-event AI report. Everything you learned, everyone you met — beautifully summarized.', color: 'from-indigo-500 to-blue-600' },
 ];
 
-const floatingVariants = {
-  initial: { y: 0 },
-  animate: {
-    y: [-8, 8, -8],
-    transition: { duration: 6, repeat: Infinity, ease: 'easeInOut' }
-  }
-};
-
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
   const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   return (
     <div ref={containerRef} className="min-h-screen bg-background overflow-x-hidden">
-      {/* Fixed background blobs */}
+      {/* Background blobs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-[-30%] left-[-15%] w-[70%] h-[70%] bg-violet-600/20 blur-[140px] rounded-full" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-blue-600/15 blur-[120px] rounded-full" />
         <div className="absolute top-[30%] right-[-20%] w-[50%] h-[50%] bg-fuchsia-600/10 blur-[100px] rounded-full" />
-        {/* Grid texture */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
       </div>
 
@@ -64,56 +54,52 @@ export const LandingPage: React.FC = () => {
         </div>
       </motion.nav>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 z-10">
-        <motion.style animate={floatingVariants.animate} initial={floatingVariants.initial}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 mb-8 backdrop-blur">
-              <Sparkles className="w-4 h-4 text-accent" />
-              Powered by Generative AI + Kendo UI
-            </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 mb-8 backdrop-blur">
+            <Sparkles className="w-4 h-4 text-accent" />
+            Powered by Generative AI + Kendo UI
+          </div>
 
-            <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter leading-none mb-6">
-              <span className="text-white">Your AI</span>
-              <br />
-              <span className="bg-gradient-to-r from-primary via-violet-400 to-accent bg-clip-text text-transparent">
-                Conference
-              </span>
-              <br />
-              <span className="text-white">Companion</span>
-            </h1>
+          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter leading-none mb-6">
+            <span className="text-white">Your AI</span>
+            <br />
+            <span className="bg-gradient-to-r from-primary via-violet-400 to-accent bg-clip-text text-transparent">Conference</span>
+            <br />
+            <span className="text-white">Companion</span>
+          </h1>
 
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Stop drowning in conference information overload.
-              Nexus AI is your personal intelligence agent — curating sessions, finding connections, and synthesizing knowledge in real time.
-            </p>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Stop drowning in conference information overload. Nexus AI is your personal intelligence agent —
+            curating sessions, finding connections, and synthesizing knowledge in real time.
+          </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                whileHover={{ scale: 1.04, boxShadow: '0 0 40px rgba(59,130,246,0.5)' }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => navigate('/')}
-                className="flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-primary to-accent text-white text-lg font-bold shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all"
-              >
-                <Cpu className="w-5 h-5" />
-                Enter Nexus AI
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl glass-card text-white text-lg font-medium border border-white/10 hover:bg-white/10 transition-all"
-              >
-                Watch Demo <span className="text-xl">▶</span>
-              </motion.button>
-            </div>
-          </motion.div>
-        </motion.style>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.button
+              whileHover={{ scale: 1.04, boxShadow: '0 0 40px rgba(59,130,246,0.5)' }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => navigate('/')}
+              className="flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-primary to-accent text-white text-lg font-bold shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all"
+            >
+              <Cpu className="w-5 h-5" />
+              Enter Nexus AI
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl glass-card text-white text-lg font-medium border border-white/10 hover:bg-white/10 transition-all"
+            >
+              Watch Demo <span className="text-xl">▶</span>
+            </motion.button>
+          </div>
+        </motion.div>
 
-        {/* Floating orbit rings */}
+        {/* Orbit rings */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {[300, 500, 700].map((size, i) => (
             <motion.div
