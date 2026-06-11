@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardBody } from '@progress/kendo-react-layout';
 import { Avatar } from '@progress/kendo-react-layout';
 import { Chip } from '@progress/kendo-react-buttons';
 import { Sparkles, ArrowRight, BrainCircuit } from 'lucide-react';
@@ -78,11 +77,7 @@ export const AICopilot: React.FC = () => {
             <div className="flex justify-between items-center pt-2 border-t border-white/5">
               <div className="flex -space-x-2">
                 {[1, 2, 3].map((i) => (
-                  <Avatar
-                    key={i}
-                    type="image"
-                    className="!w-8 !h-8 border-2 border-surface"
-                  >
+                  <Avatar key={i} type="image" className="!w-8 !h-8 border-2 border-surface">
                     <img src={`https://i.pravatar.cc/150?img=${i + index * 10}`} alt="attendee" />
                   </Avatar>
                 ))}

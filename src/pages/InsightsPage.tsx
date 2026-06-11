@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, TrendingUp, AlertCircle, MessageSquare } from 'lucide-react';
-import { Grid, GridColumn, GridCellProps } from '@progress/kendo-react-grid';
+import { Grid, GridColumn } from '@progress/kendo-react-grid';
+import type { GridCellProps } from '@progress/kendo-react-grid';
 import { Chart, ChartSeries, ChartSeriesItem, ChartCategoryAxis, ChartCategoryAxisItem, ChartValueAxis, ChartValueAxisItem } from '@progress/kendo-react-charts';
 
 const liveInsights = [

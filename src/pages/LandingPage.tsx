@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Cpu, ArrowRight, Sparkles, Brain, Calendar, Users, Network, BarChart3, Zap } from 'lucide-react';

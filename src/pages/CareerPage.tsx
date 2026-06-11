@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Target, TrendingUp, Star } from 'lucide-react';
-import { Grid, GridColumn, GridCellProps } from '@progress/kendo-react-grid';
+import { Grid, GridColumn } from '@progress/kendo-react-grid';
+import type { GridCellProps } from '@progress/kendo-react-grid';
 
 const opportunities = [
   { id: 1, company: 'DeepMind', role: 'Research Scientist', match: 94, type: 'Research', contact: 'Dr. Elena Sato', status: 'Active' },

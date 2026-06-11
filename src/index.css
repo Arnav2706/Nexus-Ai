@@ -1,15 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0f;
+  --color-surface: #16161e;
+  --color-primary: #3b82f6;
+  --color-accent: #8b5cf6;
+
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --shadow-glow-sm: 0 0 15px rgba(59,130,246,0.3);
+  --shadow-glow: 0 0 30px rgba(59,130,246,0.4);
+  --shadow-glow-lg: 0 0 60px rgba(59,130,246,0.5);
+  --shadow-glow-accent: 0 0 30px rgba(139,92,246,0.4);
+  --shadow-glass: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s infinite;
+}
 
 @layer base {
-  :root {
-    --primary: 59 130 246;
-    --accent: 139 92 246;
-    --surface: 22 22 30;
-    --background: 10 10 15;
-  }
-
   * {
     box-sizing: border-box;
   }
@@ -19,13 +28,15 @@
   }
 
   body {
-    @apply bg-background text-white antialiased;
+    background-color: #0a0a0f;
+    color: white;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    selection {
-      background: rgba(var(--primary) / 0.3);
-    }
+  }
+
+  ::selection {
+    background: rgba(59, 130, 246, 0.3);
   }
 
   ::-webkit-scrollbar {
@@ -40,7 +51,16 @@
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(var(--primary) / 0.5);
+    background: rgba(59, 130, 246, 0.5);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
   }
 }
 
@@ -75,26 +95,10 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-primary via-violet-400 to-accent bg-clip-text text-transparent;
-  }
-}
-
-@layer utilities {
-  .bg-background { background-color: #0a0a0f; }
-  .bg-surface { background-color: #16161e; }
-  .text-primary { color: #3b82f6; }
-  .text-accent { color: #8b5cf6; }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-  }
-
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background: linear-gradient(to right, #3b82f6, #a78bfa, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .shimmer {
@@ -102,52 +106,22 @@
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
   }
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
 }
 
-/* Override Kendo UI base styles for dark theme */
-.k-button, .k-toolbar, .k-window, .k-panelbar, .k-tabstrip {
-  background: transparent;
-  color: inherit;
-}
-
+/* Kendo UI dark overrides */
 .k-card {
   background: rgba(22, 22, 30, 0.6) !important;
   color: white !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
-
 .k-card-title {
   color: white !important;
 }
-
 .k-chip {
   background: rgba(255, 255, 255, 0.08) !important;
   color: rgba(255, 255, 255, 0.8) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
-
 .k-avatar {
   border: 2px solid rgba(255, 255, 255, 0.15) !important;
-}
-
-/* Smooth page transitions */
-.page-enter {
-  opacity: 0;
-  transform: translateY(16px);
-}
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 300ms ease, transform 300ms ease;
-}
-.page-exit {
-  opacity: 1;
-}
-.page-exit-active {
-  opacity: 0;
-  transition: opacity 200ms ease;
 }
