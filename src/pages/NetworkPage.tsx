@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Users, Briefcase, Zap } from 'lucide-react';
 import { Avatar } from '@progress/kendo-react-layout';
 import { Chart, ChartSeries, ChartSeriesItem, ChartLegend } from '@progress/kendo-react-charts';
+import { ValuePredictor } from '../components/network/ValuePredictor';
 
 const matches = [
   {
@@ -129,6 +130,8 @@ export const NetworkPage: React.FC = () => {
           </motion.div>
         ))}
       </div>
+
+      <ValuePredictor />
     </motion.div>
   );
 };
