@@ -1,127 +1,87 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0a0a0f;
-  --color-surface: #16161e;
-  --color-primary: #3b82f6;
-  --color-accent: #8b5cf6;
-
-  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
-
-  --shadow-glow-sm: 0 0 15px rgba(59,130,246,0.3);
-  --shadow-glow: 0 0 30px rgba(59,130,246,0.4);
-  --shadow-glow-lg: 0 0 60px rgba(59,130,246,0.5);
-  --shadow-glow-accent: 0 0 30px rgba(139,92,246,0.4);
-  --shadow-glass: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
-
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-shimmer: shimmer 2s infinite;
+  --color-background: #050505;
+  --color-surface: #0f0f0f;
+  --color-primary: #0d6efd;
+  --color-primary-hover: #0b5ed7;
+  
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "Space Mono", "JetBrains Mono", monospace;
+  
+  --shadow-glow: 0 0 20px rgba(13, 110, 253, 0.3);
 }
 
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
-    background-color: #0a0a0f;
-    color: white;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-background text-white font-sans antialiased overflow-x-hidden;
   }
-
-  ::selection {
-    background: rgba(59, 130, 246, 0.3);
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.03);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(59, 130, 246, 0.5);
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-  }
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+  
+  /* Namolabs brutalist noise overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.35;
+    z-index: 9999;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
   }
 }
 
 @layer components {
-  .glass-panel {
-    background: rgba(22, 22, 30, 0.6);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  /* Brutalist Cards replacing Glassmorphism */
+  .glass-card, .glass-panel {
+    @apply bg-surface border border-[#222] shadow-none rounded-none;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#222];
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#333];
   }
 
-  .glass-card {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition: border-color 0.2s ease, background 0.2s ease;
+  /* Kendo UI Overrides for Brutalist Theme */
+  .k-button {
+    @apply !rounded-none !shadow-none !font-mono !tracking-widest !uppercase !text-xs;
   }
-  .glass-card:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.14);
+  .k-button-solid-primary {
+    @apply !bg-primary !border-primary !text-white hover:!bg-primary-hover;
   }
-
-  .glow-primary {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 60px rgba(59, 130, 246, 0.15);
+  .k-input {
+    @apply !bg-surface !border-[#333] !text-white !rounded-none;
   }
-  .glow-accent {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.15);
+  .k-card {
+    @apply !bg-surface !border-[#222] !rounded-none;
   }
-  .glow-text {
-    text-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+  
+  /* Typography classes */
+  .heading-hero {
+    @apply text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9];
   }
-
-  .gradient-text {
-    background: linear-gradient(to right, #3b82f6, #a78bfa, #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  
+  .label-mono {
+    @apply font-mono text-[10px] uppercase tracking-[0.2em] text-gray-500;
   }
 
-  .shimmer {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
+  .btn-outline {
+    @apply bg-transparent border border-[#333] hover:bg-white/5 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 transition-colors flex items-center justify-center gap-2;
   }
-}
 
-/* Kendo UI dark overrides */
-.k-card {
-  background: rgba(22, 22, 30, 0.6) !important;
-  color: white !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-.k-card-title {
-  color: white !important;
-}
-.k-chip {
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: rgba(255, 255, 255, 0.8) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-}
-.k-avatar {
-  border: 2px solid rgba(255, 255, 255, 0.15) !important;
+  .btn-primary {
+    @apply bg-primary border border-primary hover:bg-primary-hover text-white font-mono text-xs uppercase tracking-widest px-6 py-3 transition-colors flex items-center justify-center gap-2;
+  }
 }
