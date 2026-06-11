@@ -3,17 +3,151 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --primary: 59 130 246;
+    --accent: 139 92 246;
+    --surface: 22 22 30;
+    --background: 10 10 15;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-white antialiased selection:bg-primary/30 selection:text-white;
+    @apply bg-background text-white antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    selection {
+      background: rgba(var(--primary) / 0.3);
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--primary) / 0.5);
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: rgba(22, 22, 30, 0.6);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 60px rgba(59, 130, 246, 0.15);
+  }
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.15);
+  }
+  .glow-text {
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-violet-400 to-accent bg-clip-text text-transparent;
   }
 }
 
 @layer utilities {
-  .glass-panel {
-    @apply bg-surface/60 backdrop-blur-xl border border-white/10 shadow-2xl;
+  .bg-background { background-color: #0a0a0f; }
+  .bg-surface { background-color: #16161e; }
+  .text-primary { color: #3b82f6; }
+  .text-accent { color: #8b5cf6; }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
   }
-  .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300;
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
   }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
+
+/* Override Kendo UI base styles for dark theme */
+.k-button, .k-toolbar, .k-window, .k-panelbar, .k-tabstrip {
+  background: transparent;
+  color: inherit;
+}
+
+.k-card {
+  background: rgba(22, 22, 30, 0.6) !important;
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.k-card-title {
+  color: white !important;
+}
+
+.k-chip {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.k-avatar {
+  border: 2px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Smooth page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.page-exit {
+  opacity: 1;
+}
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease;
 }
