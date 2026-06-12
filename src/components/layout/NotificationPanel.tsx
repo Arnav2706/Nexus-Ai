@@ -21,17 +21,17 @@ const notifications: Notification[] = [
 ];
 
 const iconMap: Record<NotifType, React.ReactNode> = {
-  match: <Users className="w-5 h-5 text-indigo-400" />,
-  session: <CheckCircle2 className="w-5 h-5 text-emerald-400" />,
-  alert: <AlertCircle className="w-5 h-5 text-amber-400" />,
-  trending: <Flame className="w-5 h-5 text-orange-400" />,
+  match: <Users className="w-5 h-5 text-black" />,
+  session: <CheckCircle2 className="w-5 h-5 text-black" />,
+  alert: <AlertCircle className="w-5 h-5 text-black" />,
+  trending: <Flame className="w-5 h-5 text-black" />,
 };
 
 const bgMap: Record<NotifType, string> = {
-  match: 'bg-indigo-500/10 border-indigo-500/20',
-  session: 'bg-emerald-500/10 border-emerald-500/20',
-  alert: 'bg-amber-500/10 border-amber-500/20',
-  trending: 'bg-orange-500/10 border-orange-500/20',
+  match: 'bg-[#a020f0]',
+  session: 'bg-[#a9f131]',
+  alert: 'bg-[#ff00ff]',
+  trending: 'bg-[#00ffff]',
 };
 
 import { useToast } from '../../contexts/ToastContext';
@@ -67,14 +67,14 @@ export const NotificationPanel: React.FC = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 glass-card rounded-xl border border-white/10 hover:bg-white/10 transition-colors"
+        className="relative p-2 bg-white border-3 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-none hover:bg-black hover:text-white transition-colors group"
       >
-        <Bell className="w-5 h-5 text-gray-300" />
+        <Bell className="w-5 h-5 text-black group-hover:text-white" />
         {unread > 0 && (
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center"
+            className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-none border-2 border-black bg-primary text-black text-xs font-bold font-headline-md flex items-center justify-center"
           >
             {unread}
           </motion.span>
@@ -89,21 +89,21 @@ export const NotificationPanel: React.FC = () => {
               initial={{ opacity: 0, y: -10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              className="absolute right-0 top-12 w-80 glass-panel rounded-2xl border border-white/10 z-50 overflow-hidden shadow-2xl"
+              className="absolute right-0 top-12 w-80 bg-white border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none z-50 overflow-hidden text-black"
             >
-              <div className="p-4 border-b border-white/10 flex items-center justify-between">
-                <h3 className="font-bold text-white">Notifications</h3>
+              <div className="p-4 border-b-3 border-black flex items-center justify-between bg-gray-100">
+                <h3 className="font-bold font-headline-md uppercase text-black tracking-wider">Notifications</h3>
                 <button
                   onClick={markAllRead}
-                  className="text-xs text-primary hover:underline"
+                  className="text-xs font-bold font-label-md uppercase text-black hover:bg-black hover:text-white border-2 border-transparent hover:border-black px-2 py-1 transition-colors"
                 >
                   Mark all read
                 </button>
               </div>
 
-              <div className="max-h-96 overflow-y-auto divide-y divide-white/5">
+              <div className="max-h-96 overflow-y-auto divide-y-2 divide-black">
                 {items.length === 0 ? (
-                  <div className="p-8 text-center text-gray-500 text-sm">All caught up! 🎉</div>
+                  <div className="p-8 text-center font-bold font-headline-md uppercase text-black text-sm">All caught up! 🎉</div>
                 ) : (
                   items.map(notif => (
                     <motion.div
@@ -113,22 +113,22 @@ export const NotificationPanel: React.FC = () => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
                       onClick={() => markRead(notif.id, notif.type)}
-                      className={`p-4 flex items-start gap-3 cursor-pointer hover:bg-white/5 transition-colors ${!notif.read ? 'bg-white/[0.03]' : ''}`}
+                      className={`p-4 flex items-start gap-3 cursor-pointer hover:bg-black hover:text-white group transition-colors ${!notif.read ? 'bg-primary/10' : 'bg-white'}`}
                     >
-                      <div className={`p-2 rounded-xl border ${bgMap[notif.type]} shrink-0 mt-0.5`}>
+                      <div className={`p-2 border-2 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] shrink-0 mt-0.5 ${bgMap[notif.type]}`}>
                         {iconMap[notif.type]}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <p className="font-semibold text-sm text-white leading-snug">{notif.title}</p>
-                          {!notif.read && <span className="w-2 h-2 rounded-full bg-primary shrink-0" />}
+                          <p className="font-bold font-headline-md uppercase tracking-wider text-sm leading-snug group-hover:text-white text-black">{notif.title}</p>
+                          {!notif.read && <span className="w-2 h-2 border-2 border-black rounded-none bg-primary shrink-0" />}
                         </div>
-                        <p className="text-xs text-gray-400 mt-1 leading-relaxed">{notif.body}</p>
-                        <p className="text-xs text-gray-600 mt-1">{notif.time}</p>
+                        <p className="text-xs font-bold font-body-md text-gray-700 group-hover:text-gray-300 mt-1 leading-relaxed">{notif.body}</p>
+                        <p className="text-xs font-bold font-label-sm uppercase text-black group-hover:text-white mt-1">{notif.time}</p>
                       </div>
                       <button
                         onClick={(e) => { e.stopPropagation(); dismiss(notif.id); }}
-                        className="text-gray-600 hover:text-white transition-colors"
+                        className="text-black group-hover:text-white border-2 border-transparent hover:border-white p-1 transition-colors"
                       >
                         <X className="w-4 h-4" />
                       </button>

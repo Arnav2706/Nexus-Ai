@@ -36,43 +36,42 @@ export const PulseDashboard: React.FC = () => {
       className="space-y-8"
     >
       <header className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-red-500/20 flex items-center justify-center border border-red-500/30">
-          <Flame className="w-6 h-6 text-red-400" />
+        <div className="w-12 h-12 bg-white flex items-center justify-center border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <Flame className="w-6 h-6 text-black" />
         </div>
         <div className="flex-1">
-          <h1 className="text-3xl font-bold tracking-tight">Event Pulse Dashboard</h1>
-          <p className="text-gray-400">Real-time conference health & engagement metrics</p>
+          <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-on-background">Event Pulse Dashboard</h1>
+          <p className="text-primary font-bold font-label-md uppercase">Real-time conference health & engagement metrics</p>
         </div>
         {/* Health Score widget */}
-        <div className="flex items-center gap-3 glass-card px-5 py-3 rounded-2xl border border-white/10">
+        <div className="flex items-center gap-3 bg-white px-5 py-3 border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-black rounded-none">
           <div className="relative w-16 h-16">
             <svg className="w-16 h-16 -rotate-90">
-              <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="4" />
+              <circle cx="32" cy="32" r="28" fill="none" stroke="#e5e7eb" strokeWidth="6" />
               <circle
                 cx="32" cy="32" r="28" fill="none"
-                stroke="#ef4444" strokeWidth="4"
+                stroke="#000" strokeWidth="6"
                 strokeDasharray={`${2 * Math.PI * 28 * overallHealth / 100} ${2 * Math.PI * 28}`}
-                strokeLinecap="round"
               />
             </svg>
-            <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white">{overallHealth}</span>
+            <span className="absolute inset-0 flex items-center justify-center text-lg font-bold font-headline-md">{overallHealth}</span>
           </div>
           <div>
-            <div className="text-sm font-bold text-white">Health Score</div>
-            <div className="text-xs text-emerald-400">Excellent 🔥</div>
+            <div className="text-sm font-bold font-label-md uppercase tracking-wider">Health Score</div>
+            <div className="text-xs font-bold bg-primary text-black border-2 border-black px-1 uppercase inline-block mt-1">Excellent 🔥</div>
           </div>
         </div>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 glass-panel rounded-3xl p-6">
+        <div className="lg:col-span-2 bg-white border-3 border-black brutalist-card-shadow rounded-none p-6 text-black">
           <div className="flex justify-between items-center mb-5">
-            <h2 className="text-lg font-bold flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-primary" /> Trending Topics
+            <h2 className="text-xl font-bold font-headline-lg uppercase tracking-wider flex items-center gap-2">
+              <TrendingUp className="w-6 h-6 text-black" /> Trending Topics
             </h2>
             <button 
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-sm font-medium text-primary hover:text-white transition-colors flex items-center gap-1"
+              className="text-sm font-bold font-label-md uppercase tracking-wider text-black bg-white hover:bg-black hover:text-white border-2 border-black px-3 py-1 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-colors flex items-center gap-1"
             >
               {isExpanded ? 'Show less' : 'See all'} <ChevronRight className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
             </button>
@@ -84,34 +83,34 @@ export const PulseDashboard: React.FC = () => {
                 initial={{ opacity: 0, x: -20, height: 0 }}
                 animate={{ opacity: 1, x: 0, height: 'auto' }}
                 transition={{ delay: i * 0.05 }}
-                className="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
+                className="flex items-center gap-4 p-3 bg-gray-100 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] transition-all"
               >
-                {t.hot ? <Flame className="w-4 h-4 text-orange-400 shrink-0" /> : <div className="w-4 h-4" />}
-                <span className="font-medium flex-1 text-white">{t.topic}</span>
-                <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                {t.hot ? <Flame className="w-5 h-5 text-black shrink-0 fill-primary" /> : <div className="w-5 h-5" />}
+                <span className="font-bold font-headline-md uppercase text-black flex-1">{t.topic}</span>
+                <div className="flex-1 h-4 bg-white border-2 border-black rounded-none overflow-hidden relative">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${(t.mentions / 340) * 100}%` }}
                     transition={{ duration: 1, delay: i * 0.05 }}
-                    className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
+                    className="h-full bg-black"
                   />
                 </div>
-                <span className="text-gray-400 text-sm w-10 text-right">{t.mentions}</span>
-                <span className="text-emerald-400 text-sm font-bold w-14 text-right">{t.delta}</span>
+                <span className="text-black font-bold font-headline-md text-sm w-10 text-right">{t.mentions}</span>
+                <span className="text-black font-bold font-label-md bg-primary border-2 border-black px-1 text-sm w-14 text-center">{t.delta}</span>
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-6 -ml-4 h-48">
+          <div className="mt-8 -ml-4 h-48">
             <Chart style={{ height: '100%' }} className="[&_.k-chart-surface]:!bg-transparent">
               <ChartCategoryAxis>
-                <ChartCategoryAxisItem categories={categories} labels={{ color: 'rgba(255,255,255,0.4)' }} majorGridLines={{ visible: false }} />
+                <ChartCategoryAxisItem categories={categories} labels={{ color: '#000', font: 'bold 12px "JetBrains Mono"' }} majorGridLines={{ visible: false }} />
               </ChartCategoryAxis>
               <ChartValueAxis>
-                <ChartValueAxisItem labels={{ color: 'rgba(255,255,255,0.4)' }} majorGridLines={{ color: 'rgba(255,255,255,0.05)' }} min={50} />
+                <ChartValueAxisItem labels={{ color: '#000', font: 'bold 12px "JetBrains Mono"' }} majorGridLines={{ color: 'rgba(0,0,0,0.1)' }} min={50} />
               </ChartValueAxis>
               <ChartSeries>
-                <ChartSeriesItem type="column" data={engagementScores} color="#6366f1" opacity={0.8} gap={1} spacing={0.25} border={{ width: 0 }} />
+                <ChartSeriesItem type="column" data={engagementScores} color="#000" opacity={1} gap={1} spacing={0.25} border={{ width: 0 }} />
               </ChartSeries>
             </Chart>
           </div>
@@ -119,17 +118,19 @@ export const PulseDashboard: React.FC = () => {
 
         <div className="space-y-4">
           {[
-            { icon: Users, label: 'Active Attendees', value: '2,847', color: 'text-cyan-400', trend: '+12 online' },
-            { icon: MessageSquare, label: 'Conversations', value: '342', color: 'text-fuchsia-400', trend: 'Peak hour' },
-            { icon: Heart, label: 'Avg Session Rating', value: '4.8/5', color: 'text-rose-400', trend: 'Top 10% ever' },
+            { icon: Users, label: 'Active Attendees', value: '2,847', color: 'bg-[#a9f131]', trend: '+12 online' },
+            { icon: MessageSquare, label: 'Conversations', value: '342', color: 'bg-[#00ffff]', trend: 'Peak hour' },
+            { icon: Heart, label: 'Avg Session Rating', value: '4.8/5', color: 'bg-[#ff00ff]', trend: 'Top 10% ever' },
           ].map(({ icon: Icon, label, value, color, trend }) => (
-            <motion.div key={label} whileHover={{ scale: 1.02 }} className="glass-panel rounded-2xl p-5">
+            <motion.div key={label} whileHover={{ scale: 1.02 }} className="bg-white border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-none p-5 text-black">
               <div className="flex items-center gap-3 mb-3">
-                <Icon className={`w-5 h-5 ${color}`} />
-                <span className="text-sm text-gray-400">{label}</span>
+                <div className={`p-2 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${color}`}>
+                  <Icon className="w-5 h-5 text-black" />
+                </div>
+                <span className="text-sm font-bold font-label-md uppercase text-black">{label}</span>
               </div>
-              <div className={`text-3xl font-bold ${color}`}>{value}</div>
-              <div className="text-xs text-gray-500 mt-1">{trend}</div>
+              <div className="text-4xl font-bold font-headline-lg uppercase tracking-wider text-black">{value}</div>
+              <div className="text-xs font-bold font-label-sm uppercase bg-gray-100 border-2 border-black inline-block px-2 py-1 mt-2 text-black">{trend}</div>
             </motion.div>
           ))}
         </div>

@@ -1,35 +1,122 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0a0a0a;
-  --color-surface: #111111;
-  --color-card: #1a1a1a;
-  --color-primary: #c8f135;
-  --color-primary-hover: #b0d62f;
-  --color-accent-gradient-start: #c8f135;
-  --color-accent-gradient-end: #7effd4;
-  --color-text-primary: #f0f0ef;
-  --color-text-muted: #888883;
-  --color-border: rgba(255, 255, 255, 0.06);
+  --color-background: #131313;
+  --color-on-secondary-container: #b4b5b5;
+  --color-surface-elevated: #0F0F0F;
+  --color-surface-container-highest: #353535;
+  --color-tertiary-container: #f2a5ff;
+  --color-secondary-fixed: #e2e2e2;
+  --color-on-secondary-fixed: #1a1c1c;
+  --color-secondary: #c6c6c7;
+  --color-on-primary: #223600;
+  --color-tertiary-fixed: #fdd6ff;
+  --color-outline: #8c947b;
+  --color-error: #ffb4ab;
+  --color-surface: #131313;
+  --color-inverse-primary: #446900;
+  --color-on-tertiary: #520e62;
+  --color-on-secondary-fixed-variant: #454747;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-variant: #353535;
+  --color-surface-dim: #131313;
+  --color-on-surface-variant: #c2caaf;
+  --color-on-surface: #e2e2e2;
+  --color-surface-card: #1C1C1C;
+  --color-on-primary-container: #385700;
+  --color-tertiary-fixed-dim: #f4aeff;
+  --color-on-tertiary-container: #743284;
+  --color-on-primary-fixed: #121f00;
+  --color-on-secondary: #2f3131;
+  --color-primary-fixed-dim: #95da11;
+  --color-surface-tint: #95da11;
+  --color-surface-bright: #393939;
+  --color-secondary-fixed-dim: #c6c6c7;
+  --color-on-tertiary-fixed-variant: #6b2a7b;
+  --color-secondary-container: #454747;
+  --color-on-error-container: #ffdad6;
+  --color-on-tertiary-fixed: #340042;
+  --color-on-error: #690005;
+  --color-outline-variant: #424935;
+  --color-on-background: #e2e2e2;
+  --color-inverse-surface: #e2e2e2;
+  --color-primary-fixed: #aff838;
+  --color-surface-container-low: #1b1b1b;
+  --color-off-white: #FAF5EF;
+  --color-tertiary: #fbceff;
+  --color-surface-container: #1f1f1f;
+  --color-error-container: #93000a;
+  --color-primary: #a9f131;
+  --color-inverse-on-surface: #303030;
+  --color-surface-container-high: #2a2a2a;
+  --color-on-primary-fixed-variant: #334f00;
+  --color-primary-container: #8fd400;
+
+  --font-display-lg-mobile: "Bricolage Grotesque", sans-serif;
+  --font-body-md: "Manrope", sans-serif;
+  --font-headline-md: "Bricolage Grotesque", sans-serif;
+  --font-headline-lg: "Bricolage Grotesque", sans-serif;
+  --font-label-sm: "JetBrains Mono", monospace;
+  --font-body-lg: "Manrope", sans-serif;
+  --font-label-md: "JetBrains Mono", monospace;
+  --font-display-lg: "Bricolage Grotesque", sans-serif;
+
+  --spacing-margin-mobile: 1.25rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-stack-xl: 8rem;
+  --spacing-stack-md: 2rem;
+  --spacing-stack-lg: 4rem;
+  --spacing-margin-desktop: 5rem;
   
-  --font-sans: "Geist", "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "Space Mono", "JetBrains Mono", monospace;
-  
-  --shadow-glow: 0 0 20px rgba(200, 241, 53, 0.3);
+  --border-width-3: 3px;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
 }
 
 @layer base {
   body {
-    @apply bg-background text-text-primary font-sans antialiased overflow-x-hidden;
+    @apply bg-background text-on-background font-body-md antialiased overflow-x-hidden;
+  }
+}
+
+@utility brutalist-card-shadow {
+  box-shadow: 4px 4px 0px 0px #000;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px #000;
+  }
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px #000;
   }
 }
 
 @layer components {
-  /* Sleek Rounded Cards */
+  /* Brutalist Cards */
   .glass-card, .glass-panel {
-    @apply bg-card border border-border shadow-lg rounded-2xl;
+    @apply bg-surface-card border-3 border-black p-6;
   }
   
+  .glass-card.bg-white, .glass-panel.bg-white, .glass-card.bg-off-white, .glass-panel.bg-off-white {
+    color: #131313;
+  }
+  .custom-cursor {
+    width: 12px;
+    height: 12px;
+    background: #a9f131;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    border-radius: 50%;
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
@@ -39,43 +126,43 @@
     @apply bg-background;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-[#222];
-    border-radius: 9999px;
+    @apply bg-surface-container-highest;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-[#333];
+    @apply bg-primary;
   }
 
-  /* Kendo UI Overrides for Sleek Theme */
+  /* Kendo UI Overrides for Brutalist Theme */
   .k-button {
-    @apply !rounded-full !shadow-sm !font-sans !tracking-normal !font-medium;
+    @apply !rounded-none !border-3 !border-black !font-headline-md !font-bold !bg-white !text-black hover:!bg-primary transition-colors;
+    box-shadow: 4px 4px 0px 0px rgba(0,0,0,1) !important;
   }
   .k-button-solid-primary {
-    @apply !bg-primary !border-primary !text-black hover:!bg-primary-hover;
+    @apply !bg-primary !border-black !text-black hover:!bg-primary-container;
   }
   .k-input {
-    @apply !bg-surface !border-border !text-text-primary !rounded-xl;
+    @apply !bg-transparent !border-0 !border-b-2 !border-white !text-on-background !rounded-none focus:!border-primary;
   }
   .k-card {
-    @apply !bg-card !border-border !rounded-2xl;
+    @apply !bg-white !border-3 !border-black !rounded-none !p-6;
+    color: #131313;
   }
   
-  /* Typography classes */
   .heading-hero {
-    @apply text-5xl md:text-7xl lg:text-[clamp(52px,8vw,96px)] font-bold tracking-tight leading-[1.1] text-text-primary;
-    letter-spacing: -0.03em;
+    @apply text-5xl md:text-7xl lg:text-[clamp(52px,8vw,96px)] font-display-lg font-bold tracking-tight leading-[1.0] text-on-background;
+    letter-spacing: -0.04em;
   }
   
   .label-mono {
-    @apply font-sans text-[11px] font-medium uppercase tracking-[0.1em] text-text-muted;
+    @apply font-label-md text-[14px] font-medium tracking-[0.05em] text-on-secondary-container;
   }
 
   .btn-outline {
-    @apply bg-transparent border border-border hover:bg-white/5 text-text-primary font-sans text-sm font-medium rounded-full px-6 py-3 transition-colors flex items-center justify-center gap-2;
+    @apply bg-transparent border-3 border-outline hover:border-primary text-on-background font-headline-md text-sm font-bold px-6 py-3 transition-colors flex items-center justify-center gap-2;
   }
 
   .btn-primary {
-    @apply bg-primary border border-primary hover:bg-primary-hover text-black font-sans text-sm font-semibold rounded-full px-6 py-3 transition-colors flex items-center justify-center gap-2;
+    @apply bg-white border-3 border-black hover:bg-primary text-black font-headline-md text-sm font-bold px-6 py-3 transition-colors flex items-center justify-center gap-2 brutalist-card-shadow;
   }
 
   /* Hide Kendo UI License Watermarks for demo/hackathon */

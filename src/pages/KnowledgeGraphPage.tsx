@@ -6,14 +6,14 @@ import { useToast } from '../contexts/ToastContext';
 import { Modal } from '../components/ui/Modal';
 
 const initialNodes = [
-  { id: 'llm', label: 'LLMs', x: 50, y: 40, type: 'topic', color: '#8b5cf6' },
-  { id: 'startups', label: 'Startups', x: 75, y: 30, type: 'topic', color: '#3b82f6' },
-  { id: 'sarah', label: 'Sarah Chen', x: 65, y: 60, type: 'person', color: '#f59e0b' },
-  { id: 'healthcare', label: 'Healthcare AI', x: 30, y: 65, type: 'topic', color: '#10b981' },
-  { id: 'david', label: 'David Miller', x: 80, y: 70, type: 'person', color: '#f59e0b' },
-  { id: 'wasm', label: 'WebAssembly', x: 90, y: 45, type: 'topic', color: '#8b5cf6' },
-  { id: 'workshop', label: 'AI Workshop', x: 45, y: 25, type: 'session', color: '#ec4899' },
-  { id: 'you', label: 'You', x: 55, y: 52, type: 'self', color: '#38bdf8' },
+  { id: 'llm', label: 'LLMs', x: 50, y: 40, type: 'topic', color: '#00ffff' },
+  { id: 'startups', label: 'Startups', x: 75, y: 30, type: 'topic', color: '#ff00ff' },
+  { id: 'sarah', label: 'Sarah Chen', x: 65, y: 60, type: 'person', color: '#000000' },
+  { id: 'healthcare', label: 'Healthcare AI', x: 30, y: 65, type: 'topic', color: '#a9f131' },
+  { id: 'david', label: 'David Miller', x: 80, y: 70, type: 'person', color: '#000000' },
+  { id: 'wasm', label: 'WebAssembly', x: 90, y: 45, type: 'topic', color: '#00ffff' },
+  { id: 'workshop', label: 'AI Workshop', x: 45, y: 25, type: 'session', color: '#ff00ff' },
+  { id: 'you', label: 'You', x: 55, y: 52, type: 'self', color: '#a9f131' },
 ];
 
 const edges = [
@@ -64,46 +64,46 @@ export const KnowledgeGraphPage: React.FC = () => {
     >
       <header className="flex justify-between items-end shrink-0">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
-            <Network className="w-6 h-6 text-indigo-400" />
+          <div className="w-12 h-12 bg-white flex items-center justify-center border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-black">
+            <Network className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Knowledge Graph</h1>
-            <p className="text-gray-400">Discover hidden connections in conference topics</p>
+            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-on-background">Knowledge Graph</h1>
+            <p className="text-primary font-bold font-label-md uppercase">Discover hidden connections in conference topics</p>
           </div>
         </div>
         <div className="flex gap-2">
           <button 
             onClick={() => setIsShareOpen(true)}
-            className="glass-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/10"
+            className="bg-white border-3 border-black px-4 py-2 text-black text-sm font-bold font-headline-md uppercase tracking-wider flex items-center gap-2 hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-colors"
           >
             <Share2 className="w-4 h-4" /> Share Map
           </button>
           <button 
             onClick={handleAutoCluster}
             disabled={isClustering}
-            className={`glass-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/10 ${isClustering ? 'text-gray-500' : 'text-purple-400'}`}
+            className={`bg-white border-3 border-black px-4 py-2 text-sm font-bold font-headline-md uppercase tracking-wider flex items-center gap-2 hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-colors ${isClustering ? 'text-gray-500' : 'text-black'}`}
           >
             {isClustering ? (
-              <div className="w-4 h-4 rounded-full border-2 border-purple-400/30 border-t-purple-400 animate-spin" />
+              <div className="w-4 h-4 rounded-full border-2 border-black border-t-primary animate-spin" />
             ) : 'Auto-Cluster'}
           </button>
           <button
             onClick={() => setZoom((z) => Math.min(z + 0.1, 1.5))}
-            className="p-2 glass-card rounded-lg hover:bg-white/10"
+            className="p-2 bg-white border-3 border-black text-black hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-colors"
           >
             <ZoomIn className="w-5 h-5" />
           </button>
           <button
             onClick={() => setZoom((z) => Math.max(z - 0.1, 0.6))}
-            className="p-2 glass-card rounded-lg hover:bg-white/10"
+            className="p-2 bg-white border-3 border-black text-black hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-colors"
           >
             <ZoomOut className="w-5 h-5" />
           </button>
         </div>
       </header>
 
-      <div className="flex-1 glass-panel rounded-3xl overflow-hidden relative min-h-[500px]">
+      <div className="flex-1 bg-white border-3 border-black brutalist-card-shadow overflow-hidden relative min-h-[500px] text-black">
         <ParticleCanvas />
 
         {/* SVG Graph overlay */}
@@ -121,8 +121,8 @@ export const KnowledgeGraphPage: React.FC = () => {
                 key={i}
                 x1={`${f.x}%`} y1={`${f.y}%`}
                 x2={`${t.x}%`} y2={`${t.y}%`}
-                stroke={isActive ? '#8b5cf6' : 'rgba(255,255,255,0.08)'}
-                strokeWidth={isActive ? 1.5 : 0.8}
+                stroke="#000"
+                strokeWidth={isActive ? 4 : 2}
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ pathLength: 1, opacity: 1 }}
                 transition={{ duration: 1.5, delay: i * 0.08 }}
@@ -142,9 +142,9 @@ export const KnowledgeGraphPage: React.FC = () => {
                   cx={`${node.x}%`}
                   cy={`${node.y}%`}
                   r={node.type === 'self' ? 22 : 16}
-                  fill={`${node.color}30`}
-                  stroke={node.color}
-                  strokeWidth={hoveredNode === node.id ? 3 : 1.5}
+                  fill={node.color}
+                  stroke="#000"
+                  strokeWidth={3}
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{
                     scale: hoveredNode === node.id ? 1.3 : 1,
@@ -160,8 +160,8 @@ export const KnowledgeGraphPage: React.FC = () => {
                   cy={`${node.y}%`}
                   r={28}
                   fill="none"
-                  stroke={node.color}
-                  strokeWidth={1}
+                  stroke="#000"
+                  strokeWidth={2}
                   style={{ transformOrigin: `${node.x}% ${node.y}%` }}
                   animate={{ scale: [1, 1.5], opacity: [0.6, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -172,7 +172,7 @@ export const KnowledgeGraphPage: React.FC = () => {
                 y={`${node.y}%`}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fill={node.color}
+                fill={node.color === '#000000' ? '#fff' : '#000'}
                 fontSize={node.type === 'self' ? 16 : 11}
                 fontWeight="bold"
               >
@@ -182,10 +182,11 @@ export const KnowledgeGraphPage: React.FC = () => {
                 x={`${node.x}%`}
                 y={`${node.y + 4.5}%`}
                 textAnchor="middle"
-                fill="white"
-                fontSize={11}
-                fontWeight="600"
+                fill="#000"
+                fontSize={12}
+                fontWeight="bold"
                 style={{ pointerEvents: 'none' }}
+                className="font-headline-md uppercase"
               >
                 {node.label}
               </text>
@@ -194,15 +195,15 @@ export const KnowledgeGraphPage: React.FC = () => {
         </svg>
 
         {/* Legend */}
-        <div className="absolute bottom-4 left-4 flex flex-col gap-1.5 glass-card rounded-xl p-3 border border-white/10">
+        <div className="absolute bottom-4 left-4 flex flex-col gap-1.5 bg-white border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-3 text-black">
           {[
-            { color: '#38bdf8', label: 'You' },
-            { color: '#f59e0b', label: 'People' },
-            { color: '#8b5cf6', label: 'Topics' },
-            { color: '#ec4899', label: 'Sessions' },
+            { color: '#a9f131', label: 'You' },
+            { color: '#000000', label: 'People' },
+            { color: '#00ffff', label: 'Topics' },
+            { color: '#ff00ff', label: 'Sessions' },
           ].map(({ color, label }) => (
-            <div key={label} className="flex items-center gap-2 text-xs text-gray-300">
-              <div className="w-3 h-3 rounded-full" style={{ background: color }} />
+            <div key={label} className="flex items-center gap-2 text-xs font-bold font-label-md uppercase tracking-wider text-black">
+              <div className="w-4 h-4 border-2 border-black" style={{ background: color }} />
               {label}
             </div>
           ))}
@@ -212,22 +213,22 @@ export const KnowledgeGraphPage: React.FC = () => {
       <Modal
         isOpen={isShareOpen}
         onClose={() => setIsShareOpen(false)}
-        title={<><Share2 className="w-5 h-5 text-indigo-400" /> Share Knowledge Map</>}
+        title={<><Share2 className="w-6 h-6 text-black" /> Share Knowledge Map</>}
       >
         <div className="space-y-6">
-          <p className="text-gray-300 text-sm">
+          <p className="text-black font-bold font-body-md text-sm">
             Share this interactive visualization of your conference connections. Anyone with the link can explore your public topic clusters.
           </p>
           
           <div className="flex items-center gap-2">
-            <div className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-gray-400 font-mono truncate">
+            <div className="flex-1 bg-gray-100 border-2 border-black p-3 text-sm font-bold text-black font-mono truncate">
               https://nexus.ai/graph/share/u128d9
             </div>
             <button
               onClick={handleCopyLink}
-              className={`p-3 rounded-xl flex items-center justify-center transition-colors border ${copied ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'glass-card text-white hover:bg-white/10'}`}
+              className={`p-3 border-3 border-black flex items-center justify-center transition-colors shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${copied ? 'bg-primary text-black hover:bg-primary' : 'bg-white text-black hover:bg-black hover:text-white'}`}
             >
-              {copied ? <CheckCircle2 className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
+              {copied ? <CheckCircle2 className="w-5 h-5 stroke-black stroke-2" /> : <Copy className="w-5 h-5" />}
             </button>
           </div>
         </div>
