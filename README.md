@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# ⚡ Nexus AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Nexus AI** is an advanced, AI-powered conference assistant application built with React, TypeScript, and a highly customized **Refined Neubrutalism** UI aesthetic. It elevates the modern conference experience through real-time data insights, semantic matchmaking, and intelligent scheduling.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- **📊 Pulse Dashboard**: Real-time trending topics, attendee engagement metrics, and session health visualization.
+- **🌐 Knowledge Graph**: An interactive, semantic map connecting attendees, sessions, and topics based on shared interests and research.
+- **🤝 Network Matchmaker**: AI-driven connection recommendations with a "Meeting Value Predictor" utilizing brutalist progress bars.
+- **📅 AI Copilot Schedule**: Smart scheduling with automated collision resolution, proactive nudges, and priority queuing.
+- **🚀 WOW Features**: Experimental capabilities including *AI Twin* (attends sessions on your behalf) and the *Serendipity Engine* (probabilistic networking).
+- **🏆 Gamification**: Achievement and progression tracking designed with high-contrast, brutalist aesthetic.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎨 UI/UX: Refined Neubrutalism
 
-## Expanding the ESLint configuration
+The entire application departs from standard corporate "glassmorphism" to embrace **Refined Neubrutalism**:
+- **High Contrast**: Pure black (#000) borders with harsh 3px thickness (`border-3`).
+- **Solid Colors**: Eye-catching primary colors (Lime Green `#a9f131`, Magenta `#ff00ff`, Cyan `#00ffff`).
+- **Sharp Geometry**: Exclusively sharp corners (`rounded-none`).
+- **Tactile Interactions**: Hard-shadow offsets that depress vertically and horizontally on hover and click (`translate-x-[2px] translate-y-[2px]`).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Framework**: React 18 + Vite
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **Components/Charts**: KendoReact (Heavily overridden with brutalist styles)
+- **Icons**: Lucide React
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Arnav2706/Nexus-Ai.git
+   cd Nexus-Ai
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173`.
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
