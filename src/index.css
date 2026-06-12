@@ -77,4 +77,14 @@
   .btn-primary {
     @apply bg-primary border border-primary hover:bg-primary-hover text-black font-sans text-sm font-semibold rounded-full px-6 py-3 transition-colors flex items-center justify-center gap-2;
   }
+
+  /* Hide Kendo UI License Watermarks for demo/hackathon */
+  .k-watermark,
+  div[title="License Validation"],
+  div[class*="watermark"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
 }

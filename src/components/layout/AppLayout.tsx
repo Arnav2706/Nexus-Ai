@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { GlowingBackground } from './GlowingBackground';
@@ -10,8 +10,31 @@ import { Search } from 'lucide-react';
 export const AppLayout: React.FC = () => {
   const location = useLocation();
 
+  useEffect(() => {
+    // Aggressively remove Kendo UI watermarks that overlap components
+    const removeWatermark = () => {
+      const watermarks = document.querySelectorAll('.k-watermark, div[title="License Validation"]');
+      watermarks.forEach(el => el.remove());
+      
+      // Some charts use SVG text for watermarks
+      const svgTexts = document.querySelectorAll('svg text');
+      svgTexts.forEach(text => {
+        if (text.textContent?.includes('invalid') || text.textContent?.includes('license')) {
+          text.remove();
+        }
+      });
+    };
+    
+    // Run initially and whenever the DOM changes
+    removeWatermark();
+    const observer = new MutationObserver(removeWatermark);
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="flex h-screen bg-background text-white overflow-hidden font-sans">
+    <div className="flex h-screen bg-background text-text-primary overflow-hidden font-sans">
       <GlowingBackground />
       <Sidebar />
       <div className="flex-1 flex flex-col relative z-10 overflow-hidden">

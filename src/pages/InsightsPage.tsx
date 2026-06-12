@@ -70,8 +70,8 @@ export const InsightsPage: React.FC = () => {
       className="space-y-8"
     >
       <header className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
-          <Activity className="w-6 h-6 text-emerald-400" />
+        <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center border border-primary/30">
+          <Activity className="w-6 h-6 text-primary" />
         </div>
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Real-Time Insight Feed</h1>
@@ -102,7 +102,7 @@ export const InsightsPage: React.FC = () => {
                 <ChartValueAxisItem labels={{ color: 'rgba(255,255,255,0.5)' }} majorGridLines={{ color: 'rgba(255,255,255,0.05)' }} />
               </ChartValueAxis>
               <ChartSeries>
-                <ChartSeriesItem type="area" data={data.map(d => d.value)} color="#3b82f6" line={{ style: "smooth" }} opacity={0.3} />
+                <ChartSeriesItem type="area" data={data.map(d => d.value)} color="#c8f135" line={{ style: "smooth" }} opacity={0.3} />
               </ChartSeries>
             </Chart>
           </div>
