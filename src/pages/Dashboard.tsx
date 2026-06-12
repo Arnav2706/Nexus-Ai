@@ -5,8 +5,18 @@ import { AICopilot } from '../components/dashboard/AICopilot';
 import { SpeakerExplorer } from '../components/dashboard/SpeakerExplorer';
 import { SessionIntelligenceCard } from '../components/dashboard/SessionIntelligenceCard';
 import { QuestionGenerator } from '../components/dashboard/QuestionGenerator';
+import { useToast } from '../contexts/ToastContext';
 
 export const Dashboard: React.FC = () => {
+  const { addToast } = useToast();
+
+  const handleAISummary = () => {
+    addToast('Analyzing conference agenda and your preferences...', 'info');
+    setTimeout(() => {
+      addToast('Your personalized AI summary is ready!', 'success');
+    }, 2000);
+  };
+
   return (
     <div className="space-y-8">
       <header className="flex justify-between items-end">
@@ -15,6 +25,7 @@ export const Dashboard: React.FC = () => {
           <p className="text-gray-400">Your personal AI copilot for the conference.</p>
         </div>
         <motion.button
+          onClick={handleAISummary}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
           className="glass-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/10"

@@ -34,14 +34,27 @@ const bgMap: Record<NotifType, string> = {
   trending: 'bg-orange-500/10 border-orange-500/20',
 };
 
+import { useToast } from '../../contexts/ToastContext';
+
 export const NotificationPanel: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [items, setItems] = useState(notifications);
+  const { addToast } = useToast();
 
   const unread = items.filter(n => !n.read).length;
 
-  const markRead = (id: number) => {
+  const markRead = (id: number, type: NotifType) => {
     setItems(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+    if (type === 'match') {
+      addToast('Opened match profile for Sarah Chen', 'success');
+    } else if (type === 'session') {
+      addToast('Navigating to session details...', 'info');
+    }
+  };
+
+  const markAllRead = () => {
+    setItems(prev => prev.map(n => ({ ...n, read: true })));
+    addToast('All notifications marked as read', 'success');
   };
 
   const dismiss = (id: number) => {
@@ -81,7 +94,7 @@ export const NotificationPanel: React.FC = () => {
               <div className="p-4 border-b border-white/10 flex items-center justify-between">
                 <h3 className="font-bold text-white">Notifications</h3>
                 <button
-                  onClick={() => setItems(prev => prev.map(n => ({ ...n, read: true })))}
+                  onClick={markAllRead}
                   className="text-xs text-primary hover:underline"
                 >
                   Mark all read
@@ -99,7 +112,7 @@ export const NotificationPanel: React.FC = () => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      onClick={() => markRead(notif.id)}
+                      onClick={() => markRead(notif.id, notif.type)}
                       className={`p-4 flex items-start gap-3 cursor-pointer hover:bg-white/5 transition-colors ${!notif.read ? 'bg-white/[0.03]' : ''}`}
                     >
                       <div className={`p-2 rounded-xl border ${bgMap[notif.type]} shrink-0 mt-0.5`}>

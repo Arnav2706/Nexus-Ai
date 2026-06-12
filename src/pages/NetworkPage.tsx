@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Briefcase, Zap } from 'lucide-react';
+import { useToast } from '../contexts/ToastContext';
 import { Avatar } from '@progress/kendo-react-layout';
 import { Chart, ChartSeries, ChartSeriesItem, ChartLegend } from '@progress/kendo-react-charts';
 import { ValuePredictor } from '../components/network/ValuePredictor';
@@ -36,6 +37,7 @@ const matches = [
 ];
 
 export const NetworkPage: React.FC = () => {
+  const { addToast } = useToast();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -123,7 +125,7 @@ export const NetworkPage: React.FC = () => {
                 ))}
               </div>
               
-              <button className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium flex items-center justify-center gap-2 border border-white/5">
+              <button onClick={() => addToast('Sending connection request...', 'info')} className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium flex items-center justify-center gap-2 border border-white/5">
                 <Briefcase className="w-4 h-4" /> Connect Now
               </button>
             </div>

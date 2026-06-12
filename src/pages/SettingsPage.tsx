@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Settings, User, Bell, Shield, ChevronRight } from 'lucide-react';
 import { Switch } from '@progress/kendo-react-inputs';
+import { useToast } from '../contexts/ToastContext';
 
 const settingsSections = [
   {
@@ -39,6 +40,7 @@ const settingsSections = [
 ];
 
 export const SettingsPage: React.FC = () => {
+  const { addToast } = useToast();
   const [toggles, setToggles] = useState<Record<string, boolean>>(
     Object.fromEntries(
       settingsSections.flatMap(s => s.settings.map(item => [item.id, item.value]))
@@ -119,7 +121,7 @@ export const SettingsPage: React.FC = () => {
             <p className="text-primary font-medium">Full-Stack Developer & AI Enthusiast</p>
             <p className="text-gray-500 text-sm mt-1">San Francisco, CA · Pro Attendee</p>
           </div>
-          <button className="flex items-center gap-2 px-4 py-2 glass-card rounded-xl text-sm text-gray-300 hover:text-white border border-white/10">
+          <button onClick={() => addToast('Feature in development', 'warning')} className="flex items-center gap-2 px-4 py-2 glass-card rounded-xl text-sm text-gray-300 hover:text-white border border-white/10">
             Edit <ChevronRight className="w-4 h-4" />
           </button>
         </div>
