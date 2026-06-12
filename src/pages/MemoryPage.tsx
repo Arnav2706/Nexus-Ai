@@ -2,9 +2,11 @@ import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Download, Award, Clock, Users, Zap } from 'lucide-react';
 import { PDFExport } from '@progress/kendo-react-pdf';
+import { useToast } from '../contexts/ToastContext';
 
 export const MemoryPage: React.FC = () => {
   const pdfExportComponent = useRef<PDFExport>(null);
+  const { addToast } = useToast();
 
   const exportPDFWithComponent = () => {
     if (pdfExportComponent.current) {
@@ -29,7 +31,10 @@ export const MemoryPage: React.FC = () => {
           </div>
         </div>
         <button 
-          onClick={exportPDFWithComponent}
+          onClick={() => {
+            exportPDFWithComponent();
+            addToast('Exporting your report...', 'success');
+          }}
           className="flex items-center gap-2 px-5 py-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-medium transition-colors shadow-[0_0_15px_rgba(99,102,241,0.4)]"
         >
           <Download className="w-4 h-4" />

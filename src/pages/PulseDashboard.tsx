@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Flame, TrendingUp, MessageSquare, Users, Heart } from 'lucide-react';
+import { Flame, TrendingUp, MessageSquare, Users, Heart, Zap, ChevronRight } from 'lucide-react';
 import { Chart, ChartSeries, ChartSeriesItem, ChartCategoryAxis, ChartCategoryAxisItem, ChartValueAxis, ChartValueAxisItem } from '@progress/kendo-react-charts';
+import { useToast } from '../contexts/ToastContext';
 
 const trendingTopics = [
   { topic: 'Generative AI', mentions: 340, delta: '+22%', hot: true },
@@ -14,7 +15,12 @@ const engagementScores = [72, 84, 95, 88, 91, 78, 96];
 const categories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export const PulseDashboard: React.FC = () => {
+  const { addToast } = useToast();
   const overallHealth = 91;
+
+  const handleSeeAll = () => {
+    addToast('Loading full trending topics feed...', 'info');
+  };
 
   return (
     <motion.div

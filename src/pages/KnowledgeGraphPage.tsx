@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Network, ZoomIn, ZoomOut } from 'lucide-react';
+import { Network, ZoomIn, ZoomOut, Share2 } from 'lucide-react';
 import { ParticleCanvas } from '../components/graph/ParticleCanvas';
+import { useToast } from '../contexts/ToastContext';
 
 const nodes = [
   { id: 'llm', label: 'LLMs', x: 50, y: 40, type: 'topic', color: '#8b5cf6' },
@@ -27,24 +28,37 @@ const typeToIcon: Record<string, string> = {
 export const KnowledgeGraphPage: React.FC = () => {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
+  const { addToast } = useToast();
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-6 h-full flex flex-col"
+      className="space-y-8 h-full flex flex-col"
     >
-      <header className="flex items-center justify-between shrink-0">
+      <header className="flex justify-between items-end shrink-0">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center border border-purple-500/30">
-            <Network className="w-6 h-6 text-purple-400" />
+          <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+            <Network className="w-6 h-6 text-indigo-400" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Conference Knowledge Graph</h1>
-            <p className="text-gray-400">Explore connections between attendees, topics & sessions</p>
+            <h1 className="text-3xl font-bold tracking-tight">Knowledge Graph</h1>
+            <p className="text-gray-400">Discover hidden connections in conference topics</p>
           </div>
         </div>
         <div className="flex gap-2">
+          <button 
+            onClick={() => addToast('Recalculating graph physics...', 'info')}
+            className="glass-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/10"
+          >
+            <Share2 className="w-4 h-4" /> Share Map
+          </button>
+          <button 
+            onClick={() => addToast('AI identifying new topic clusters...', 'success')}
+            className="glass-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/10 text-purple-400"
+          >
+            Auto-Cluster
+          </button>
           <button
             onClick={() => setZoom((z) => Math.min(z + 0.1, 1.5))}
             className="p-2 glass-card rounded-lg hover:bg-white/10"

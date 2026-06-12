@@ -14,30 +14,34 @@ import { WowFeatures } from './pages/WowFeatures';
 import { SettingsPage } from './pages/SettingsPage';
 import { AchievementsPage } from './pages/AchievementsPage';
 
-import '@progress/kendo-theme-default/dist/all.css';
+import '@progress/kendo-theme-default/dist/default-ocean-dark.css';
 import './index.css';
+
+import { ToastProvider } from './contexts/ToastContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/landing" element={<LandingPage />} />
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="schedule" element={<SchedulePage />} />
-          <Route path="map" element={<MapPage />} />
-          <Route path="network" element={<NetworkPage />} />
-          <Route path="insights" element={<InsightsPage />} />
-          <Route path="memory" element={<MemoryPage />} />
-          <Route path="graph" element={<KnowledgeGraphPage />} />
-          <Route path="career" element={<CareerPage />} />
-          <Route path="pulse" element={<PulseDashboard />} />
-          <Route path="wow" element={<WowFeatures />} />
-          <Route path="achievements" element={<AchievementsPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ToastProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="schedule" element={<SchedulePage />} />
+            <Route path="map" element={<MapPage />} />
+            <Route path="network" element={<NetworkPage />} />
+            <Route path="insights" element={<InsightsPage />} />
+            <Route path="memory" element={<MemoryPage />} />
+            <Route path="graph" element={<KnowledgeGraphPage />} />
+            <Route path="career" element={<CareerPage />} />
+            <Route path="pulse" element={<PulseDashboard />} />
+            <Route path="wow" element={<WowFeatures />} />
+            <Route path="achievements" element={<AchievementsPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ToastProvider>
   );
 }
 
