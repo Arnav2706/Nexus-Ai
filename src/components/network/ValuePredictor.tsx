@@ -1,6 +1,5 @@
 import React from 'react';
 import { Target } from 'lucide-react';
-import { ArcGauge } from '@progress/kendo-react-gauges';
 
 export const ValuePredictor: React.FC = () => {
   return (

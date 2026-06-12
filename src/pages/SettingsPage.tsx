@@ -79,7 +79,7 @@ export const SettingsPage: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            {section.settings.map((setting, i) => (
+            {section.settings.map((setting) => (
               <div
                 key={setting.id}
                 className={`flex items-center justify-between p-4 bg-gray-100 border-2 border-black hover:translate-x-[2px] hover:translate-y-[2px] transition-transform`}
