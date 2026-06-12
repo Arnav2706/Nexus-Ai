@@ -8,8 +8,8 @@ const settingsSections = [
   {
     title: 'AI Preferences',
     icon: User,
-    color: 'text-primary',
-    bg: 'bg-primary/20 border-primary/30',
+    color: 'text-black',
+    bg: 'bg-primary border-black',
     settings: [
       { id: 'ai-suggestions', label: 'Proactive AI Suggestions', desc: 'Get intelligent nudges throughout the event', value: true },
       { id: 'personalization', label: 'Deep Personalization', desc: 'Allow AI to learn from your behavior', value: true },
@@ -19,8 +19,8 @@ const settingsSections = [
   {
     title: 'Notifications',
     icon: Bell,
-    color: 'text-amber-400',
-    bg: 'bg-amber-500/20 border-amber-500/30',
+    color: 'text-black',
+    bg: 'bg-[#ff00ff] border-black',
     settings: [
       { id: 'session-alerts', label: 'Session Countdown Alerts', desc: 'Remind me 10 min before sessions start', value: true },
       { id: 'match-alerts', label: 'New Match Notifications', desc: 'Alert when high-compatibility people are nearby', value: true },
@@ -30,8 +30,8 @@ const settingsSections = [
   {
     title: 'Privacy',
     icon: Shield,
-    color: 'text-emerald-400',
-    bg: 'bg-emerald-500/20 border-emerald-500/30',
+    color: 'text-black',
+    bg: 'bg-[#00ffff] border-black',
     settings: [
       { id: 'visible-profile', label: 'Visible to Other Attendees', desc: 'Let others discover your profile', value: true },
       { id: 'data-sharing', label: 'Analytics Data Sharing', desc: 'Help improve the platform anonymously', value: false },
@@ -54,12 +54,12 @@ export const SettingsPage: React.FC = () => {
       className="space-y-8 max-w-3xl mx-auto"
     >
       <header className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-gray-500/20 flex items-center justify-center border border-gray-500/30">
-          <Settings className="w-6 h-6 text-gray-400" />
+        <div className="w-12 h-12 bg-white flex items-center justify-center border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <Settings className="w-6 h-6 text-black" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
-          <p className="text-gray-400">Personalize your Nexus AI experience</p>
+          <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-on-background">Settings</h1>
+          <p className="text-primary font-bold font-label-md uppercase">Personalize your Nexus AI experience</p>
         </div>
       </header>
 
@@ -69,30 +69,32 @@ export const SettingsPage: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: si * 0.1 }}
-          className="glass-panel rounded-3xl p-6"
+          className="bg-white border-3 border-black brutalist-card-shadow rounded-none p-6 text-black"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className={`p-2 rounded-xl border ${section.bg}`}>
-              <section.icon className={`w-5 h-5 ${section.color}`} />
+            <div className={`p-2 border-3 ${section.bg} shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]`}>
+              <section.icon className={`w-6 h-6 ${section.color}`} />
             </div>
-            <h2 className="text-lg font-bold">{section.title}</h2>
+            <h2 className="text-2xl font-bold font-headline-lg uppercase tracking-wider">{section.title}</h2>
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-4">
             {section.settings.map((setting, i) => (
               <div
                 key={setting.id}
-                className={`flex items-center justify-between p-4 rounded-xl hover:bg-white/5 transition-colors ${i < section.settings.length - 1 ? 'border-b border-white/5' : ''}`}
+                className={`flex items-center justify-between p-4 bg-gray-100 border-2 border-black hover:translate-x-[2px] hover:translate-y-[2px] transition-transform`}
               >
                 <div>
-                  <p className="font-medium text-white text-sm">{setting.label}</p>
-                  <p className="text-xs text-gray-500 mt-0.5">{setting.desc}</p>
+                  <p className="font-bold font-headline-md uppercase text-sm tracking-wider">{setting.label}</p>
+                  <p className="text-xs font-bold font-body-md text-gray-700 mt-1">{setting.desc}</p>
                 </div>
-                <Switch
-                  checked={toggles[setting.id]}
-                  onChange={(e) => setToggles(prev => ({ ...prev, [setting.id]: e.value }))}
-                  className="[&_.k-switch-track]:!bg-white/10 [&_.k-switch-track.k-checked]:!bg-primary"
-                />
+                <div className="border-2 border-black p-1 bg-white">
+                  <Switch
+                    checked={toggles[setting.id]}
+                    onChange={(e) => setToggles(prev => ({ ...prev, [setting.id]: e.value }))}
+                    className="[&_.k-switch-track]:!bg-gray-300 [&_.k-switch-track.k-checked]:!bg-black [&_.k-switch-thumb]:!bg-white [&_.k-switch-thumb]:!border-2 [&_.k-switch-thumb]:!border-black"
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -104,25 +106,25 @@ export const SettingsPage: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.35 }}
-        className="glass-panel rounded-3xl p-6"
+        className="bg-white border-3 border-black brutalist-card-shadow rounded-none p-6 text-black"
       >
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 rounded-xl bg-indigo-500/20 border border-indigo-500/30">
-            <User className="w-5 h-5 text-indigo-400" />
+          <div className="p-2 border-3 border-black bg-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+            <User className="w-6 h-6 text-black" />
           </div>
-          <h2 className="text-lg font-bold">Profile</h2>
+          <h2 className="text-2xl font-bold font-headline-lg uppercase tracking-wider">Profile</h2>
         </div>
-        <div className="flex items-center gap-5 p-4 bg-white/5 rounded-2xl border border-white/10">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-primary flex items-center justify-center text-white text-2xl font-bold">
-            A
+        <div className="flex items-center gap-5 p-4 bg-gray-100 border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="w-20 h-20 border-3 border-black bg-white flex items-center justify-center text-black text-3xl font-bold font-headline-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+            AJ
           </div>
           <div className="flex-1">
-            <p className="text-xl font-bold text-white">Alex Jensen</p>
-            <p className="text-primary font-medium">Full-Stack Developer & AI Enthusiast</p>
-            <p className="text-gray-500 text-sm mt-1">San Francisco, CA · Pro Attendee</p>
+            <p className="text-xl font-bold font-headline-md uppercase tracking-wider">Alex Jensen</p>
+            <p className="text-black font-bold font-label-md uppercase bg-primary inline-block px-2 py-1 border-2 border-black mt-2">Full-Stack Developer & AI Enthusiast</p>
+            <p className="text-gray-700 text-xs font-bold font-body-md mt-2 uppercase tracking-wider">San Francisco, CA · Pro Attendee</p>
           </div>
-          <button onClick={() => addToast('Feature in development', 'warning')} className="flex items-center gap-2 px-4 py-2 glass-card rounded-xl text-sm text-gray-300 hover:text-white border border-white/10">
-            Edit <ChevronRight className="w-4 h-4" />
+          <button onClick={() => addToast('Feature in development', 'warning')} className="flex items-center gap-2 px-6 py-3 bg-white border-3 border-black hover:bg-black hover:text-white font-bold font-headline-md uppercase text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+            Edit <ChevronRight className="w-5 h-5" />
           </button>
         </div>
       </motion.div>

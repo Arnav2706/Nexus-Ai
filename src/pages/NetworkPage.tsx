@@ -55,12 +55,12 @@ export const NetworkPage: React.FC = () => {
       className="space-y-8"
     >
       <header className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-fuchsia-500/20 flex items-center justify-center border border-fuchsia-500/30">
-          <Users className="w-6 h-6 text-fuchsia-400" />
+        <div className="w-12 h-12 bg-white flex items-center justify-center border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <Users className="w-6 h-6 text-black" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">AI Networking Matchmaker</h1>
-          <p className="text-gray-400">Discover valuable connections powered by AI</p>
+          <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-on-background">AI Networking Matchmaker</h1>
+          <p className="text-primary font-bold font-label-md uppercase">Discover valuable connections powered by AI</p>
         </div>
       </header>
 
@@ -73,78 +73,60 @@ export const NetworkPage: React.FC = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1 }}
-            whileHover={{ y: -5 }}
-            className="glass-panel rounded-3xl p-6 relative overflow-hidden group"
+            className="bg-white border-3 border-black brutalist-card-shadow p-6 relative overflow-hidden group rounded-none text-black transition-transform"
           >
-            {/* Background Glow */}
-            <div className={`absolute -top-20 -right-20 w-40 h-40 blur-[80px] rounded-full mix-blend-screen transition-opacity ${match.score > 90 ? 'bg-fuchsia-500/30' : 'bg-primary/20'}`} />
-
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-4">
                 <div className="relative">
-                  <Avatar type="image" className="!w-14 !h-14 !border-2 !border-white/10">
+                  <Avatar type="image" className="!w-14 !h-14 !border-3 !border-black !rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                     <img src={`https://i.pravatar.cc/150?img=${match.id + 20}`} alt={match.name} />
                   </Avatar>
                   {match.status === 'online' && (
-                    <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-surface" />
+                    <div className="absolute -bottom-2 -right-2 w-5 h-5 bg-primary border-2 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
                   )}
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-white group-hover:text-fuchsia-400 transition-colors">{match.name}</h3>
-                  <p className="text-sm text-gray-400">{match.role}</p>
+                  <h3 className="font-bold text-xl font-headline-md uppercase text-black">{match.name}</h3>
+                  <p className="text-sm font-bold font-label-sm text-black uppercase bg-primary px-2 py-1 border-2 border-black inline-block mt-1">{match.role}</p>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-6 mb-6 bg-white/5 rounded-2xl p-4">
-              <div className="w-20 h-20 -ml-2 -my-2 relative flex items-center justify-center">
-                {/* Custom Donut Chart for Score using Kendo */}
-                <Chart style={{ height: 100, width: 100 }} className="absolute inset-0 [&_.k-chart-surface]:!bg-transparent">
-                  <ChartLegend visible={false} />
-                  <ChartSeries>
-                    <ChartSeriesItem
-                      type="donut"
-                      data={[
-                        { value: match.score, color: match.score > 90 ? '#d946ef' : '#3b82f6' },
-                        { value: 100 - match.score, color: 'rgba(255,255,255,0.1)' }
-                      ]}
-                      categoryField="kind"
-                      field="value"
-                      holeSize={25}
-                      size={10}
-                      border={{ width: 0 }}
-                      labels={{ visible: false }}
-                    />
-                  </ChartSeries>
-                </Chart>
-                <span className="font-bold text-lg text-white z-10">{match.score}%</span>
+            <div className="flex items-center gap-6 mb-6 bg-gray-100 border-3 border-black p-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+              <div className="w-16 h-16 border-3 border-black bg-white relative flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] shrink-0 overflow-hidden group-hover:translate-x-[2px] group-hover:translate-y-[2px] group-hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+                {/* Brutalist Fill */}
+                <div 
+                  className="absolute bottom-0 left-0 w-full bg-primary border-t-3 border-black transition-all duration-1000"
+                  style={{ height: `${match.score}%` }}
+                />
+                <span className="font-bold font-headline-md text-xl text-black z-10">{match.score}%</span>
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <Zap className="w-4 h-4 text-amber-400" />
-                  <span className="text-xs font-semibold text-white uppercase tracking-wider">AI Analysis</span>
+                  <Zap className="w-4 h-4 text-black" />
+                  <span className="text-xs font-bold font-label-md text-black uppercase tracking-wider">AI Analysis</span>
                 </div>
-                <p className="text-xs text-gray-300 leading-relaxed">{match.reason}</p>
+                <p className="text-sm text-black font-body-md font-bold leading-relaxed">{match.reason}</p>
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="flex flex-wrap gap-2">
                 {match.skills.map(skill => (
-                  <span key={skill} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">
+                  <span key={skill} className="px-3 py-1 bg-white border-2 border-black text-xs text-black font-bold font-label-sm uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                     {skill}
                   </span>
                 ))}
               </div>
               
               {isConnected ? (
-                <button disabled className="w-full py-3 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition-colors text-sm font-medium flex items-center justify-center gap-2">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <button disabled className="w-full py-3 bg-black text-white border-3 border-black text-sm font-bold font-headline-md uppercase tracking-wider flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                   Request Sent
                 </button>
               ) : (
-                <button onClick={() => handleConnect(match.id)} className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium flex items-center justify-center gap-2 border border-white/5">
-                  <Briefcase className="w-4 h-4" /> Connect Now
+                <button onClick={() => handleConnect(match.id)} className="w-full py-3 bg-white hover:bg-primary border-3 border-black text-black text-sm font-bold font-headline-md uppercase tracking-wider flex items-center justify-center gap-2 brutalist-card-shadow transition-colors">
+                  <Briefcase className="w-5 h-5" /> Connect Now
                 </button>
               )}
             </div>

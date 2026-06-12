@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Careers | NAMO LABS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&amp;family=Manrope:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Manrope:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#131313",
+                      "on-secondary-container": "#b4b5b5",
+                      "surface-elevated": "#0F0F0F",
+                      "surface-container-highest": "#353535",
+                      "tertiary-container": "#f2a5ff",
+                      "secondary-fixed": "#e2e2e2",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "secondary": "#c6c6c7",
+                      "on-primary": "#223600",
+                      "tertiary-fixed": "#fdd6ff",
+                      "outline": "#8c947b",
+                      "error": "#ffb4ab",
+                      "surface": "#131313",
+                      "inverse-primary": "#446900",
+                      "on-tertiary": "#520e62",
+                      "on-secondary-fixed-variant": "#454747",
+                      "surface-container-lowest": "#0e0e0e",
+                      "surface-variant": "#353535",
+                      "surface-dim": "#131313",
+                      "on-surface-variant": "#c2caaf",
+                      "on-surface": "#e2e2e2",
+                      "surface-card": "#1C1C1C",
+                      "on-primary-container": "#385700",
+                      "tertiary-fixed-dim": "#f4aeff",
+                      "on-tertiary-container": "#743284",
+                      "on-primary-fixed": "#121f00",
+                      "on-secondary": "#2f3131",
+                      "primary-fixed-dim": "#95da11",
+                      "surface-tint": "#95da11",
+                      "surface-bright": "#393939",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "on-tertiary-fixed-variant": "#6b2a7b",
+                      "secondary-container": "#454747",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#340042",
+                      "on-error": "#690005",
+                      "outline-variant": "#424935",
+                      "on-background": "#e2e2e2",
+                      "inverse-surface": "#e2e2e2",
+                      "primary-fixed": "#aff838",
+                      "surface-container-low": "#1b1b1b",
+                      "off-white": "#FAF5EF",
+                      "tertiary": "#fbceff",
+                      "surface-container": "#1f1f1f",
+                      "error-container": "#93000a",
+                      "primary": "#a9f131",
+                      "inverse-on-surface": "#303030",
+                      "surface-container-high": "#2a2a2a",
+                      "on-primary-fixed-variant": "#334f00",
+                      "primary-container": "#8fd400"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "1.25rem",
+                      "gutter": "1.5rem",
+                      "stack-xl": "8rem",
+                      "border-width": "3px",
+                      "stack-md": "2rem",
+                      "stack-lg": "4rem",
+                      "margin-desktop": "5rem"
+              },
+              "fontFamily": {
+                      "display-lg-mobile": ["Bricolage Grotesque"],
+                      "body-md": ["Manrope"],
+                      "headline-md": ["Bricolage Grotesque"],
+                      "headline-lg": ["Bricolage Grotesque"],
+                      "label-sm": ["JetBrains Mono"],
+                      "body-lg": ["Manrope"],
+                      "label-md": ["JetBrains Mono"],
+                      "display-lg": ["Bricolage Grotesque"]
+              },
+              "fontSize": {
+                      "display-lg-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "headline-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "800"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .brutalist-card-shadow {
+            position: relative;
+        }
+        .brutalist-card-shadow::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            background: #000;
+            width: 100%;
+            height: 100%;
+            top: 6px;
+            left: 6px;
+            transition: transform 0.2s ease;
+        }
+        .brutalist-card-shadow:hover::after {
+            transform: translate(2px, 2px);
+        }
+        .brutalist-card-shadow:hover {
+            transform: translate(-2px, -2px);
+        }
+        .custom-cursor {
+            width: 12px;
+            height: 12px;
+            background: #a9f131;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary">
+<div class="custom-cursor hidden md:block"></div>
+<!-- Navigation Shell -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-background border-b-3 border-surface-container-highest">
+<div class="flex justify-between items-center w-full px-margin-desktop py-6 max-w-[1280px] mx-auto">
+<div class="text-headline-md font-headline-md font-extrabold tracking-tighter text-on-surface">NAMO LABS</div>
+<div class="hidden md:flex gap-8">
+<a class="text-on-secondary-container font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">Company</a>
+<a class="text-on-secondary-container font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">Products</a>
+<a class="text-on-secondary-container font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">Blog</a>
+<a class="text-on-secondary-container font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">Solutions</a>
+<a class="text-on-secondary-container font-medium hover:text-primary transition-colors duration-200 text-label-md font-label-md" href="#">Legal</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 border-3 border-black font-headline-md text-label-md font-bold hover:scale-95 transition-transform active:scale-90">
+                Apply Now
+            </button>
+</div>
+</nav>
+<main class="relative pt-32">
+<!-- Hero Section -->
+<section class="relative px-margin-desktop max-w-[1280px] mx-auto py-stack-xl">
+<div class="absolute inset-0 z-[-1] opacity-40">
+
+</div>
+<div class="max-w-4xl">
+<p class="text-label-md font-label-md text-primary mb-6 uppercase tracking-widest">Careers</p>
+<h1 class="font-display-lg text-display-lg mb-8 leading-none">
+                    Build the Future of <br/>
+<span class="text-primary-container">Deep-Tech Infrastructure.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-secondary-container max-w-2xl">
+                    We hire engineers and researchers who want to work at the frontier — people who care about getting it right, not just shipping fast.
+                </p>
+</div>
+</section>
+<!-- Roles Section -->
+<section class="bg-off-white py-stack-xl text-background">
+<div class="max-w-[1280px] mx-auto px-margin-desktop">
+<div class="flex flex-col md:flex-row justify-between items-baseline mb-12">
+<div>
+<p class="text-label-md font-label-md mb-2 uppercase opacity-60">Open Roles</p>
+<h2 class="font-headline-lg text-display-lg-mobile md:text-headline-lg">1 Position Open</h2>
+</div>
+<div class="flex gap-1 mt-6 md:mt-0 p-1 border-3 border-black bg-white">
+<button class="px-6 py-2 text-label-md font-label-md font-bold bg-white hover:bg-surface-container-lowest transition-colors">FULL-TIME ROLES</button>
+<button class="px-6 py-2 text-label-md font-label-md font-bold bg-black text-white">INTERNSHIPS</button>
+</div>
+</div>
+<!-- Always Open Card -->
+<div class="reveal-on-scroll group brutalist-card-shadow border-3 border-black bg-white flex flex-col md:flex-row items-stretch transition-all duration-300">
+<div class="w-full md:w-1/4 border-b-3 md:border-b-0 md:border-r-3 border-black p-8 relative overflow-hidden flex items-center">
+<div class="absolute -bottom-10 -left-10 w-32 h-32 border-8 border-primary rounded-full group-hover:scale-125 transition-transform duration-500"></div>
+<h3 class="font-headline-md text-headline-md relative z-10">Always Open</h3>
+</div>
+<div class="w-full md:w-3/4 p-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div>
+<h4 class="font-headline-md text-headline-md mb-3">Open Application</h4>
+<div class="flex gap-2">
+<span class="px-3 py-1 border-1 border-black text-label-sm font-label-sm uppercase">Open</span>
+<span class="px-3 py-1 border-1 border-black text-label-sm font-label-sm uppercase">Remote</span>
+<span class="px-3 py-1 border-1 border-black text-label-sm font-label-sm uppercase">Global</span>
+</div>
+</div>
+<a class="w-16 h-16 border-3 border-black flex items-center justify-center hover:bg-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-black scale-150 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Values Section -->
+<section class="bg-off-white pb-stack-xl text-background">
+<div class="max-w-[1280px] mx-auto px-margin-desktop border-t-1 border-black/10 pt-stack-xl">
+<p class="text-label-md font-label-md mb-16 uppercase opacity-60">Why Join Namo Labs</p>
+<div class="grid grid-cols-1 gap-gutter">
+<!-- Value 01 -->
+<div class="reveal-on-scroll brutalist-card-shadow bg-white border-3 border-black p-10 flex flex-col md:flex-row gap-10 items-start relative overflow-hidden">
+<span class="text-black/5 font-display-lg text-[120px] absolute right-4 top-0 leading-none pointer-events-none">01</span>
+<div class="w-12 h-2 bg-black mt-6 hidden md:block"></div>
+<div class="max-w-2xl relative z-10">
+<h3 class="font-headline-md text-headline-md mb-4">Bleeding-Edge Problems</h3>
+<p class="font-body-md text-body-md opacity-70">PQC, GNNs, quantum algorithms, MEV research — real frontier work, not buzzword consulting.</p>
+</div>
+</div>
+<!-- Value 02 -->
+<div class="reveal-on-scroll brutalist-card-shadow bg-white border-3 border-black p-10 flex flex-col md:flex-row gap-10 items-start relative overflow-hidden">
+<span class="text-black/5 font-display-lg text-[120px] absolute right-4 top-0 leading-none pointer-events-none">02</span>
+<div class="w-12 h-2 bg-black mt-6 hidden md:block"></div>
+<div class="max-w-2xl relative z-10">
+<h3 class="font-headline-md text-headline-md mb-4">Real Infrastructure</h3>
+<p class="font-body-md text-body-md opacity-70">We build systems that run in production. No hype, no demos that never ship.</p>
+</div>
+</div>
+<!-- Value 03 -->
+<div class="reveal-on-scroll brutalist-card-shadow bg-white border-3 border-black p-10 flex flex-col md:flex-row gap-10 items-start relative overflow-hidden">
+<span class="text-black/5 font-display-lg text-[120px] absolute right-4 top-0 leading-none pointer-events-none">03</span>
+<div class="w-12 h-2 bg-black mt-6 hidden md:block"></div>
+<div class="max-w-2xl relative z-10">
+<h3 class="font-headline-md text-headline-md mb-4">First-Principles Culture</h3>
+<p class="font-body-md text-body-md opacity-70">We understand problems deeply before solving them. Cargo-culting is the enemy.</p>
+</div>
+</div>
+<!-- Value 04 -->
+<div class="reveal-on-scroll brutalist-card-shadow bg-white border-3 border-black p-10 flex flex-col md:flex-row gap-10 items-start relative overflow-hidden">
+<span class="text-black/5 font-display-lg text-[120px] absolute right-4 top-0 leading-none pointer-events-none">04</span>
+<div class="w-12 h-2 bg-black mt-6 hidden md:block"></div>
+<div class="max-w-2xl relative z-10">
+<h3 class="font-headline-md text-headline-md mb-4">High Ownership</h3>
+<p class="font-body-md text-body-md opacity-70">Small teams, high autonomy. You own what you build.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Philosophy Section -->
+<section class="bg-background py-stack-xl relative overflow-hidden">
+<div class="max-w-[1280px] mx-auto px-margin-desktop">
+<div class="border-l-4 border-primary pl-10">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg max-w-5xl leading-tight mb-12 italic">
+                        "We're not building a lifestyle company. We're building critical infrastructure for the post-quantum, AI-augmented future. If that sounds serious to you — you're our kind of engineer."
+                    </h2>
+<div class="flex items-center gap-6">
+<div class="w-10 h-10 border-1 border-white flex items-center justify-center p-2">
+<img alt="Namo Labs Logo" class="w-full h-full object-contain filter grayscale invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcTexZsugMgKeWGznjUBh0csuG1DJsWO1X0N53hQvPg_0KBv1yX7mFU__HgRSfEIMCvn-p655dPb-l2ABsuJ6DurXBnUXDGLxFHzyA37YsNPogPi43M-rWAUhww5yCBuP7_FlH-03DmxLTZ-eD0tSVaBZoLz35aeWpY4YBikVAT76F-ENlCfOljiBuqCSro7HjmLxqPPNQQkM1u-wrv4j707d3ayudRMw5WR0S5Ychr_ugwd3s737nNYZnaYP_FrJwZP3Fc942jVQ"/>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface">NAMO LABS, ENGINEERING PHILOSOPHY</p>
+</div>
+<div class="ml-auto hidden md:block">
+<button class="flex items-center gap-4 border-2 border-primary/30 px-6 py-2 rounded-full text-primary hover:border-primary transition-all">
+<span class="text-label-md font-label-md uppercase tracking-widest">Menu</span>
+<span class="w-8 h-0.5 bg-primary"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-surface-container-lowest border-t-3 border-surface-container-highest">
+<div class="grid grid-cols-2 md:grid-cols-6 gap-gutter px-margin-desktop py-stack-xl max-w-[1280px] mx-auto">
+<div class="col-span-2">
+<div class="text-headline-md font-headline-md font-extrabold text-on-surface mb-4">NAMO LABS</div>
+<p class="text-body-md font-body-md text-on-secondary-container max-w-xs mb-8">
+                    Deep-tech infrastructure firm at the intersection of blockchain, cryptography, AI, and quantum computing.
+                </p>
+<div class="flex gap-4">
+<a class="text-label-sm font-label-sm hover:text-off-white transition-colors" href="#">GITHUB</a>
+<span class="opacity-20">.</span>
+<a class="text-label-sm font-label-sm hover:text-off-white transition-colors" href="#">LINKEDIN</a>
+<span class="opacity-20">.</span>
+<a class="text-label-sm font-label-sm hover:text-off-white transition-colors" href="#">X</a>
+</div>
+</div>
+<div>
+<h5 class="text-label-md font-label-md text-primary mb-6">Company</h5>
+<ul class="flex flex-col gap-3">
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">About Us</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">Careers</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">Contact</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">Research</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-md font-label-md text-primary mb-6">Products</h5>
+<ul class="flex flex-col gap-3">
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">All Products</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">DAFS</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">QSCL</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">Services</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-md font-label-md text-primary mb-6">Blog</h5>
+<ul class="flex flex-col gap-3">
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">All Posts</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">Cryptography</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">Blockchain</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">Zero-Knowledge</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-md font-label-md text-primary mb-6">Legal</h5>
+<ul class="flex flex-col gap-3">
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-body-md font-body-md text-on-secondary-container hover:text-off-white transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-surface-container-highest px-margin-desktop py-8">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-label-sm font-label-sm text-on-secondary-container opacity-60">
+<p>© 2024 Namo Labs. All rights reserved. Namo Labs Deep-Tech Engineering. Bangalore, India - Est. 2024</p>
+<p>Engineering the future, one protocol at a time.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Custom Cursor
+        const cursor = document.querySelector('.custom-cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth Scroll Micro-interaction
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body></html>

@@ -28,12 +28,12 @@ const sampleData = [
 
 const CustomItem = (props: any) => {
   return (
-    <div className={`h-full w-full p-2 rounded-lg border border-white/20 backdrop-blur-md shadow-lg ${
-      props.dataItem.priority === 'critical' ? 'bg-accent/40 border-accent/50' : 'bg-primary/40 border-primary/50'
+    <div className={`h-full w-full p-2 border-3 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-none flex flex-col ${
+      props.dataItem.priority === 'critical' ? 'bg-primary' : 'bg-white'
     }`}>
-      <div className="font-bold text-sm text-white mb-1">{props.dataItem.title}</div>
-      <div className="flex items-center gap-1 text-xs text-white/80">
-        <Clock className="w-3 h-3" />
+      <div className="font-bold font-headline-md uppercase tracking-wider text-sm text-black mb-1">{props.dataItem.title}</div>
+      <div className="flex items-center gap-1 text-xs font-bold font-label-sm text-black uppercase mt-auto">
+        <Clock className="w-4 h-4" />
         {props.dataItem.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
       </div>
     </div>
@@ -50,16 +50,16 @@ export const SchedulePage: React.FC = () => {
       className="space-y-6 h-full flex flex-col"
     >
       <header className="flex items-center gap-4 mb-4 shrink-0">
-        <div className="w-12 h-12 rounded-2xl bg-accent/20 flex items-center justify-center border border-accent/30">
-          <Clock className="w-6 h-6 text-accent" />
+        <div className="w-12 h-12 bg-white flex items-center justify-center border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <Clock className="w-6 h-6 text-black" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Smart Schedule Builder</h1>
-          <p className="text-gray-400">AI-optimized agenda based on your goals</p>
+          <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-on-background">Smart Schedule Builder</h1>
+          <p className="text-primary font-bold font-label-md uppercase">AI-optimized agenda based on your goals</p>
         </div>
       </header>
 
-      <div className="flex-1 glass-panel rounded-2xl p-4 overflow-hidden flex flex-col [&_.k-scheduler]:!bg-transparent [&_.k-scheduler]:!border-none [&_.k-scheduler-toolbar]:!bg-white/5 [&_.k-scheduler-toolbar]:!border-white/10 [&_.k-scheduler-layout]:!text-white [&_.k-scheduler-header]:!bg-white/5 [&_.k-scheduler-header]:!text-white [&_.k-event]:!bg-transparent [&_.k-event]:!border-none [&_.k-scheduler-content]:!bg-transparent [&_.k-scheduler-times]:!bg-transparent [&_.k-scheduler-times]:!text-gray-400 [&_.k-nav-current]:!text-white">
+      <div className="flex-1 bg-white border-3 border-black brutalist-card-shadow rounded-none p-4 overflow-hidden flex flex-col [&_.k-scheduler]:!bg-white [&_.k-scheduler]:!border-none [&_.k-scheduler-toolbar]:!bg-gray-100 [&_.k-scheduler-toolbar]:!border-2 [&_.k-scheduler-toolbar]:!border-black [&_.k-scheduler-layout]:!text-black [&_.k-scheduler-header]:!bg-gray-100 [&_.k-scheduler-header]:!text-black [&_.k-event]:!bg-transparent [&_.k-event]:!border-none [&_.k-scheduler-content]:!bg-white [&_.k-scheduler-times]:!bg-white [&_.k-scheduler-times]:!text-black [&_.k-nav-current]:!text-black">
         <Scheduler
           data={sampleData}
           date={date}
