@@ -1,42 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #050505;
-  --color-surface: #0f0f0f;
-  --color-primary: #0d6efd;
-  --color-primary-hover: #0b5ed7;
+  --color-background: #0a0a0a;
+  --color-surface: #111111;
+  --color-card: #1a1a1a;
+  --color-primary: #c8f135;
+  --color-primary-hover: #b0d62f;
+  --color-accent-gradient-start: #c8f135;
+  --color-accent-gradient-end: #7effd4;
+  --color-text-primary: #f0f0ef;
+  --color-text-muted: #888883;
+  --color-border: rgba(255, 255, 255, 0.06);
   
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Geist", "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "Space Mono", "JetBrains Mono", monospace;
   
-  --shadow-glow: 0 0 20px rgba(13, 110, 253, 0.3);
+  --shadow-glow: 0 0 20px rgba(200, 241, 53, 0.3);
 }
 
 @layer base {
   body {
-    @apply bg-background text-white font-sans antialiased overflow-x-hidden;
-  }
-  
-  /* Namolabs brutalist noise overlay */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    opacity: 0.35;
-    z-index: 9999;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    mix-blend-mode: overlay;
+    @apply bg-background text-text-primary font-sans antialiased overflow-x-hidden;
   }
 }
 
 @layer components {
-  /* Brutalist Cards replacing Glassmorphism */
+  /* Sleek Rounded Cards */
   .glass-card, .glass-panel {
-    @apply bg-surface border border-[#222] shadow-none rounded-none;
+    @apply bg-card border border-border shadow-lg rounded-2xl;
   }
   
   /* Custom scrollbar */
@@ -49,39 +40,41 @@
   }
   ::-webkit-scrollbar-thumb {
     @apply bg-[#222];
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-[#333];
   }
 
-  /* Kendo UI Overrides for Brutalist Theme */
+  /* Kendo UI Overrides for Sleek Theme */
   .k-button {
-    @apply !rounded-none !shadow-none !font-mono !tracking-widest !uppercase !text-xs;
+    @apply !rounded-full !shadow-sm !font-sans !tracking-normal !font-medium;
   }
   .k-button-solid-primary {
-    @apply !bg-primary !border-primary !text-white hover:!bg-primary-hover;
+    @apply !bg-primary !border-primary !text-black hover:!bg-primary-hover;
   }
   .k-input {
-    @apply !bg-surface !border-[#333] !text-white !rounded-none;
+    @apply !bg-surface !border-border !text-text-primary !rounded-xl;
   }
   .k-card {
-    @apply !bg-surface !border-[#222] !rounded-none;
+    @apply !bg-card !border-border !rounded-2xl;
   }
   
   /* Typography classes */
   .heading-hero {
-    @apply text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9];
+    @apply text-5xl md:text-7xl lg:text-[clamp(52px,8vw,96px)] font-bold tracking-tight leading-[1.1] text-text-primary;
+    letter-spacing: -0.03em;
   }
   
   .label-mono {
-    @apply font-mono text-[10px] uppercase tracking-[0.2em] text-gray-500;
+    @apply font-sans text-[11px] font-medium uppercase tracking-[0.1em] text-text-muted;
   }
 
   .btn-outline {
-    @apply bg-transparent border border-[#333] hover:bg-white/5 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 transition-colors flex items-center justify-center gap-2;
+    @apply bg-transparent border border-border hover:bg-white/5 text-text-primary font-sans text-sm font-medium rounded-full px-6 py-3 transition-colors flex items-center justify-center gap-2;
   }
 
   .btn-primary {
-    @apply bg-primary border border-primary hover:bg-primary-hover text-white font-mono text-xs uppercase tracking-widest px-6 py-3 transition-colors flex items-center justify-center gap-2;
+    @apply bg-primary border border-primary hover:bg-primary-hover text-black font-sans text-sm font-semibold rounded-full px-6 py-3 transition-colors flex items-center justify-center gap-2;
   }
 }
