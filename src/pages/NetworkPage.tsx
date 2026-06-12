@@ -38,6 +38,16 @@ const matches = [
 
 export const NetworkPage: React.FC = () => {
   const { addToast } = useToast();
+  const [connected, setConnected] = React.useState<Record<number, boolean>>({});
+
+  const handleConnect = (id: number) => {
+    addToast('Sending connection request...', 'info');
+    setTimeout(() => {
+      setConnected(prev => ({ ...prev, [id]: true }));
+      addToast('Request sent successfully!', 'success');
+    }, 800);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -55,7 +65,9 @@ export const NetworkPage: React.FC = () => {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {matches.map((match, index) => (
+        {matches.map((match, index) => {
+          const isConnected = connected[match.id];
+          return (
           <motion.div
             key={match.id}
             initial={{ opacity: 0, scale: 0.9 }}
@@ -125,12 +137,19 @@ export const NetworkPage: React.FC = () => {
                 ))}
               </div>
               
-              <button onClick={() => addToast('Sending connection request...', 'info')} className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium flex items-center justify-center gap-2 border border-white/5">
-                <Briefcase className="w-4 h-4" /> Connect Now
-              </button>
+              {isConnected ? (
+                <button disabled className="w-full py-3 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition-colors text-sm font-medium flex items-center justify-center gap-2">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  Request Sent
+                </button>
+              ) : (
+                <button onClick={() => handleConnect(match.id)} className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium flex items-center justify-center gap-2 border border-white/5">
+                  <Briefcase className="w-4 h-4" /> Connect Now
+                </button>
+              )}
             </div>
           </motion.div>
-        ))}
+        )})}
       </div>
 
       <ValuePredictor />

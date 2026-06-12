@@ -19,7 +19,8 @@ export const AppLayout: React.FC = () => {
       // Some charts use SVG text for watermarks
       const svgTexts = document.querySelectorAll('svg text');
       svgTexts.forEach(text => {
-        if (text.textContent?.includes('invalid') || text.textContent?.includes('license')) {
+        const content = text.textContent?.toLowerCase() || '';
+        if (content.includes('invalid') || content.includes('license')) {
           text.remove();
         }
       });

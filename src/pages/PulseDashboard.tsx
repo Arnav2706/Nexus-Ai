@@ -18,9 +18,16 @@ export const PulseDashboard: React.FC = () => {
   const { addToast } = useToast();
   const overallHealth = 91;
 
-  const handleSeeAll = () => {
-    addToast('Loading full trending topics feed...', 'info');
-  };
+  const [isExpanded, setIsExpanded] = React.useState(false);
+
+  const extendedTopics = [
+    ...trendingTopics,
+    { topic: 'Agentic Workflows', mentions: 110, delta: '+25%', hot: true },
+    { topic: 'RAG Architecture', mentions: 95, delta: '+5%', hot: false },
+    { topic: 'AI Safety', mentions: 88, delta: '+12%', hot: false },
+  ];
+
+  const topicsToShow = isExpanded ? extendedTopics : trendingTopics;
 
   return (
     <motion.div
@@ -59,16 +66,24 @@ export const PulseDashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 glass-panel rounded-3xl p-6">
-          <h2 className="text-lg font-bold mb-5 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-primary" /> Trending Topics
-          </h2>
+          <div className="flex justify-between items-center mb-5">
+            <h2 className="text-lg font-bold flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-primary" /> Trending Topics
+            </h2>
+            <button 
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-sm font-medium text-primary hover:text-white transition-colors flex items-center gap-1"
+            >
+              {isExpanded ? 'Show less' : 'See all'} <ChevronRight className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
+            </button>
+          </div>
           <div className="space-y-3">
-            {trendingTopics.map((t, i) => (
+            {topicsToShow.map((t, i) => (
               <motion.div
                 key={t.topic}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
+                initial={{ opacity: 0, x: -20, height: 0 }}
+                animate={{ opacity: 1, x: 0, height: 'auto' }}
+                transition={{ delay: i * 0.05 }}
                 className="flex items-center gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
               >
                 {t.hot ? <Flame className="w-4 h-4 text-orange-400 shrink-0" /> : <div className="w-4 h-4" />}
@@ -77,7 +92,7 @@ export const PulseDashboard: React.FC = () => {
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${(t.mentions / 340) * 100}%` }}
-                    transition={{ duration: 1, delay: i * 0.1 }}
+                    transition={{ duration: 1, delay: i * 0.05 }}
                     className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
                   />
                 </div>

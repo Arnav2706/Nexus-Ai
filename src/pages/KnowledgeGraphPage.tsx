@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Network, ZoomIn, ZoomOut, Share2 } from 'lucide-react';
+import { Network, ZoomIn, ZoomOut, Share2, Copy, CheckCircle2 } from 'lucide-react';
 import { ParticleCanvas } from '../components/graph/ParticleCanvas';
 import { useToast } from '../contexts/ToastContext';
+import { Modal } from '../components/ui/Modal';
 
-const nodes = [
+const initialNodes = [
   { id: 'llm', label: 'LLMs', x: 50, y: 40, type: 'topic', color: '#8b5cf6' },
   { id: 'startups', label: 'Startups', x: 75, y: 30, type: 'topic', color: '#3b82f6' },
   { id: 'sarah', label: 'Sarah Chen', x: 65, y: 60, type: 'person', color: '#f59e0b' },
@@ -29,6 +30,31 @@ export const KnowledgeGraphPage: React.FC = () => {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const { addToast } = useToast();
+  
+  const [graphNodes, setGraphNodes] = useState(initialNodes);
+  const [isClustering, setIsClustering] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleAutoCluster = () => {
+    setIsClustering(true);
+    addToast('AI identifying new topic clusters...', 'info');
+    setTimeout(() => {
+      setGraphNodes(prev => prev.map(n => ({
+        ...n,
+        x: n.id === 'you' ? n.x : Math.max(10, Math.min(90, n.x + (Math.random() * 30 - 15))),
+        y: n.id === 'you' ? n.y : Math.max(10, Math.min(90, n.y + (Math.random() * 30 - 15))),
+      })));
+      setIsClustering(false);
+      addToast('Graph re-clustered successfully!', 'success');
+    }, 1500);
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText('https://nexus.ai/graph/share/u128d9');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <motion.div
@@ -48,16 +74,19 @@ export const KnowledgeGraphPage: React.FC = () => {
         </div>
         <div className="flex gap-2">
           <button 
-            onClick={() => addToast('Recalculating graph physics...', 'info')}
+            onClick={() => setIsShareOpen(true)}
             className="glass-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/10"
           >
             <Share2 className="w-4 h-4" /> Share Map
           </button>
           <button 
-            onClick={() => addToast('AI identifying new topic clusters...', 'success')}
-            className="glass-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/10 text-purple-400"
+            onClick={handleAutoCluster}
+            disabled={isClustering}
+            className={`glass-card px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/10 ${isClustering ? 'text-gray-500' : 'text-purple-400'}`}
           >
-            Auto-Cluster
+            {isClustering ? (
+              <div className="w-4 h-4 rounded-full border-2 border-purple-400/30 border-t-purple-400 animate-spin" />
+            ) : 'Auto-Cluster'}
           </button>
           <button
             onClick={() => setZoom((z) => Math.min(z + 0.1, 1.5))}
@@ -84,8 +113,8 @@ export const KnowledgeGraphPage: React.FC = () => {
         >
           {/* Edges */}
           {edges.map(([from, to], i) => {
-            const f = nodes.find((n) => n.id === from)!;
-            const t = nodes.find((n) => n.id === to)!;
+            const f = graphNodes.find((n) => n.id === from)!;
+            const t = graphNodes.find((n) => n.id === to)!;
             const isActive = hoveredNode === from || hoveredNode === to;
             return (
               <motion.line
@@ -102,7 +131,7 @@ export const KnowledgeGraphPage: React.FC = () => {
           })}
 
           {/* Nodes */}
-          {nodes.map((node, i) => (
+          {graphNodes.map((node, i) => (
             <g
               key={node.id}
               onMouseEnter={() => setHoveredNode(node.id)}
@@ -179,6 +208,30 @@ export const KnowledgeGraphPage: React.FC = () => {
           ))}
         </div>
       </div>
+
+      <Modal
+        isOpen={isShareOpen}
+        onClose={() => setIsShareOpen(false)}
+        title={<><Share2 className="w-5 h-5 text-indigo-400" /> Share Knowledge Map</>}
+      >
+        <div className="space-y-6">
+          <p className="text-gray-300 text-sm">
+            Share this interactive visualization of your conference connections. Anyone with the link can explore your public topic clusters.
+          </p>
+          
+          <div className="flex items-center gap-2">
+            <div className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-gray-400 font-mono truncate">
+              https://nexus.ai/graph/share/u128d9
+            </div>
+            <button
+              onClick={handleCopyLink}
+              className={`p-3 rounded-xl flex items-center justify-center transition-colors border ${copied ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'glass-card text-white hover:bg-white/10'}`}
+            >
+              {copied ? <CheckCircle2 className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+      </Modal>
     </motion.div>
   );
 };
