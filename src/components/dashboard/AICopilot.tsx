@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Avatar } from '@progress/kendo-react-layout';
 import { Chip } from '@progress/kendo-react-buttons';
@@ -26,6 +27,7 @@ const recommendations = [
 ];
 
 export const AICopilot: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4 mb-8">
@@ -85,7 +87,7 @@ export const AICopilot: React.FC = () => {
                 </div>
               </div>
 
-              <button className="flex items-center gap-2 text-black font-bold font-headline-md uppercase tracking-wider hover:text-primary hover:bg-black px-3 py-1 border-3 border-transparent hover:border-black transition-colors text-sm">
+              <button onClick={() => navigate('/schedule')} className="flex items-center gap-2 text-black font-bold font-headline-md uppercase tracking-wider hover:text-primary hover:bg-black px-3 py-1 border-3 border-transparent hover:border-black transition-colors text-sm">
                 Add to Schedule <ArrowRight className="w-4 h-4" />
               </button>
             </div>

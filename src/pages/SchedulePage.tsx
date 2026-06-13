@@ -61,9 +61,36 @@ export const SchedulePage: React.FC = () => {
     }, 1500);
   };
 
-  const handleSync = () => addToast('Synced with Google Calendar successfully!', 'success');
-  const handleExport = () => addToast('Schedule exported as PDF.', 'success');
-  const handleShare = () => addToast('Share link copied to clipboard.', 'success');
+  const handleSync = () => {
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Nexus AI//EN
+${data.map(event => `BEGIN:VEVENT
+SUMMARY:${event.title}
+DTSTART:${event.start.toISOString().replace(/[-:]|\.\d{3}/g, '')}
+DTEND:${event.end.toISOString().replace(/[-:]|\.\d{3}/g, '')}
+END:VEVENT`).join('\n')}
+END:VCALENDAR`;
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'nexus-schedule.ics';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    addToast('Schedule downloaded as .ics file for Google Calendar/Outlook!', 'success');
+  };
+
+  const handleExport = () => {
+    window.print();
+    addToast('Printing to PDF...', 'success');
+  };
+  
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    addToast('Share link copied to clipboard.', 'success');
+  };
 
   const handleDataChange = (e: any) => {
     if (e.created && e.created.length) setData([...data, ...e.created]);
@@ -117,13 +144,7 @@ export const SchedulePage: React.FC = () => {
             onDateChange={(e) => setDate(e.value)}
             onDataChange={handleDataChange}
             item={CustomItem}
-            editable={{
-              add: true,
-              remove: true,
-              drag: true,
-              resize: true,
-              edit: true
-            }}
+            editable={true}
             style={{ height: '100%', width: '100%' }}
           >
             <DayView startTime="08:00" endTime="18:00" />
