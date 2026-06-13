@@ -46,19 +46,50 @@ export const SchedulePage: React.FC = () => {
   const [date, setDate] = useState(new Date(currentYear, currentMonth, currentDay));
   const [data, setData] = useState(initialData);
 
-  const handleAIOptimize = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleAIOptimize = async () => {
     addToast('AI is optimizing your schedule for maximum networking...', 'success');
-    setTimeout(() => {
-      setData([...data, {
-        id: 3,
-        title: 'Networking Power Hour',
-        start: new Date(currentYear, currentMonth, currentDay, 15, 0),
-        end: new Date(currentYear, currentMonth, currentDay, 16, 0),
-        isAllDay: false,
-        priority: 'high',
-      }]);
-      addToast('Schedule optimized! Added Networking Power Hour.', 'success');
-    }, 1500);
+    setIsLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/optimize-schedule', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ current_schedule: data })
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        
+        // Convert the returned date strings back to Date objects
+        const newEvents = result.added_events.map((event: any) => ({
+          ...event,
+          start: new Date(event.start),
+          end: new Date(event.end)
+        }));
+        
+        setData([...data, ...newEvents]);
+        addToast(result.message, 'success');
+      } else {
+        throw new Error('Backend returned an error');
+      }
+    } catch (error) {
+      console.error('Failed to optimize schedule with ML backend:', error);
+      // Fallback if backend is not running
+      setTimeout(() => {
+        setData([...data, {
+          id: 3,
+          title: 'Networking Power Hour (Fallback)',
+          start: new Date(currentYear, currentMonth, currentDay, 15, 0),
+          end: new Date(currentYear, currentMonth, currentDay, 16, 0),
+          isAllDay: false,
+          priority: 'high',
+        }]);
+        addToast('Schedule optimized (using fallback)! Added Networking Power Hour.', 'success');
+      }, 1500);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSync = () => {
@@ -120,8 +151,8 @@ END:VCALENDAR`;
         </div>
         
         <div className="flex flex-wrap items-center gap-3">
-          <button onClick={handleAIOptimize} className="flex items-center gap-2 bg-primary text-black border-3 border-black px-4 py-2 font-bold uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
-            <Wand2 className="w-4 h-4" /> Auto-Optimize
+          <button onClick={handleAIOptimize} disabled={isLoading} className="flex items-center gap-2 bg-primary text-black border-3 border-black px-4 py-2 font-bold uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all disabled:opacity-50">
+            <Wand2 className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} /> {isLoading ? 'Optimizing...' : 'Auto-Optimize'}
           </button>
           <button onClick={handleSync} className="flex items-center gap-2 bg-white text-black border-3 border-black px-4 py-2 font-bold uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
             <CalendarPlus className="w-4 h-4" /> Sync
