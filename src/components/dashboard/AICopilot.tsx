@@ -5,7 +5,7 @@ import { Avatar } from '@progress/kendo-react-layout';
 import { Chip } from '@progress/kendo-react-buttons';
 import { Sparkles, ArrowRight, BrainCircuit } from 'lucide-react';
 
-const recommendations = [
+const DEFAULT_RECOMMENDATIONS = [
   {
     id: 1,
     title: 'Generative AI in Production',
@@ -28,6 +28,35 @@ const recommendations = [
 
 export const AICopilot: React.FC = () => {
   const navigate = useNavigate();
+  const [recommendations, setRecommendations] = React.useState(DEFAULT_RECOMMENDATIONS);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/recommendations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            interests: ['Generative AI', 'System Architecture', 'DevTools'],
+            role: 'Software Engineer'
+          })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setRecommendations(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch from Python ML backend, using fallback data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchRecommendations();
+  }, []);
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4 mb-8">
@@ -35,7 +64,9 @@ export const AICopilot: React.FC = () => {
           <BrainCircuit className="w-6 h-6 text-black" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold font-headline-lg uppercase text-on-background tracking-wider">AI Event Copilot</h2>
+          <h2 className="text-2xl font-bold font-headline-lg uppercase text-on-background tracking-wider">
+            AI Event Copilot {isLoading && <span className="text-sm ml-2 animate-pulse">(Connecting to ML Backend...)</span>}
+          </h2>
           <p className="text-primary font-bold font-body-md uppercase">Your personalized conference recommendations</p>
         </div>
       </div>
