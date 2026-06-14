@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Brain, ChevronDown, CheckCircle2, TrendingUp } from 'lucide-react';
-import { ProgressBar } from '@progress/kendo-react-progressbars';
+
 
 const sessionData = {
   title: 'LLMs at Scale: Distributed Training',
@@ -47,20 +47,18 @@ export const SessionIntelligenceCard: React.FC = () => {
             <span className="text-black font-bold font-headline-md uppercase tracking-wider">Practical Value</span>
             <span className="text-black font-bold font-headline-md">{sessionData.practicalValue}/100</span>
           </div>
-          <ProgressBar
-            value={sessionData.practicalValue}
-            className="!h-4 [&_.k-selected]:!bg-primary [&_.k-progress-status]:!hidden !bg-gray-200 !border-3 !border-black !rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-          />
+          <div className="h-4 bg-gray-200 border-3 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] w-full relative overflow-hidden">
+            <div className="h-full bg-primary absolute top-0 left-0 transition-all duration-500 ease-out" style={{ width: `${sessionData.practicalValue}%` }} />
+          </div>
         </div>
         <div>
           <div className="flex justify-between text-sm mb-2">
             <span className="text-black font-bold font-headline-md uppercase tracking-wider">Your Audience Fit</span>
             <span className="text-black font-bold font-headline-md">{sessionData.audienceFit}%</span>
           </div>
-          <ProgressBar
-            value={sessionData.audienceFit}
-            className="!h-4 [&_.k-selected]:!bg-black [&_.k-progress-status]:!hidden !bg-gray-200 !border-3 !border-black !rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-          />
+          <div className="h-4 bg-gray-200 border-3 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] w-full relative overflow-hidden">
+            <div className="h-full bg-black absolute top-0 left-0 transition-all duration-500 ease-out" style={{ width: `${sessionData.audienceFit}%` }} />
+          </div>
         </div>
       </div>
 

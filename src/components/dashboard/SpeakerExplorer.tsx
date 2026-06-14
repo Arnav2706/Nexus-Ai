@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mic, Star, PlayCircle, MessageSquare, Copy, CheckCircle2, Calendar } from 'lucide-react';
-import { Chart, ChartSeries, ChartSeriesItem, ChartCategoryAxis, ChartCategoryAxisItem } from '@progress/kendo-react-charts';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { useToast } from '../../contexts/ToastContext';
 import { Modal } from '../ui/Modal';
 
@@ -91,20 +91,14 @@ export const SpeakerExplorer: React.FC = () => {
           </div>
 
           <div className="w-full md:w-64 h-64">
-            <Chart style={{ height: '100%', width: '100%' }} className="[&_.k-chart-surface]:!bg-transparent">
-              <ChartCategoryAxis>
-                <ChartCategoryAxisItem categories={speakerData.expertise.map(e => e.category)} labels={{ color: 'rgba(0,0,0,1)', font: 'bold 12px "JetBrains Mono"' }} />
-              </ChartCategoryAxis>
-              <ChartSeries>
-                <ChartSeriesItem
-                  type="radarArea"
-                  data={speakerData.expertise.map(e => e.value)}
-                  color="#a9f131"
-                  line={{ width: 3, color: '#000' }}
-                  opacity={1}
-                />
-              </ChartSeries>
-            </Chart>
+            <ResponsiveContainer width="100%" height="100%">
+              <RadarChart cx="50%" cy="50%" outerRadius="70%" data={speakerData.expertise}>
+                <PolarGrid stroke="#000" strokeWidth={2} />
+                <PolarAngleAxis dataKey="category" tick={{ fill: '#000', fontWeight: 'bold', fontSize: 12, fontFamily: 'JetBrains Mono' }} />
+                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+                <Radar name="Expertise" dataKey="value" stroke="#000" strokeWidth={3} fill="#a9f131" fillOpacity={1} />
+              </RadarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>

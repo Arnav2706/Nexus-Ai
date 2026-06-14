@@ -12,9 +12,6 @@
   "dependencies": {
     "@fontsource/geist-mono": "^5.2.8",
     "@fontsource/geist-sans": "^5.2.5",
-    "@progress/kendo-react-all": "^15.0.0",
-    "@progress/kendo-svg-icons": "^5.1.0",
-    "@progress/kendo-theme-default": "^14.1.0",
     "@types/recharts": "^1.8.29",
     "framer-motion": "^12.40.0",
     "geist": "^1.7.2",

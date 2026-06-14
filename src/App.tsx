@@ -14,7 +14,6 @@ import { WowFeatures } from './pages/WowFeatures';
 import { SettingsPage } from './pages/SettingsPage';
 import { AchievementsPage } from './pages/AchievementsPage';
 
-import '@progress/kendo-theme-default/dist/default-main-dark.css';
 import './index.css';
 
 import { ToastProvider } from './contexts/ToastContext';

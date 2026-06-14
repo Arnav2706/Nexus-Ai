@@ -1,8 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Avatar } from '@progress/kendo-react-layout';
-import { Chip } from '@progress/kendo-react-buttons';
+
 import { Sparkles, ArrowRight, BrainCircuit } from 'lucide-react';
 
 const DEFAULT_RECOMMENDATIONS = [
@@ -102,16 +101,18 @@ export const AICopilot: React.FC = () => {
 
             <div className="flex flex-wrap gap-2 mb-4">
               {rec.tags.map(tag => (
-                <Chip key={tag} text={tag} className="!bg-white !text-black !border-2 !border-black !rounded-none !font-bold font-label-sm uppercase" />
+                <span key={tag} className="px-3 py-1 bg-white text-black border-2 border-black rounded-none font-bold font-label-sm uppercase">
+                  {tag}
+                </span>
               ))}
             </div>
 
             <div className="flex justify-between items-center pt-4 border-t-3 border-black">
               <div className="flex -space-x-2">
                 {[1, 2, 3].map((i) => (
-                  <Avatar key={i} type="image" className="!w-8 !h-8 border-2 border-black !rounded-none">
-                    <img src={`https://i.pravatar.cc/150?img=${i + index * 10}`} alt="attendee" />
-                  </Avatar>
+                  <div key={i} className="w-8 h-8 border-2 border-black rounded-none overflow-hidden relative">
+                    <img src={`https://i.pravatar.cc/150?img=${i + index * 10}`} alt="attendee" className="w-full h-full object-cover" />
+                  </div>
                 ))}
                 <div className="w-8 h-8 rounded-none bg-primary border-2 border-black flex items-center justify-center text-xs font-bold text-black z-10">
                   +42

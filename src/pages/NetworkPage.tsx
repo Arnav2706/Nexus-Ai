@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Briefcase, Zap } from 'lucide-react';
 import { useToast } from '../contexts/ToastContext';
-import { Avatar } from '@progress/kendo-react-layout';
 import { ValuePredictor } from '../components/network/ValuePredictor';
 
 const matches = [
@@ -77,9 +76,9 @@ export const NetworkPage: React.FC = () => {
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-4">
                 <div className="relative">
-                  <Avatar type="image" className="!w-14 !h-14 !border-3 !border-black !rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                    <img src={`https://i.pravatar.cc/150?img=${match.id + 20}`} alt={match.name} />
-                  </Avatar>
+                  <div className="w-14 h-14 border-3 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+                    <img src={`https://i.pravatar.cc/150?img=${match.id + 20}`} alt={match.name} className="w-full h-full object-cover" />
+                  </div>
                   {match.status === 'online' && (
                     <div className="absolute -bottom-2 -right-2 w-5 h-5 bg-primary border-2 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
                   )}

@@ -1,17 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Flame, TrendingUp, MessageSquare, Users, Heart, ChevronRight } from 'lucide-react';
-import { Chart, ChartSeries, ChartSeriesItem, ChartCategoryAxis, ChartCategoryAxisItem, ChartValueAxis, ChartValueAxisItem } from '@progress/kendo-react-charts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 const trendingTopics = [
   { topic: 'Generative AI', mentions: 340, delta: '+22%', hot: true },
   { topic: 'LLM Fine-tuning', mentions: 210, delta: '+18%', hot: true },
-  { topic: 'WebAssembly', mentions: 145, delta: '+9%', hot: false },
   { topic: 'Developer Experience', mentions: 132, delta: '+14%', hot: false },
 ];
 
 const engagementScores = [72, 84, 95, 88, 91, 78, 96];
 const categories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const engagementData = categories.map((cat, i) => ({ name: cat, value: engagementScores[i] }));
 
 export const PulseDashboard: React.FC = () => {
   const overallHealth = 91;
@@ -100,17 +100,14 @@ export const PulseDashboard: React.FC = () => {
           </div>
 
           <div className="mt-8 -ml-4 h-48">
-            <Chart style={{ height: '100%' }} className="[&_.k-chart-surface]:!bg-transparent">
-              <ChartCategoryAxis>
-                <ChartCategoryAxisItem categories={categories} labels={{ color: '#000', font: 'bold 12px "JetBrains Mono"' }} majorGridLines={{ visible: false }} />
-              </ChartCategoryAxis>
-              <ChartValueAxis>
-                <ChartValueAxisItem labels={{ color: '#000', font: 'bold 12px "JetBrains Mono"' }} majorGridLines={{ color: 'rgba(0,0,0,0.1)' }} min={50} />
-              </ChartValueAxis>
-              <ChartSeries>
-                <ChartSeriesItem type="column" data={engagementScores} color="#000" opacity={1} gap={1} spacing={0.25} border={{ width: 0 }} />
-              </ChartSeries>
-            </Chart>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={engagementData}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.1)" />
+                <XAxis dataKey="name" stroke="#000" tick={{ fill: '#000', fontWeight: 'bold', fontSize: 12, fontFamily: 'JetBrains Mono' }} />
+                <YAxis stroke="#000" tick={{ fill: '#000', fontWeight: 'bold', fontSize: 12, fontFamily: 'JetBrains Mono' }} domain={[50, 100]} />
+                <Bar dataKey="value" fill="#000" barSize={30} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 

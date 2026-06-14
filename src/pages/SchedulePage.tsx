@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, CalendarPlus, Wand2, Download, Share2 } from 'lucide-react';
-import { Scheduler, TimelineView, DayView, AgendaView } from '@progress/kendo-react-scheduler';
 import { useToast } from '../contexts/ToastContext';
 
 const currentYear = new Date().getFullYear();
@@ -27,23 +26,8 @@ const initialData = [
   },
 ];
 
-const CustomItem = (props: any) => {
-  return (
-    <div className={`h-full w-full p-2 border-3 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-none flex flex-col ${
-      props.dataItem.priority === 'critical' ? 'bg-primary' : 'bg-[#00ffff]'
-    }`}>
-      <div className="font-bold font-headline-md uppercase tracking-wider text-sm text-black mb-1 leading-tight line-clamp-2">{props.dataItem.title}</div>
-      <div className="flex items-center gap-1 text-xs font-bold font-label-sm text-black uppercase mt-auto bg-white border-2 border-black px-1 w-max">
-        <Clock className="w-3 h-3" />
-        {props.dataItem.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-      </div>
-    </div>
-  );
-};
-
 export const SchedulePage: React.FC = () => {
   const { addToast } = useToast();
-  const [date, setDate] = useState(new Date(currentYear, currentMonth, currentDay));
   const [data, setData] = useState(initialData);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -123,15 +107,6 @@ END:VCALENDAR`;
     addToast('Share link copied to clipboard.', 'success');
   };
 
-  const handleDataChange = (e: any) => {
-    if (e.created && e.created.length) setData([...data, ...e.created]);
-    if (e.updated && e.updated.length) {
-      setData(data.map(item => e.updated.find((u: any) => u.id === item.id) || item));
-    }
-    if (e.deleted && e.deleted.length) {
-      setData(data.filter(item => !e.deleted.find((d: any) => d.id === item.id)));
-    }
-  };
 
   return (
     <motion.div
@@ -167,21 +142,39 @@ END:VCALENDAR`;
       </header>
 
       <div className="flex-1 flex flex-col lg:flex-row gap-6 min-h-0">
-        {/* Main Calendar Grid */}
-        <div className="flex-1 bg-white border-3 border-black brutalist-card-shadow rounded-none p-4 overflow-hidden flex flex-col [&_.k-scheduler]:!bg-white [&_.k-scheduler]:!border-none [&_.k-scheduler-toolbar]:!bg-gray-100 [&_.k-scheduler-toolbar]:!border-3 [&_.k-scheduler-toolbar]:!border-black [&_.k-scheduler-layout]:!text-black [&_.k-scheduler-header]:!bg-gray-100 [&_.k-scheduler-header]:!text-black [&_.k-event]:!bg-transparent [&_.k-event]:!border-none [&_.k-scheduler-content]:!bg-white [&_.k-scheduler-times]:!bg-white [&_.k-scheduler-times]:!text-black [&_.k-nav-current]:!text-black [&_.k-scheduler-table_td]:!border-black/20">
-          <Scheduler
-            data={data}
-            date={date}
-            onDateChange={(e) => setDate(e.value)}
-            onDataChange={handleDataChange}
-            item={CustomItem}
-            editable={true}
-            style={{ height: '100%', width: '100%' }}
-          >
-            <DayView startTime="08:00" endTime="18:00" />
-            <TimelineView startTime="08:00" endTime="18:00" />
-            <AgendaView />
-          </Scheduler>
+        {/* Main Calendar Grid -> Custom Timeline */}
+        <div className="flex-1 bg-white border-3 border-black brutalist-card-shadow rounded-none p-6 overflow-y-auto flex flex-col relative">
+          <h2 className="text-2xl font-bold font-headline-lg uppercase mb-8 text-black border-b-3 border-black pb-4">Today's Agenda</h2>
+          
+          <div className="relative pl-8 md:pl-0">
+            {/* Vertical Line */}
+            <div className="absolute top-0 bottom-0 left-4 md:left-1/2 w-1.5 bg-black -translate-x-1/2" />
+            
+            <div className="space-y-8">
+              {data.sort((a, b) => a.start.getTime() - b.start.getTime()).map((event, i) => (
+                <div key={event.id} className="relative flex flex-col md:flex-row md:items-center justify-between md:even:flex-row-reverse group">
+                  
+                  {/* Timeline Node */}
+                  <div className="absolute left-[-2rem] md:left-1/2 w-8 h-8 rounded-none border-3 border-black bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center font-bold text-black z-10 md:-translate-x-1/2 mt-4 md:mt-0">
+                    {i + 1}
+                  </div>
+                  
+                  {/* Event Card */}
+                  <div className={`w-full md:w-[calc(50%-3rem)] p-5 border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all ${event.priority === 'critical' ? 'bg-primary' : event.priority === 'high' ? 'bg-[#00ffff]' : 'bg-white'}`}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Clock className="w-5 h-5 text-black" />
+                      <span className="text-sm font-bold font-label-md uppercase text-black bg-white px-2 py-1 border-2 border-black">
+                        {event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
+                    <h3 className="font-bold font-headline-md text-black uppercase tracking-wider text-xl leading-tight mb-2">{event.title}</h3>
+                  </div>
+                  
+                  <div className="hidden md:block w-[calc(50%-3rem)]" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         
         {/* AI Copilot Side Panel */}

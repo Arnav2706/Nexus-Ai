@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, TrendingUp, AlertCircle, MessageSquare } from 'lucide-react';
-import { Grid, GridColumn } from '@progress/kendo-react-grid';
-import type { GridCellProps } from '@progress/kendo-react-grid';
-import { Chart, ChartSeries, ChartSeriesItem, ChartCategoryAxis, ChartCategoryAxisItem, ChartValueAxis, ChartValueAxisItem } from '@progress/kendo-react-charts';
-
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 const liveInsights = [
   { id: 1, type: 'trend', message: 'Generative AI workshop is trending. 150+ mentions in last hour.', time: '2m ago' },
   { id: 2, type: 'alert', message: 'Room B is nearing capacity for the Design Systems talk.', time: '5m ago' },
@@ -20,29 +17,6 @@ const engagementData = [
   { time: '14:00', value: 120 },
 ];
 
-const CustomCell = (props: GridCellProps) => {
-  const { dataItem } = props;
-  const getIcon = () => {
-    switch (dataItem.type) {
-      case 'trend': return <TrendingUp className="w-5 h-5 text-primary" />;
-      case 'alert': return <AlertCircle className="w-5 h-5 text-amber-500" />;
-      case 'feedback': return <MessageSquare className="w-5 h-5 text-accent" />;
-      default: return <Activity className="w-5 h-5 text-white" />;
-    }
-  };
-
-  return (
-    <td className="!border-b !border-white/5 !bg-transparent !py-4">
-      <div className="flex items-center gap-4">
-        <div className="p-2 rounded-lg bg-white/5">{getIcon()}</div>
-        <div>
-          <p className="text-white font-medium">{dataItem.message}</p>
-          <p className="text-xs text-gray-400 mt-1">{dataItem.time}</p>
-        </div>
-      </div>
-    </td>
-  );
-};
 
 export const InsightsPage: React.FC = () => {
   const [data, setData] = useState(engagementData);
@@ -69,53 +43,62 @@ export const InsightsPage: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-8"
     >
-      <header className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center border border-primary/30">
-          <Activity className="w-6 h-6 text-primary" />
-        </div>
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Real-Time Insight Feed</h1>
-          <p className="text-gray-400">Live analytics and event intelligence</p>
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 bg-white flex items-center justify-center border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <Activity className="w-6 h-6 text-black" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-black">Real-Time Insight Feed</h1>
+            <p className="text-primary font-bold font-label-md uppercase bg-black px-2 py-0.5 inline-block border-2 border-black">Live analytics and event intelligence</p>
+          </div>
         </div>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="glass-panel rounded-3xl p-6 relative overflow-hidden">
+        <div className="bg-white border-3 border-black brutalist-card-shadow rounded-none p-6 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-6 flex items-center gap-2">
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-error"></span>
             </span>
-            <span className="text-xs font-bold text-red-500 uppercase tracking-wider">Live</span>
+            <span className="text-xs font-bold text-error uppercase tracking-wider font-label-md border-2 border-error px-1">Live</span>
           </div>
 
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-primary" /> Conference Engagement
+          <h2 className="text-xl font-bold mb-6 flex items-center gap-2 font-headline-md uppercase text-black">
+            <TrendingUp className="w-5 h-5 text-black" /> Conference Engagement
           </h2>
 
           <div className="h-64 -ml-4">
-            <Chart style={{ height: '100%' }} className="[&_.k-chart-surface]:!bg-transparent">
-              <ChartCategoryAxis>
-                <ChartCategoryAxisItem categories={data.map(d => d.time)} labels={{ color: 'rgba(255,255,255,0.5)' }} majorGridLines={{ visible: false }} />
-              </ChartCategoryAxis>
-              <ChartValueAxis>
-                <ChartValueAxisItem labels={{ color: 'rgba(255,255,255,0.5)' }} majorGridLines={{ color: 'rgba(255,255,255,0.05)' }} />
-              </ChartValueAxis>
-              <ChartSeries>
-                <ChartSeriesItem type="area" data={data.map(d => d.value)} color="#c8f135" line={{ style: "smooth" }} opacity={0.3} />
-              </ChartSeries>
-            </Chart>
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" vertical={false} />
+                <XAxis dataKey="time" stroke="#000" tick={{ fill: '#000', fontWeight: 'bold', fontSize: 12, fontFamily: 'JetBrains Mono' }} />
+                <YAxis stroke="#000" tick={{ fill: '#000', fontWeight: 'bold', fontSize: 12, fontFamily: 'JetBrains Mono' }} />
+                <Area type="monotone" dataKey="value" stroke="#000" strokeWidth={3} fill="#a9f131" fillOpacity={1} />
+              </AreaChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="glass-panel rounded-3xl p-6">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            <Activity className="w-5 h-5 text-accent" /> Intelligence Feed
+        <div className="bg-white border-3 border-black brutalist-card-shadow rounded-none p-6">
+          <h2 className="text-xl font-bold mb-6 flex items-center gap-2 font-headline-md uppercase text-black">
+            <Activity className="w-5 h-5 text-black" /> Intelligence Feed
           </h2>
-          <div className="[&_.k-grid]:!bg-transparent [&_.k-grid]:!border-none [&_.k-grid-header]:!hidden [&_.k-grid-content]:!overflow-hidden">
-            <Grid data={liveInsights}>
-              <GridColumn field="message" cells={{ data: CustomCell }} />
-            </Grid>
+          <div className="space-y-4">
+            {liveInsights.map(insight => (
+              <div key={insight.id} className="flex items-start gap-4 p-4 border-3 border-black hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer">
+                <div className={`p-2 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] bg-white`}>
+                  {insight.type === 'trend' && <TrendingUp className="w-5 h-5 text-black" />}
+                  {insight.type === 'alert' && <AlertCircle className="w-5 h-5 text-black" />}
+                  {insight.type === 'feedback' && <MessageSquare className="w-5 h-5 text-black" />}
+                </div>
+                <div>
+                  <p className="text-black font-bold font-body-md leading-tight mb-1">{insight.message}</p>
+                  <p className="text-xs font-bold font-label-md uppercase tracking-wider text-gray-500">{insight.time}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

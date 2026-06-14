@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles } from 'lucide-react';
-import { Chat } from '@progress/kendo-react-conversational-ui';
+import { Send } from 'lucide-react';
 
 const MY_ID = 1;
 const BOT_ID = 0;
@@ -20,14 +20,22 @@ export const FloatingAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<any[]>(initialMessages);
 
-  const handleSend = (event: any) => {
+  const [inputText, setInputText] = useState('');
+
+  const handleSend = () => {
+    if (!inputText.trim()) return;
+    
     const userMsg = {
-      ...event.message,
       authorId: MY_ID,
       author: { id: MY_ID, name: 'You' },
+      text: inputText,
+      timestamp: new Date(),
       id: messages.length,
     };
+    
     setMessages(prev => [...prev, userMsg]);
+    setInputText('');
+    
     setTimeout(() => {
       setMessages(prev => [
         ...prev,
@@ -40,6 +48,13 @@ export const FloatingAssistant: React.FC = () => {
         }
       ]);
     }, 900);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
   };
 
   return (
@@ -76,13 +91,32 @@ export const FloatingAssistant: React.FC = () => {
               </button>
             </div>
 
-            <div className="flex-1 overflow-hidden [&_.k-chat]:!border-none [&_.k-chat]:!bg-transparent [&_.k-message-box]:!bg-transparent">
-              <Chat
-                authorId={MY_ID}
-                messages={messages}
-                onSendMessage={handleSend}
-                style={{ height: '100%' }}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {messages.map((msg) => (
+                <div key={msg.id} className={`flex ${msg.authorId === MY_ID ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[80%] rounded-lg p-3 ${msg.authorId === MY_ID ? 'bg-primary text-black' : 'bg-white/10 text-white'}`}>
+                    <p className="text-xs font-bold mb-1 opacity-75">{msg.author.name}</p>
+                    <p className="text-sm">{msg.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="p-4 border-t border-white/10 bg-surface/50 backdrop-blur-xl flex gap-2">
+              <input 
+                type="text" 
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Type a message..."
+                className="flex-1 bg-white/5 border border-white/20 rounded-full px-4 py-2 text-white focus:outline-none focus:border-primary text-sm"
               />
+              <button 
+                onClick={handleSend}
+                className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0 hover:bg-primary/90 transition-colors"
+              >
+                <Send className="w-5 h-5 text-black" />
+              </button>
             </div>
           </motion.div>
         )}

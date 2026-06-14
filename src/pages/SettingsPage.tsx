@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Settings, User, Bell, Shield, ChevronRight } from 'lucide-react';
-import { Switch } from '@progress/kendo-react-inputs';
 import { useToast } from '../contexts/ToastContext';
 
 const settingsSections = [
@@ -88,12 +87,19 @@ export const SettingsPage: React.FC = () => {
                   <p className="font-bold font-headline-md uppercase text-sm tracking-wider">{setting.label}</p>
                   <p className="text-xs font-bold font-body-md text-gray-700 mt-1">{setting.desc}</p>
                 </div>
-                <div className="border-2 border-black p-1 bg-white">
-                  <Switch
-                    checked={toggles[setting.id]}
-                    onChange={(e) => setToggles(prev => ({ ...prev, [setting.id]: e.value }))}
-                    className="[&_.k-switch-track]:!bg-gray-300 [&_.k-switch-track.k-checked]:!bg-black [&_.k-switch-thumb]:!bg-white [&_.k-switch-thumb]:!border-2 [&_.k-switch-thumb]:!border-black"
-                  />
+                <div className="border-3 border-black p-1 bg-white">
+                  <button
+                    onClick={() => setToggles(prev => ({ ...prev, [setting.id]: !prev[setting.id] }))}
+                    className={`relative inline-flex h-8 w-14 items-center border-2 border-black transition-colors ${
+                      toggles[setting.id] ? 'bg-[#a9f131]' : 'bg-gray-300'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-6 w-6 transform bg-white border-2 border-black transition-transform ${
+                        toggles[setting.id] ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
                 </div>
               </div>
             ))}
