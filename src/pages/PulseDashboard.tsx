@@ -129,6 +129,40 @@ export const PulseDashboard: React.FC = () => {
             </motion.div>
           ))}
         </div>
+          <div className="bg-white border-3 border-black brutalist-card-shadow rounded-none p-5 text-black">
+            <h3 className="font-bold font-headline-md uppercase tracking-wider mb-4 border-b-2 border-black pb-2">AI Sentiment Analysis</h3>
+            <div className="space-y-3">
+              <div>
+                <div className="flex justify-between text-xs font-bold uppercase mb-1">
+                  <span>Positive</span>
+                  <span>78%</span>
+                </div>
+                <div className="h-2 w-full bg-gray-200 border-2 border-black relative">
+                  <div className="absolute top-0 left-0 h-full bg-[#a9f131]" style={{ width: '78%' }} />
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-xs font-bold uppercase mb-1">
+                  <span>Neutral</span>
+                  <span>15%</span>
+                </div>
+                <div className="h-2 w-full bg-gray-200 border-2 border-black relative">
+                  <div className="absolute top-0 left-0 h-full bg-[#00ffff]" style={{ width: '15%' }} />
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-xs font-bold uppercase mb-1">
+                  <span>Critical</span>
+                  <span>7%</span>
+                </div>
+                <div className="h-2 w-full bg-gray-200 border-2 border-black relative">
+                  <div className="absolute top-0 left-0 h-full bg-[#ff00ff]" style={{ width: '7%' }} />
+                </div>
+              </div>
+            </div>
+            <p className="text-xs font-bold text-gray-900 mt-4 italic font-body-md">"Attendees are highly praising the seamless registration and networking features."</p>
+          </div>
+        </div>
       </div>
     </motion.div>
   );

@@ -127,5 +127,35 @@ export const AICopilot: React.FC = () => {
         ))}
       </div>
     </div>
+      
+      {/* Copilot Chat Interface */}
+      <div className="mt-8 bg-white border-3 border-black brutalist-card-shadow p-6">
+        <div className="flex items-center gap-3 mb-4 pb-4 border-b-3 border-black">
+          <Sparkles className="w-5 h-5 text-black" />
+          <h3 className="text-xl font-bold font-headline-md uppercase tracking-wider text-black">Ask Copilot</h3>
+        </div>
+        
+        <div className="space-y-4 mb-4">
+          <div className="bg-gray-100 p-4 border-2 border-black inline-block max-w-[80%]">
+            <p className="text-sm font-bold text-black font-body-md">Based on your schedule, you have a free block from 2:00 PM to 3:30 PM. Would you like me to suggest some networking opportunities or quick sessions?</p>
+          </div>
+        </div>
+
+        <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
+          {["Find similar attendees", "Summarize Keynote", "Suggest next session"].map(suggestion => (
+            <button key={suggestion} className="px-3 py-1.5 bg-white border-2 border-black text-xs font-bold uppercase whitespace-nowrap hover:bg-[#a9f131] transition-colors">
+              {suggestion}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <input type="text" placeholder="Type your request here..." className="flex-1 bg-white border-3 border-black p-3 font-bold font-body-md outline-none focus:ring-2 focus:ring-[#a9f131]" />
+          <button className="bg-black text-white p-3 border-3 border-black hover:bg-[#a9f131] hover:text-black transition-colors flex items-center justify-center">
+            <ArrowRight className="w-6 h-6" />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };

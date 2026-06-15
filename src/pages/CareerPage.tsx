@@ -93,6 +93,43 @@ export const CareerPage: React.FC = () => {
           </table>
         </div>
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white border-3 border-black brutalist-card-shadow p-6">
+          <div className="flex items-center gap-3 mb-4 pb-4 border-b-3 border-black">
+            <Target className="w-5 h-5 text-black" />
+            <h3 className="text-xl font-bold font-headline-md uppercase tracking-wider text-black">AI Resume Analyzer</h3>
+          </div>
+          <div className="space-y-4">
+            <div className="bg-gray-100 p-4 border-2 border-black border-dashed flex flex-col items-center justify-center py-8">
+              <Briefcase className="w-8 h-8 text-gray-500 mb-2" />
+              <p className="font-bold text-gray-900 font-body-md text-center">Drag and drop your latest resume (PDF)</p>
+              <button className="mt-4 bg-black text-white px-4 py-2 font-bold uppercase text-xs border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-colors">Upload Resume</button>
+            </div>
+            <div className="bg-[#a9f131] p-3 border-2 border-black">
+              <p className="font-bold text-sm text-black">Current Resume Score: 85/100</p>
+              <p className="text-xs text-black font-body-md mt-1">Suggested improvement: Quantify impact in your latest role at TechCorp.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white border-3 border-black brutalist-card-shadow p-6">
+          <div className="flex items-center gap-3 mb-4 pb-4 border-b-3 border-black">
+            <Star className="w-5 h-5 text-black" />
+            <h3 className="text-xl font-bold font-headline-md uppercase tracking-wider text-black">Mock Interview Prep</h3>
+          </div>
+          <div className="space-y-4">
+            <p className="text-sm font-bold text-gray-900 leading-relaxed">Practice with our conversational AI agent tuned to your target roles. Get real-time feedback on your answers, tone, and pacing.</p>
+            <div className="space-y-2">
+              {['System Design (Staff Engineer)', 'Behavioral (All Roles)', 'Product Sense (PM)'].map((topic, i) => (
+                <div key={i} className="flex items-center justify-between p-3 border-2 border-black bg-white hover:bg-gray-100 cursor-pointer transition-colors">
+                  <span className="font-bold text-black uppercase text-xs">{topic}</span>
+                  <button className="bg-black text-white px-3 py-1 text-xs font-bold uppercase hover:bg-[#ff00ff] hover:text-black transition-colors border-2 border-black">Start</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 };
