@@ -12,6 +12,7 @@ import { CareerPage } from './pages/CareerPage';
 import { PulseDashboard } from './pages/PulseDashboard';
 import { WowFeatures } from './pages/WowFeatures';
 import { SettingsPage } from './pages/SettingsPage';
+import { IntegrationsPage } from './pages/IntegrationsPage';
 import { AchievementsPage } from './pages/AchievementsPage';
 
 import './index.css';
@@ -36,6 +37,7 @@ function App() {
             <Route path="pulse" element={<PulseDashboard />} />
             <Route path="wow" element={<WowFeatures />} />
             <Route path="achievements" element={<AchievementsPage />} />
+            <Route path="integrations" element={<IntegrationsPage />} />
             <Route path="settings" element={<SettingsPage />} />
           </Route>
         </Routes>
