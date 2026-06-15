@@ -123,7 +123,7 @@ export const NotificationPanel: React.FC = () => {
                           <p className="font-bold font-headline-md uppercase tracking-wider text-sm leading-snug group-hover:text-white text-black">{notif.title}</p>
                           {!notif.read && <span className="w-2 h-2 border-2 border-black rounded-none bg-primary shrink-0" />}
                         </div>
-                        <p className="text-xs font-bold font-body-md text-gray-700 group-hover:text-gray-300 mt-1 leading-relaxed">{notif.body}</p>
+                        <p className="text-xs font-bold font-body-md text-gray-900 group-hover:text-gray-300 mt-1 leading-relaxed">{notif.body}</p>
                         <p className="text-xs font-bold font-label-sm uppercase text-black group-hover:text-white mt-1">{notif.time}</p>
                       </div>
                       <button

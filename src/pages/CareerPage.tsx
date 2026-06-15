@@ -24,7 +24,7 @@ export const CareerPage: React.FC = () => {
             <Briefcase className="w-6 h-6 text-black" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-black">Career Accelerator</h1>
+            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-on-background">Career Accelerator</h1>
             <p className="text-primary font-bold font-label-md uppercase bg-black px-2 py-0.5 inline-block border-2 border-black">AI-curated opportunities</p>
           </div>
         </div>

@@ -79,7 +79,7 @@ export const AchievementsPage: React.FC = () => {
               <badge.icon className="w-8 h-8 text-black" />
             </div>
             <h3 className="text-xl font-bold font-headline-lg uppercase text-black mb-2 tracking-wider">{badge.name}</h3>
-            <p className="text-sm font-bold font-body-md text-gray-700 mb-4">{badge.desc}</p>
+            <p className="text-sm font-bold font-body-md text-gray-900 mb-4">{badge.desc}</p>
             
             {!badge.earned && badge.progress !== undefined && (
               <div>

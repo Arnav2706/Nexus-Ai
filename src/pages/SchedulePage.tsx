@@ -120,7 +120,7 @@ END:VCALENDAR`;
             <Clock className="w-6 h-6 text-black" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-black">Smart Schedule</h1>
+            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-on-background">Smart Schedule</h1>
             <p className="text-primary font-bold font-label-md uppercase bg-black text-primary px-2 py-0.5 inline-block border-2 border-black">AI-optimized agenda</p>
           </div>
         </div>
@@ -188,14 +188,14 @@ END:VCALENDAR`;
             <div className="bg-white border-3 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer" onClick={() => addToast('Added to schedule', 'success')}>
               <p className="text-xs font-bold font-label-md text-black uppercase bg-primary inline-block px-1 border-2 border-black mb-2">Recommendation</p>
               <h3 className="font-bold font-headline-md text-black uppercase mb-1">Tech Founders Meetup</h3>
-              <p className="text-xs font-bold text-gray-700">14:00 - 15:00 • Hall A</p>
+              <p className="text-xs font-bold text-gray-900">14:00 - 15:00 • Hall A</p>
               <p className="text-xs text-black mt-2 font-bold">Matches 3 of your target investors.</p>
             </div>
             
             <div className="bg-white border-3 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer" onClick={() => addToast('Added to schedule', 'success')}>
               <p className="text-xs font-bold font-label-md text-black uppercase bg-[#00ffff] inline-block px-1 border-2 border-black mb-2">High Value</p>
               <h3 className="font-bold font-headline-md text-black uppercase mb-1">LLM Architecture Deep Dive</h3>
-              <p className="text-xs font-bold text-gray-700">16:00 - 17:30 • Room 302</p>
+              <p className="text-xs font-bold text-gray-900">16:00 - 17:30 • Room 302</p>
               <p className="text-xs text-black mt-2 font-bold">Based on your interest in Generative AI.</p>
             </div>
           </div>

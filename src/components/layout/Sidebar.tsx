@@ -41,7 +41,7 @@ export const Sidebar: React.FC = () => {
               `flex items-center gap-3 px-4 py-3 font-bold font-headline-md transition-all duration-200 border-3 ${
                 isActive 
                   ? 'bg-primary text-black border-black brutalist-card-shadow' 
-                  : 'text-gray-600 border-transparent hover:text-black hover:border-black hover:bg-gray-100'
+                  : 'text-black border-transparent hover:text-black hover:border-black hover:bg-primary'
               }`
             }
           >

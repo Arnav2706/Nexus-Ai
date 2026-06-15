@@ -92,7 +92,7 @@ export const WowFeatures: React.FC = () => {
 
             <h3 className="text-2xl font-bold font-headline-lg uppercase text-black mb-3">{card.title}</h3>
             <p className="text-base font-bold font-headline-md text-black mb-4 leading-snug bg-gray-100 p-3 border-2 border-black">{card.subtitle}</p>
-            <p className="text-sm font-bold font-body-md text-gray-700 leading-relaxed">{card.description}</p>
+            <p className="text-sm font-bold font-body-md text-gray-900 leading-relaxed">{card.description}</p>
           </motion.div>
         ))}
       </div>

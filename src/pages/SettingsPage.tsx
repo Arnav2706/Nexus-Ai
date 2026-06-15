@@ -85,7 +85,7 @@ export const SettingsPage: React.FC = () => {
               >
                 <div>
                   <p className="font-bold font-headline-md uppercase text-sm tracking-wider">{setting.label}</p>
-                  <p className="text-xs font-bold font-body-md text-gray-700 mt-1">{setting.desc}</p>
+                  <p className="text-xs font-bold font-body-md text-gray-900 mt-1">{setting.desc}</p>
                 </div>
                 <div className="border-3 border-black p-1 bg-white">
                   <button
@@ -127,7 +127,7 @@ export const SettingsPage: React.FC = () => {
           <div className="flex-1">
             <p className="text-xl font-bold font-headline-md uppercase tracking-wider">Alex Jensen</p>
             <p className="text-black font-bold font-label-md uppercase bg-primary inline-block px-2 py-1 border-2 border-black mt-2">Full-Stack Developer & AI Enthusiast</p>
-            <p className="text-gray-700 text-xs font-bold font-body-md mt-2 uppercase tracking-wider">San Francisco, CA · Pro Attendee</p>
+            <p className="text-gray-900 text-xs font-bold font-body-md mt-2 uppercase tracking-wider">San Francisco, CA · Pro Attendee</p>
           </div>
           <button onClick={() => addToast('Feature in development', 'warning')} className="flex items-center gap-2 px-6 py-3 bg-white border-3 border-black hover:bg-black hover:text-white font-bold font-headline-md uppercase text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
             Edit <ChevronRight className="w-5 h-5" />

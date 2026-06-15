@@ -49,7 +49,7 @@ export const InsightsPage: React.FC = () => {
             <Activity className="w-6 h-6 text-black" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-black">Real-Time Insight Feed</h1>
+            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-on-background">Real-Time Insight Feed</h1>
             <p className="text-primary font-bold font-label-md uppercase bg-black px-2 py-0.5 inline-block border-2 border-black">Live analytics and event intelligence</p>
           </div>
         </div>
@@ -95,7 +95,7 @@ export const InsightsPage: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-black font-bold font-body-md leading-tight mb-1">{insight.message}</p>
-                  <p className="text-xs font-bold font-label-md uppercase tracking-wider text-gray-500">{insight.time}</p>
+                  <p className="text-xs font-bold font-label-md uppercase tracking-wider text-gray-900">{insight.time}</p>
                 </div>
               </div>
             ))}

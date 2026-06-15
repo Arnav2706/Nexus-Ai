@@ -23,7 +23,7 @@ export const MemoryPage: React.FC = () => {
             <Zap className="w-6 h-6 text-black" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-black">Post-Event Memory Engine</h1>
+            <h1 className="text-3xl font-bold font-headline-lg uppercase tracking-wider text-on-background">Post-Event Memory Engine</h1>
             <p className="text-primary font-bold font-label-md uppercase bg-black px-2 py-0.5 inline-block border-2 border-black">Your personalized knowledge report</p>
           </div>
         </div>
