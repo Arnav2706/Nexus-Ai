@@ -86,6 +86,47 @@ export const MemoryPage: React.FC = () => {
           </div>
 
         </div>
+
+          <div className="space-y-6 mt-12 border-t-3 border-black pt-8">
+            <h3 className="text-2xl font-bold font-headline-lg uppercase flex items-center gap-2 border-b-3 border-black pb-4 text-black">
+              AI-Generated Follow-ups
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white border-3 border-black p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-bold text-sm uppercase bg-black text-white px-2 py-1">To: Sarah Chen</span>
+                  <button className="text-xs font-bold uppercase border-2 border-black px-2 py-1 hover:bg-[#a9f131] transition-colors">Copy</button>
+                </div>
+                <div className="bg-gray-100 p-4 border-2 border-black flex-1">
+                  <p className="font-body-md text-sm text-gray-900 whitespace-pre-wrap font-bold">
+                    Hi Sarah,
+                    {"\n\n"}
+                    Great meeting you at the Generative AI workshop! I'd love to continue our discussion on the healthcare application collaboration we mentioned.
+                    {"\n\n"}
+                    Best, Alex
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white border-3 border-black p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-bold text-sm uppercase bg-black text-white px-2 py-1">To: Mark Chen</span>
+                  <button className="text-xs font-bold uppercase border-2 border-black px-2 py-1 hover:bg-[#a9f131] transition-colors">Copy</button>
+                </div>
+                <div className="bg-gray-100 p-4 border-2 border-black flex-1">
+                  <p className="font-body-md text-sm text-gray-900 whitespace-pre-wrap font-bold">
+                    Mark,
+                    {"\n\n"}
+                    Enjoyed our quick chat at the networking session. Attaching my portfolio as promised. Let me know when you have 15 mins to connect next week.
+                    {"\n\n"}
+                    Cheers, Alex
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
     </motion.div>
   );
 };

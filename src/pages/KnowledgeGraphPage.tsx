@@ -208,6 +208,22 @@ export const KnowledgeGraphPage: React.FC = () => {
             </div>
           ))}
         </div>
+
+        {/* Selected Node Panel */}
+        {hoveredNode && graphNodes.find(n => n.id === hoveredNode)?.type !== 'self' && (
+          <div className="absolute top-4 right-4 w-64 bg-white border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-4 text-black z-20 pointer-events-none">
+            <h3 className="text-lg font-bold font-headline-md uppercase mb-2 border-b-2 border-black pb-2">
+              {graphNodes.find(n => n.id === hoveredNode)?.label}
+            </h3>
+            <div className="space-y-2">
+              <p className="text-xs font-bold text-gray-900 uppercase">Type: {graphNodes.find(n => n.id === hoveredNode)?.type}</p>
+              <p className="text-xs font-bold text-black bg-[#a9f131] border-2 border-black inline-block px-1">Relevance: High</p>
+              <p className="text-xs font-bold font-body-md text-gray-900 mt-2 leading-relaxed">
+                This entity shares strong structural similarity with your background in AI and software engineering.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       <Modal
