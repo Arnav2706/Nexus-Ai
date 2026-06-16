@@ -126,7 +126,6 @@ export const AICopilot: React.FC = () => {
           </motion.div>
         ))}
       </div>
-    </div>
       
       {/* Copilot Chat Interface */}
       <div className="mt-8 bg-white border-3 border-black brutalist-card-shadow p-6">

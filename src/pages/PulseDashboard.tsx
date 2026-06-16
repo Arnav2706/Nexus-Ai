@@ -163,7 +163,6 @@ export const PulseDashboard: React.FC = () => {
             <p className="text-xs font-bold text-gray-900 mt-4 italic font-body-md">"Attendees are highly praising the seamless registration and networking features."</p>
           </div>
         </div>
-      </div>
     </motion.div>
   );
 };

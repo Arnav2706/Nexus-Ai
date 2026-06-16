@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Blocks, Github, Linkedin, Slack, Database, Link as LinkIcon, Cpu, Zap, Lock } from 'lucide-react';
+import { Blocks, Code, Users, MessageCircle, Database, Link as LinkIcon, Cpu, Zap, Lock } from 'lucide-react';
 
 const integrations = [
-  { id: 'linkedin', name: 'LinkedIn', desc: 'Sync professional profile and connections', icon: Linkedin, status: 'Connected', color: 'bg-[#0077b5]' },
-  { id: 'github', name: 'GitHub', desc: 'Import repositories for tech matching', icon: Github, status: 'Connected', color: 'bg-[#333]' },
-  { id: 'slack', name: 'Slack', desc: 'Receive real-time event notifications', icon: Slack, status: 'Available', color: 'bg-[#e01e5a]' },
+  { id: 'linkedin', name: 'LinkedIn', desc: 'Sync professional profile and connections', icon: Users, status: 'Connected', color: 'bg-[#0077b5]' },
+  { id: 'github', name: 'GitHub', desc: 'Import repositories for tech matching', icon: Code, status: 'Connected', color: 'bg-[#333]' },
+  { id: 'slack', name: 'Slack', desc: 'Receive real-time event notifications', icon: MessageCircle, status: 'Available', color: 'bg-[#e01e5a]' },
   { id: 'salesforce', name: 'Salesforce CRM', desc: 'Export leads and warm connections', icon: Database, status: 'Available', color: 'bg-[#00a1e0]' }
 ];
 

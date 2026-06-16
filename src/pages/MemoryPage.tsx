@@ -123,10 +123,8 @@ export const MemoryPage: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-
         </div>
+      </div>
     </motion.div>
   );
 };
