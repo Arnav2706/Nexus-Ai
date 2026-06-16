@@ -27,7 +27,7 @@ const DEFAULT_RECOMMENDATIONS = [
 
 export const AICopilot: React.FC = () => {
   const navigate = useNavigate();
-  const [recommendations, setRecommendations] = React.useState(DEFAULT_RECOMMENDATIONS);
+  const [recommendations] = React.useState(DEFAULT_RECOMMENDATIONS);
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
