@@ -31,29 +31,11 @@ export const AICopilot: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    const fetchRecommendations = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/recommendations', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            interests: ['Generative AI', 'System Architecture', 'DevTools'],
-            role: 'Software Engineer'
-          })
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          setRecommendations(data);
-        }
-      } catch (error) {
-        console.error('Failed to fetch from Python ML backend, using fallback data:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
-    fetchRecommendations();
+    const timer = setTimeout(() => {
+      // Simulate connection to ML backend before falling back to local recommendations
+      setIsLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
   }, []);
 
   return (

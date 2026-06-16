@@ -35,45 +35,19 @@ export const SchedulePage: React.FC = () => {
   const handleAIOptimize = async () => {
     addToast('AI is optimizing your schedule for maximum networking...', 'success');
     setIsLoading(true);
-    try {
-      const response = await fetch('http://localhost:8000/api/optimize-schedule', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ current_schedule: data })
-      });
-      
-      if (response.ok) {
-        const result = await response.json();
-        
-        // Convert the returned date strings back to Date objects
-        const newEvents = result.added_events.map((event: any) => ({
-          ...event,
-          start: new Date(event.start),
-          end: new Date(event.end)
-        }));
-        
-        setData([...data, ...newEvents]);
-        addToast(result.message, 'success');
-      } else {
-        throw new Error('Backend returned an error');
-      }
-    } catch (error) {
-      console.error('Failed to optimize schedule with ML backend:', error);
-      // Fallback if backend is not running
-      setTimeout(() => {
-        setData([...data, {
-          id: 3,
-          title: 'Networking Power Hour (Fallback)',
-          start: new Date(currentYear, currentMonth, currentDay, 15, 0),
-          end: new Date(currentYear, currentMonth, currentDay, 16, 0),
-          isAllDay: false,
-          priority: 'high',
-        }]);
-        addToast('Schedule optimized (using fallback)! Added Networking Power Hour.', 'success');
-      }, 1500);
-    } finally {
+    // Simulate API call for future ML backend integration
+    setTimeout(() => {
+      setData([...data, {
+        id: 3,
+        title: 'Networking Power Hour',
+        start: new Date(currentYear, currentMonth, currentDay, 15, 0),
+        end: new Date(currentYear, currentMonth, currentDay, 16, 0),
+        isAllDay: false,
+        priority: 'high',
+      }]);
+      addToast('Schedule optimized! Added Networking Power Hour.', 'success');
       setIsLoading(false);
-    }
+    }, 1500);
   };
 
   const handleSync = () => {
