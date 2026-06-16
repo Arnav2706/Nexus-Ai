@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { ShaderBackground } from './ShaderBackground';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FloatingAssistant } from '../chat/FloatingAssistant';
 import { NotificationPanel } from './NotificationPanel';
-import { Search, AlertTriangle } from 'lucide-react';
+import { Search, AlertTriangle, Menu } from 'lucide-react';
 import { CustomCursor } from '../ui/CustomCursor';
 
 export const AppLayout: React.FC = () => {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Aggressively remove Kendo UI watermarks that overlap components
@@ -35,11 +36,16 @@ export const AppLayout: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
   return (
     <div className="flex h-screen bg-background text-on-background overflow-hidden font-body-md selection:bg-primary selection:text-on-primary">
       <CustomCursor />
       <ShaderBackground />
-      <Sidebar />
+      <Sidebar isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
       <div className="flex-1 flex flex-col relative z-10 overflow-hidden">
         {/* Beta Banner */}
         <div className="bg-primary text-black font-bold font-label-md uppercase tracking-widest text-center py-2 border-b-3 border-black flex items-center justify-center gap-2 shrink-0">
@@ -47,9 +53,15 @@ export const AppLayout: React.FC = () => {
           <span>Nexus AI is currently in Beta. More features coming soon.</span>
         </div>
         {/* Top Bar */}
-        <header className="shrink-0 flex items-center justify-between px-8 py-4 border-b-3 border-black bg-surface">
+        <header className="shrink-0 flex items-center justify-between px-4 md:px-8 py-4 border-b-3 border-black bg-surface">
           <div className="flex items-center gap-3 flex-1 max-w-sm">
-            <div className="relative w-full">
+            <button 
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="md:hidden flex items-center justify-center p-2 bg-white border-3 border-black text-black hover:bg-primary transition-colors"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <div className="relative w-full hidden sm:block">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface-variant" />
               <input
                 type="text"
@@ -68,7 +80,7 @@ export const AppLayout: React.FC = () => {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto overflow-x-hidden p-8">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}

@@ -33,7 +33,7 @@ export const PulseDashboard: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-8"
     >
-      <header className="flex items-center gap-4 mb-8">
+      <header className="flex flex-col md:flex-row md:items-center gap-4 mb-8">
         <div className="w-12 h-12 bg-white flex items-center justify-center border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
           <Flame className="w-6 h-6 text-black" />
         </div>
@@ -81,11 +81,11 @@ export const PulseDashboard: React.FC = () => {
                 initial={{ opacity: 0, x: -20, height: 0 }}
                 animate={{ opacity: 1, x: 0, height: 'auto' }}
                 transition={{ delay: i * 0.05 }}
-                className="flex items-center gap-4 p-3 bg-gray-100 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] transition-all"
+                className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-4 p-3 bg-gray-100 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[0px_0px_0px_0px_rgba(0,0,0,1)] transition-all"
               >
                 {t.hot ? <Flame className="w-5 h-5 text-black shrink-0 fill-primary" /> : <div className="w-5 h-5" />}
-                <span className="font-bold font-headline-md uppercase text-black flex-1">{t.topic}</span>
-                <div className="flex-1 h-4 bg-white border-2 border-black rounded-none overflow-hidden relative">
+                <span className="font-bold font-headline-md uppercase text-black flex-1 min-w-[120px]">{t.topic}</span>
+                <div className="flex-1 min-w-[100px] h-4 bg-white border-2 border-black rounded-none overflow-hidden relative">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${(t.mentions / 340) * 100}%` }}

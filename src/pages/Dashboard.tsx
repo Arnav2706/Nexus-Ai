@@ -25,7 +25,7 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <header className="flex justify-between items-end">
+      <header className="flex flex-col md:flex-row justify-between md:items-end gap-4">
         <div>
           <h1 className="text-4xl font-bold font-headline-lg tracking-tight mb-2 text-on-background">Welcome to Nexus</h1>
           <p className="text-on-surface-variant font-body-md">Your personal AI copilot for the conference.</p>

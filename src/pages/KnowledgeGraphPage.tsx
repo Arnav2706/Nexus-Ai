@@ -62,7 +62,7 @@ export const KnowledgeGraphPage: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-8 h-full flex flex-col"
     >
-      <header className="flex justify-between items-end shrink-0">
+      <header className="flex flex-col sm:flex-row justify-between sm:items-end gap-4 shrink-0">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-white flex items-center justify-center border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-black">
             <Network className="w-6 h-6" />
@@ -72,7 +72,7 @@ export const KnowledgeGraphPage: React.FC = () => {
             <p className="text-primary font-bold font-label-md uppercase">Discover hidden connections in conference topics</p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button 
             onClick={() => setIsShareOpen(true)}
             className="bg-white border-3 border-black px-4 py-2 text-black text-sm font-bold font-headline-md uppercase tracking-wider flex items-center gap-2 hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-colors"
@@ -211,7 +211,7 @@ export const KnowledgeGraphPage: React.FC = () => {
 
         {/* Selected Node Panel */}
         {hoveredNode && graphNodes.find(n => n.id === hoveredNode)?.type !== 'self' && (
-          <div className="absolute top-4 right-4 w-64 bg-white border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-4 text-black z-20 pointer-events-none">
+          <div className="absolute top-4 right-4 left-4 sm:left-auto sm:w-64 bg-white border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-4 text-black z-20 pointer-events-none">
             <h3 className="text-lg font-bold font-headline-md uppercase mb-2 border-b-2 border-black pb-2">
               {graphNodes.find(n => n.id === hoveredNode)?.label}
             </h3>

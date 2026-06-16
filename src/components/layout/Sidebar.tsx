@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Calendar, Users, Activity, Settings, Cpu, MapPin, Zap, Network, Briefcase, Flame, Lightbulb, Medal, Blocks } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, Users, Activity, Settings, Cpu, MapPin, Zap, Network, Briefcase, Flame, Lightbulb, Medal, Blocks, X } from 'lucide-react';
 
 const navItems = [
   { name: 'Copilot', path: '/', icon: Cpu },
@@ -19,19 +19,40 @@ const navItems = [
   { name: 'Settings', path: '/settings', icon: Settings },
 ];
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
   return (
-    <motion.div 
-      initial={{ x: -280 }}
-      animate={{ x: 0 }}
-      className="w-64 h-screen border-r-3 border-black bg-white flex flex-col p-6 z-10 text-black overflow-y-auto"
-    >
-      <div className="flex items-center gap-3 mb-10 mt-2">
-        <div className="w-10 h-10 border-3 border-black bg-primary flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-          <Cpu className="text-black w-6 h-6" />
+    <>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm"
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.div 
+        className={`fixed inset-y-0 left-0 w-64 border-r-3 border-black bg-white flex flex-col p-6 z-50 text-black overflow-y-auto transform transition-transform duration-300 md:relative md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      >
+        <div className="flex items-center justify-between mb-10 mt-2">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 border-3 border-black bg-primary flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <Cpu className="text-black w-6 h-6" />
+            </div>
+            <h1 className="text-2xl font-bold font-headline-lg tracking-tight text-black uppercase">Nexus<span className="text-primary mix-blend-difference">AI</span></h1>
+          </div>
+          <button onClick={onClose} className="md:hidden p-2 -mr-2 text-black hover:text-primary transition-colors">
+            <X className="w-6 h-6" />
+          </button>
         </div>
-        <h1 className="text-2xl font-bold font-headline-lg tracking-tight text-black uppercase">Nexus<span className="text-primary mix-blend-difference">AI</span></h1>
-      </div>
 
       <nav className="flex-1 space-y-3">
         {navItems.map((item) => (
@@ -61,6 +82,7 @@ export const Sidebar: React.FC = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+      </motion.div>
+    </>
   );
 };
