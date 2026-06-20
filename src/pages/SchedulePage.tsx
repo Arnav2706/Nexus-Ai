@@ -30,6 +30,28 @@ export const SchedulePage: React.FC = () => {
   const { addToast } = useToast();
   const [data, setData] = useState(initialData);
 
+  React.useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch('/api/events');
+        if (res.ok) {
+          const apiData = await res.json();
+          if (apiData.length > 0) {
+            // Map string dates back to Date objects
+            setData(apiData.map((e: any) => ({
+              ...e,
+              start: new Date(e.start),
+              end: new Date(e.end)
+            })));
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch events from DynamoDB, using mock data");
+      }
+    };
+    fetchEvents();
+  }, []);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAIOptimize = async () => {
