@@ -25,3 +25,5 @@ dist-ssr
 
 # Custom Ignore
 stitch_web_ui_style_extractor/
+nexusai_accessKeys.csv
+*.csv
