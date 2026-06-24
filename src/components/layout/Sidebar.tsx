@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Users, Activity, Settings, Cpu, MapPin, Zap, Network, Briefcase, Flame, Lightbulb, Medal, Blocks, X } from 'lucide-react';
+import { Calendar, Users, Activity, Settings, Cpu, MapPin, Zap, Network, Briefcase, Flame, Lightbulb, Medal, Blocks, X, BarChart, Store, LogIn, LogOut } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 
 const navItems = [
   { name: 'Copilot', path: '/', icon: Cpu },
@@ -16,6 +17,8 @@ const navItems = [
   { name: 'WOW', path: '/wow', icon: Lightbulb },
   { name: 'Achievements', path: '/achievements', icon: Medal },
   { name: 'Integrations', path: '/integrations', icon: Blocks },
+  { name: 'Organizer ROI', path: '/organizer', icon: BarChart },
+  { name: 'Sponsor Portal', path: '/sponsor', icon: Store },
   { name: 'Settings', path: '/settings', icon: Settings },
 ];
 
@@ -25,6 +28,8 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
+  const { isAuthenticated, user, logout } = useAuth();
+  
   return (
     <>
       <AnimatePresence>
@@ -74,13 +79,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
       </nav>
 
       <div className="mt-8 pt-6 border-t-3 border-black">
-        <div className="flex items-center gap-3 px-4 py-3 bg-white border-3 border-black brutalist-card-shadow">
-          <div className="w-8 h-8 bg-primary border-2 border-black" />
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold font-headline-md text-black uppercase truncate tracking-wider">Alex Jensen</p>
-            <p className="text-xs font-bold font-label-md text-gray-500 uppercase truncate">Pro Attendee</p>
+        {isAuthenticated ? (
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 px-4 py-3 bg-white border-3 border-black brutalist-card-shadow">
+              <div className="w-8 h-8 bg-primary border-2 border-black flex items-center justify-center font-bold">{user?.name?.charAt(0) || 'A'}</div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold font-headline-md text-black uppercase truncate tracking-wider">{user?.name || 'Enterprise User'}</p>
+                <p className="text-xs font-bold font-label-md text-gray-500 uppercase truncate">Pro Attendee</p>
+              </div>
+            </div>
+            <button 
+              onClick={logout}
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black text-white font-bold font-headline-md uppercase tracking-wider hover:bg-nexus-accent hover:text-black transition-colors border-3 border-transparent"
+            >
+              <LogOut size={18} /> Logout
+            </button>
           </div>
-        </div>
+        ) : (
+          <NavLink 
+            to="/login"
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary text-black font-bold font-headline-md uppercase tracking-wider border-3 border-black brutalist-card-shadow hover:bg-black hover:text-white transition-colors"
+          >
+            <LogIn size={18} /> Apply for Access
+          </NavLink>
+        )}
       </div>
       </motion.div>
     </>
