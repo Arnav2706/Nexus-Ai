@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Download, Search, Star, Filter, UserPlus } from 'lucide-react';
+import { Download, Search, Star, Filter, UserPlus, X, Mail, Phone, Building } from 'lucide-react';
 
 interface Lead {
   id: string;
@@ -14,6 +14,7 @@ interface Lead {
 const SponsorPortal: React.FC = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
 
   useEffect(() => {
     const fetchLeads = async () => {
@@ -115,7 +116,10 @@ const SponsorPortal: React.FC = () => {
                       {new Date(lead.capturedAt).toLocaleDateString()}
                     </td>
                     <td className="p-4 text-right">
-                      <button className="text-sm font-bold text-nexus-accent hover:text-white uppercase tracking-wider transition-colors">
+                      <button 
+                        onClick={() => setSelectedLead(lead)}
+                        className="text-sm font-bold text-nexus-accent hover:text-white uppercase tracking-wider transition-colors"
+                      >
                         View Details
                       </button>
                     </td>
@@ -131,6 +135,50 @@ const SponsorPortal: React.FC = () => {
           </div>
         )}
       </div>
+
+      {selectedLead && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-nexus-card border-4 border-black w-full max-w-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-6 relative"
+          >
+            <button 
+              onClick={() => setSelectedLead(null)}
+              className="absolute top-4 right-4 text-nexus-gray hover:text-white"
+            >
+              <X size={24} />
+            </button>
+            <h2 className="text-3xl font-black text-white uppercase tracking-tight mb-2">{selectedLead.name}</h2>
+            <div className="flex items-center gap-2 mb-6 text-nexus-gray">
+              <Building size={16} /> <span className="font-medium uppercase">{selectedLead.role} @ {selectedLead.company}</span>
+            </div>
+            
+            <div className="space-y-4 mb-8">
+              <div className="bg-nexus-dark border-2 border-black p-4 flex items-center justify-between">
+                <span className="text-nexus-gray uppercase font-bold text-sm">AI Match Score</span>
+                <div className="flex items-center gap-2">
+                  <Star className={`${selectedLead.score > 90 ? 'text-nexus-accent fill-nexus-accent' : 'text-nexus-gray'}`} size={20} />
+                  <span className={`font-black text-xl ${selectedLead.score > 90 ? 'text-nexus-accent' : 'text-white'}`}>{selectedLead.score}/100</span>
+                </div>
+              </div>
+              <div className="bg-nexus-dark border-2 border-black p-4">
+                <p className="text-white text-sm">Captured on: {new Date(selectedLead.capturedAt).toLocaleString()}</p>
+                <p className="text-nexus-gray text-xs mt-2 uppercase font-bold tracking-wider">AWS DynamoDB Record ID: {selectedLead.id}</p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <button className="flex-1 bg-nexus-accent text-black border-2 border-black font-black py-3 uppercase tracking-wider hover:bg-white transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-y-1 hover:translate-x-1">
+                <Mail className="inline-block mr-2" size={18} /> Email Pitch
+              </button>
+              <button className="flex-1 bg-white text-black border-2 border-black font-black py-3 uppercase tracking-wider hover:bg-nexus-gray transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-y-1 hover:translate-x-1">
+                <Phone className="inline-block mr-2" size={18} /> Call
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };
