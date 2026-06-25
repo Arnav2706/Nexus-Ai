@@ -1,22 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Blocks, Code, Users, MessageCircle, Database, Link as LinkIcon, Cpu, Zap, Lock } from 'lucide-react';
+import { Blocks, Link as LinkIcon, Cpu, Zap, Lock } from 'lucide-react';
 
-const integrations = [
-  { id: 'linkedin', name: 'LinkedIn', desc: 'Sync professional profile and connections', icon: Users, status: 'Connected', color: 'bg-[#0077b5]' },
-  { id: 'github', name: 'GitHub', desc: 'Import repositories for tech matching', icon: Code, status: 'Connected', color: 'bg-[#333]' },
-  { id: 'slack', name: 'Slack', desc: 'Receive real-time event notifications', icon: MessageCircle, status: 'Available', color: 'bg-[#e01e5a]' },
-  { id: 'salesforce', name: 'Salesforce CRM', desc: 'Export leads and warm connections', icon: Database, status: 'Available', color: 'bg-[#00a1e0]' }
-];
-
-const models = [
-  { id: 'gpt4', name: 'Nexus Core (GPT-4)', desc: 'Primary reasoning engine', type: 'Cloud', active: true },
-  { id: 'claude', name: 'Nexus Context (Claude 3)', desc: 'Long-context document analysis', type: 'Cloud', active: false },
-  { id: 'llama', name: 'Nexus Local (Llama 3)', desc: 'On-device privacy-first mode', type: 'Local', active: false },
-  { id: 'custom', name: 'Custom Enterprise Model', desc: 'Bring your own fine-tuned model', type: 'Enterprise', active: false }
-];
+import * as Icons from 'lucide-react';
 
 export const IntegrationsPage: React.FC = () => {
+  const [integrations, setIntegrations] = React.useState<any[]>([]);
+  const [models, setModels] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    Promise.all([
+      fetch('/api/appData?type=integrations_apps').then(r => r.json()),
+      fetch('/api/appData?type=integrations_models').then(r => r.json())
+    ]).then(([appsData, modelsData]) => {
+      setIntegrations(appsData);
+      setModels(modelsData);
+    }).catch(err => console.error('Failed to fetch integrations data', err));
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -45,7 +46,10 @@ export const IntegrationsPage: React.FC = () => {
             {integrations.map((app) => (
               <div key={app.id} className="bg-white border-3 border-black p-4 brutalist-card-shadow flex items-center gap-4">
                 <div className={`w-12 h-12 ${app.color} border-2 border-black flex items-center justify-center text-white`}>
-                  <app.icon className="w-6 h-6" />
+                  {(() => {
+                    const Icon = Icons[app.icon as keyof typeof Icons] as any;
+                    return Icon ? <Icon className="w-6 h-6" /> : null;
+                  })()}
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-bold font-headline-md text-black uppercase">{app.name}</h3>

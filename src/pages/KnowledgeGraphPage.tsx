@@ -5,22 +5,7 @@ import { ParticleCanvas } from '../components/graph/ParticleCanvas';
 import { useToast } from '../contexts/ToastContext';
 import { Modal } from '../components/ui/Modal';
 
-const initialNodes = [
-  { id: 'llm', label: 'LLMs', x: 50, y: 40, type: 'topic', color: '#00ffff' },
-  { id: 'startups', label: 'Startups', x: 75, y: 30, type: 'topic', color: '#ff00ff' },
-  { id: 'sarah', label: 'Sarah Chen', x: 65, y: 60, type: 'person', color: '#000000' },
-  { id: 'healthcare', label: 'Healthcare AI', x: 30, y: 65, type: 'topic', color: '#a9f131' },
-  { id: 'david', label: 'David Miller', x: 80, y: 70, type: 'person', color: '#000000' },
-  { id: 'wasm', label: 'WebAssembly', x: 90, y: 45, type: 'topic', color: '#00ffff' },
-  { id: 'workshop', label: 'AI Workshop', x: 45, y: 25, type: 'session', color: '#ff00ff' },
-  { id: 'you', label: 'You', x: 55, y: 52, type: 'self', color: '#a9f131' },
-];
 
-const edges = [
-  ['you', 'llm'], ['you', 'startups'], ['you', 'sarah'], ['you', 'workshop'],
-  ['sarah', 'llm'], ['sarah', 'healthcare'], ['david', 'wasm'], ['you', 'david'],
-  ['workshop', 'llm'],
-];
 
 const typeToIcon: Record<string, string> = {
   topic: '●', person: '◆', session: '▲', self: '★',
@@ -31,10 +16,21 @@ export const KnowledgeGraphPage: React.FC = () => {
   const [zoom, setZoom] = useState(1);
   const { addToast } = useToast();
   
-  const [graphNodes, setGraphNodes] = useState(initialNodes);
+  const [graphNodes, setGraphNodes] = useState<any[]>([]);
+  const [edges, setEdges] = useState<any[]>([]);
   const [isClustering, setIsClustering] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  React.useEffect(() => {
+    Promise.all([
+      fetch('/api/appData?type=graph_nodes').then(r => r.json()),
+      fetch('/api/appData?type=graph_edges').then(r => r.json())
+    ]).then(([nodesData, edgesData]) => {
+      setGraphNodes(nodesData);
+      setEdges(edgesData);
+    }).catch(err => console.error('Failed to fetch graph data', err));
+  }, []);
 
   const handleAutoCluster = () => {
     setIsClustering(true);

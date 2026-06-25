@@ -3,17 +3,25 @@ import { motion } from 'framer-motion';
 import { Flame, TrendingUp, MessageSquare, Users, Heart, ChevronRight } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-const trendingTopics = [
-  { topic: 'Generative AI', mentions: 340, delta: '+22%', hot: true },
-  { topic: 'LLM Fine-tuning', mentions: 210, delta: '+18%', hot: true },
-  { topic: 'Developer Experience', mentions: 132, delta: '+14%', hot: false },
-];
-
-const engagementScores = [72, 84, 95, 88, 91, 78, 96];
-const categories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-const engagementData = categories.map((cat, i) => ({ name: cat, value: engagementScores[i] }));
 
 export const PulseDashboard: React.FC = () => {
+  const [trendingTopics, setTrendingTopics] = React.useState<any[]>([]);
+  const [engagementScores, setEngagementScores] = React.useState<any[]>([]);
+  const [categories, setCategories] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    Promise.all([
+      fetch('/api/appData?type=pulse_trending').then(r => r.json()),
+      fetch('/api/appData?type=pulse_scores').then(r => r.json()),
+      fetch('/api/appData?type=pulse_categories').then(r => r.json())
+    ]).then(([trending, scores, cats]) => {
+      setTrendingTopics(trending);
+      setEngagementScores(scores);
+      setCategories(cats);
+    }).catch(err => console.error('Failed to fetch pulse data', err));
+  }, []);
+
+  const engagementData = categories.map((cat, i) => ({ name: cat, value: engagementScores[i] }));
   const overallHealth = 91;
 
   const [isExpanded, setIsExpanded] = React.useState(false);

@@ -1,20 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Trophy, Award, Zap, Users, BookOpen } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 
-const badges = [
-  { id: 1, icon: Star, name: 'Early Bird', desc: 'Checked in on Day 1', earned: true, color: 'bg-primary' },
-  { id: 2, icon: Users, name: 'Connector', desc: 'Met 5+ matches', earned: true, color: 'bg-[#00ffff]' },
-  { id: 3, icon: BookOpen, name: 'Knowledge Seeker', desc: 'Attended 10 sessions', earned: false, color: 'bg-[#a020f0]', progress: 70 },
-  { id: 4, icon: Zap, name: 'Speed Networker', desc: 'Sent 20 connection requests', earned: false, color: 'bg-[#ff00ff]', progress: 45 },
-  { id: 5, icon: Trophy, name: 'Top Contributor', desc: 'Left 15+ session reviews', earned: false, color: 'bg-primary', progress: 20 },
-  { id: 6, icon: Award, name: 'VIP Access', desc: 'Attended a private workshop', earned: true, color: 'bg-[#ff00ff]' },
-];
+import * as Icons from 'lucide-react';
 
 export const AchievementsPage: React.FC = () => {
+  const [badges, setBadges] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    fetch('/api/appData?type=achievements_badges')
+      .then(res => res.json())
+      .then(data => setBadges(data))
+      .catch(err => console.error('Failed to fetch achievements badges', err));
+  }, []);
+
   const earned = badges.filter(b => b.earned).length;
   const total = badges.length;
-  const overallProgress = Math.round((earned / total) * 100);
+  const overallProgress = total > 0 ? Math.round((earned / total) * 100) : 0;
 
   return (
     <motion.div
@@ -76,7 +78,10 @@ export const AchievementsPage: React.FC = () => {
               </div>
             )}
             <div className={`w-16 h-16 border-3 border-black ${badge.color} flex items-center justify-center mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-[2px] group-hover:translate-y-[2px] group-hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform`}>
-              <badge.icon className="w-8 h-8 text-black" />
+              {(() => {
+                const Icon = Icons[badge.icon as keyof typeof Icons] as any;
+                return Icon ? <Icon className="w-8 h-8 text-black" /> : null;
+              })()}
             </div>
             <h3 className="text-xl font-bold font-headline-lg uppercase text-black mb-2 tracking-wider">{badge.name}</h3>
             <p className="text-sm font-bold font-body-md text-gray-900 mb-4">{badge.desc}</p>

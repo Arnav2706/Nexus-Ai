@@ -1,55 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Ghost, Shuffle, Rocket, FlaskConical, Lightbulb } from 'lucide-react';
+import { Lightbulb } from 'lucide-react';
 
-const wowCards = [
-  {
-    id: 1,
-    icon: Ghost,
-    title: 'AI Twin',
-    subtitle: "Missing a session? Your digital twin attends for you.",
-    description: "Your AI clone attends sessions you can't make it to — generating notes, summaries, and actionable follow-ups.",
-    color: 'bg-[#a020f0]',
-    badge: 'Experimental',
-    badgeColor: 'bg-white text-black border-black',
-    status: 'LIVE',
-  },
-  {
-    id: 2,
-    icon: Shuffle,
-    title: 'Serendipity Engine',
-    subtitle: 'Discover the unexpected connection you never knew you needed.',
-    description: 'Hidden opportunities surface through probabilistic graph traversal — find the speaker you never planned to meet.',
-    color: 'bg-[#ff00ff]',
-    badge: 'AI Powered',
-    badgeColor: 'bg-white text-black border-black',
-    status: 'LIVE',
-  },
-  {
-    id: 3,
-    icon: Rocket,
-    title: 'Startup Finder',
-    subtitle: 'Connect founders with investors through AI matchmaking.',
-    description: 'Founders get matched with investors based on stage, sector, and thesis alignment. Deals happen here.',
-    color: 'bg-[#a9f131]',
-    badge: 'Beta',
-    badgeColor: 'bg-white text-black border-black',
-    status: 'BETA',
-  },
-  {
-    id: 4,
-    icon: FlaskConical,
-    title: 'Research Matchmaker',
-    subtitle: 'Find researchers working on exactly your problem.',
-    description: 'Semantic embeddings cluster researchers by topic. Discover colleagues working on the same challenges.',
-    color: 'bg-[#00ffff]',
-    badge: 'New',
-    badgeColor: 'bg-white text-black border-black',
-    status: 'NEW',
-  },
-];
+import * as Icons from 'lucide-react';
 
 export const WowFeatures: React.FC = () => {
+  const [wowCards, setWowCards] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    fetch('/api/appData?type=wow_features')
+      .then(res => res.json())
+      .then(data => setWowCards(data))
+      .catch(err => console.error('Failed to fetch wow features', err));
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -87,7 +51,10 @@ export const WowFeatures: React.FC = () => {
             </div>
 
             <div className={`w-16 h-16 border-3 border-black ${card.color} flex items-center justify-center mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all`}>
-              <card.icon className="w-8 h-8 text-black" />
+              {(() => {
+                const Icon = Icons[card.icon as keyof typeof Icons] as any;
+                return Icon ? <Icon className="w-8 h-8 text-black" /> : null;
+              })()}
             </div>
 
             <h3 className="text-2xl font-bold font-headline-lg uppercase text-black mb-3">{card.title}</h3>

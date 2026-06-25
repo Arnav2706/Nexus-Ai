@@ -2,14 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Navigation } from 'lucide-react';
 
-const hotspots = [
-  { id: 1, name: 'Main Stage', x: 200, y: 150, intensity: 'high', label: 'Keynote' },
-  { id: 2, name: 'Networking Lounge', x: 400, y: 300, intensity: 'medium', label: 'Crowded' },
-  { id: 3, name: 'Workshop Room A', x: 150, y: 450, intensity: 'low', label: 'Available' },
-  { id: 4, name: 'Startup Alley', x: 500, y: 100, intensity: 'high', label: 'Trending' }
-];
+
 
 export const MapPage: React.FC = () => {
+  const [hotspots, setHotspots] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    fetch('/api/appData?type=map_hotspots')
+      .then(res => res.json())
+      .then(data => setHotspots(data))
+      .catch(err => console.error('Failed to fetch map hotspots', err));
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

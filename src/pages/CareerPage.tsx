@@ -2,16 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Target, TrendingUp, Star } from 'lucide-react';
 
-const opportunities = [
-  { id: 1, company: 'DeepMind', role: 'Research Scientist', match: 94, type: 'Research', contact: 'Dr. Elena Sato', status: 'Active' },
-  { id: 2, company: 'Andreessen Horowitz', role: 'AI Portfolio Advisor', match: 88, type: 'Investing', contact: 'Mark Chen', status: 'Warm Lead' },
-  { id: 3, company: 'Vercel', role: 'Staff Engineer', match: 82, type: 'Engineering', contact: 'Sarah Kim', status: 'Active' },
-  { id: 4, company: 'Hugging Face', role: 'Developer Advocate', match: 76, type: 'DevRel', contact: 'Tom Wright', status: 'Active' },
-];
-
 
 
 export const CareerPage: React.FC = () => {
+  const [opportunities, setOpportunities] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    fetch('/api/appData?type=career_opportunities')
+      .then(res => res.json())
+      .then(data => setOpportunities(data))
+      .catch(err => console.error('Failed to fetch career opportunities', err));
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

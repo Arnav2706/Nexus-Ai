@@ -4,39 +4,26 @@ import { Users, Briefcase, Zap } from 'lucide-react';
 import { useToast } from '../contexts/ToastContext';
 import { ValuePredictor } from '../components/network/ValuePredictor';
 
-const matches = [
-  {
-    id: 1,
-    name: 'Sarah Chen',
-    role: 'Founder at AI Startup',
-    score: 92,
-    reason: 'Both building AI products and interested in healthcare applications.',
-    skills: ['React', 'Python', 'LLMs'],
-    status: 'online'
-  },
-  {
-    id: 2,
-    name: 'David Miller',
-    role: 'Staff Engineer',
-    score: 85,
-    reason: 'Shared interest in performance optimization and open source.',
-    skills: ['Rust', 'WASM', 'Go'],
-    status: 'offline'
-  },
-  {
-    id: 3,
-    name: 'Elena Rodriguez',
-    role: 'Product Designer',
-    score: 78,
-    reason: 'Looking for technical co-founders in your exact stack.',
-    skills: ['Figma', 'UI/UX', 'Framer'],
-    status: 'online'
-  }
-];
+
 
 export const NetworkPage: React.FC = () => {
   const { addToast } = useToast();
   const [connected, setConnected] = React.useState<Record<number, boolean>>({});
+  const [matches, setMatches] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    fetch('/api/appData?type=network_matches')
+      .then(res => res.json())
+      .then(data => {
+        setMatches(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Failed to fetch network matches', err);
+        setLoading(false);
+      });
+  }, []);
 
   const handleConnect = (id: number) => {
     addToast('Sending connection request...', 'info');
@@ -63,7 +50,9 @@ export const NetworkPage: React.FC = () => {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {matches.map((match, index) => {
+        {loading ? (
+          <div className="col-span-full text-center py-12 font-bold uppercase tracking-wider">Loading Matches...</div>
+        ) : matches.map((match, index) => {
           const isConnected = connected[match.id];
           return (
           <motion.div
@@ -110,7 +99,7 @@ export const NetworkPage: React.FC = () => {
 
             <div className="space-y-6">
               <div className="flex flex-wrap gap-2">
-                {match.skills.map(skill => (
+                {match.skills.map((skill: string) => (
                   <span key={skill} className="px-3 py-1 bg-white border-2 border-black text-xs text-black font-bold font-label-sm uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                     {skill}
                   </span>

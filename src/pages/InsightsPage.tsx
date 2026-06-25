@@ -2,26 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, TrendingUp, AlertCircle, MessageSquare } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
-const liveInsights = [
-  { id: 1, type: 'trend', message: 'Generative AI workshop is trending. 150+ mentions in last hour.', time: '2m ago' },
-  { id: 2, type: 'alert', message: 'Room B is nearing capacity for the Design Systems talk.', time: '5m ago' },
-  { id: 3, type: 'feedback', message: 'Cybersecurity keynote receiving excellent feedback (4.9/5).', time: '12m ago' },
-];
-
-const engagementData = [
-  { time: '09:00', value: 20 },
-  { time: '10:00', value: 45 },
-  { time: '11:00', value: 85 },
-  { time: '12:00', value: 60 },
-  { time: '13:00', value: 95 },
-  { time: '14:00', value: 120 },
-];
-
 
 export const InsightsPage: React.FC = () => {
-  const [data, setData] = useState(engagementData);
+  const [data, setData] = useState<any[]>([]);
+  const [liveInsights, setLiveInsights] = useState<any[]>([]);
 
   useEffect(() => {
+    Promise.all([
+      fetch('/api/appData?type=insights_engagement').then(r => r.json()),
+      fetch('/api/appData?type=insights_live').then(r => r.json())
+    ]).then(([engagement, insights]) => {
+      setData(engagement);
+      setLiveInsights(insights);
+    }).catch(err => console.error('Failed to fetch insights data', err));
+  }, []);
+
+  useEffect(() => {
+    if (data.length === 0) return;
     const interval = setInterval(() => {
       setData(prev => {
         const newData = [...prev];
