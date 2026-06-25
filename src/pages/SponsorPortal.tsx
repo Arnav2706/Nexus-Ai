@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Download, Search, Star, Filter, UserPlus, X, Mail, Phone, Building } from 'lucide-react';
+import { useToast } from '../contexts/ToastContext';
 
 interface Lead {
   id: string;
@@ -15,6 +16,7 @@ const SponsorPortal: React.FC = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  const { addToast } = useToast();
 
   useEffect(() => {
     const fetchLeads = async () => {
@@ -45,10 +47,10 @@ const SponsorPortal: React.FC = () => {
           <p className="text-nexus-gray font-medium">AI-Qualified Lead Retrieval (Powered by AWS)</p>
         </div>
         <div className="flex gap-4">
-          <button className="px-4 py-2 bg-nexus-card border-2 border-nexus-border text-white font-bold uppercase tracking-wider hover:bg-nexus-dark transition-colors flex items-center gap-2 rounded-sm shadow-brutal">
+          <button onClick={() => addToast('Manual Lead Entry is locked in Beta. Use the mobile app to scan badges.', 'info')} className="px-4 py-2 bg-nexus-card border-2 border-nexus-border text-white font-bold uppercase tracking-wider hover:bg-nexus-dark transition-colors flex items-center gap-2 rounded-sm shadow-brutal">
             <UserPlus size={18} /> Add Lead
           </button>
-          <button className="px-4 py-2 bg-nexus-accent border-2 border-transparent hover:border-black text-black font-bold uppercase tracking-wider hover:bg-white transition-colors flex items-center gap-2 rounded-sm shadow-brutal">
+          <button onClick={() => addToast('Exporting to CSV...', 'success')} className="px-4 py-2 bg-nexus-accent border-2 border-transparent hover:border-black text-black font-bold uppercase tracking-wider hover:bg-white transition-colors flex items-center gap-2 rounded-sm shadow-brutal">
             <Download size={18} /> Export CSV
           </button>
         </div>
