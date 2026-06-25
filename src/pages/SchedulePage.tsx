@@ -7,28 +7,9 @@ const currentYear = new Date().getFullYear();
 const currentMonth = new Date().getMonth();
 const currentDay = new Date().getDate();
 
-const initialData = [
-  {
-    id: 1,
-    title: 'Generative AI in Production',
-    start: new Date(currentYear, currentMonth, currentDay, 10, 0),
-    end: new Date(currentYear, currentMonth, currentDay, 12, 0),
-    isAllDay: false,
-    priority: 'high',
-  },
-  {
-    id: 2,
-    title: 'Future of Developer Tools Keynote',
-    start: new Date(currentYear, currentMonth, currentDay, 13, 0),
-    end: new Date(currentYear, currentMonth, currentDay, 14, 0),
-    isAllDay: false,
-    priority: 'critical',
-  },
-];
-
 export const SchedulePage: React.FC = () => {
   const { addToast } = useToast();
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState<any[]>([]);
 
   React.useEffect(() => {
     const fetchEvents = async () => {
@@ -46,7 +27,8 @@ export const SchedulePage: React.FC = () => {
           }
         }
       } catch (err) {
-        console.error("Failed to fetch events from DynamoDB, using mock data");
+        console.error("Failed to fetch events from DynamoDB (Real Data Only)");
+        setData([]);
       }
     };
     fetchEvents();

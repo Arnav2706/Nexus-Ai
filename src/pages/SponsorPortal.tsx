@@ -24,18 +24,11 @@ const SponsorPortal: React.FC = () => {
           const data = await res.json();
           setLeads(data);
         } else {
-          // Mock data if API is not deployed
-          setLeads([
-            { id: '1', name: 'Alice Chen', company: 'TechCorp', role: 'CTO', score: 95, capturedAt: new Date().toISOString() },
-            { id: '2', name: 'Bob Smith', company: 'DataSystems', role: 'Lead Architect', score: 88, capturedAt: new Date().toISOString() },
-            { id: '3', name: 'Charlie Davis', company: 'CloudNet', role: 'VP Engineering', score: 72, capturedAt: new Date().toISOString() },
-          ]);
+          throw new Error('Failed to fetch leads from DynamoDB');
         }
       } catch (err) {
-        setLeads([
-          { id: '1', name: 'Alice Chen', company: 'TechCorp', role: 'CTO', score: 95, capturedAt: new Date().toISOString() },
-          { id: '2', name: 'Bob Smith', company: 'DataSystems', role: 'Lead Architect', score: 88, capturedAt: new Date().toISOString() },
-        ]);
+        console.error('AWS Backend Error:', err);
+        setLeads([]);
       } finally {
         setLoading(false);
       }

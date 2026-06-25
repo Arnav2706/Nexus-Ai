@@ -22,23 +22,12 @@ const OrganizerDashboard: React.FC = () => {
           const data = await res.json();
           setStats(data);
         } else {
-          // Mock fallback if API not deployed yet
-          setStats({
-            totalEvents: 14,
-            totalLeadsCaptured: 1240,
-            averageLeadScore: 86,
-            healthScore: 'Excellent',
-            activeSponsors: 25
-          });
+          throw new Error('Failed to fetch real data from DynamoDB');
         }
       } catch (err) {
-        setStats({
-          totalEvents: 14,
-          totalLeadsCaptured: 1240,
-          averageLeadScore: 86,
-          healthScore: 'Excellent',
-          activeSponsors: 25
-        });
+        console.error('AWS Backend Error:', err);
+        // Force the app to crash or show empty if real data fails
+        setStats(null);
       } finally {
         setLoading(false);
       }
