@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Settings, User, Bell, Shield, ChevronRight } from 'lucide-react';
 import { useToast } from '../contexts/ToastContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const settingsSections = [
   {
@@ -40,6 +41,7 @@ const settingsSections = [
 
 export const SettingsPage: React.FC = () => {
   const { addToast } = useToast();
+  const { user } = useAuth();
   const [toggles, setToggles] = useState<Record<string, boolean>>(
     Object.fromEntries(
       settingsSections.flatMap(s => s.settings.map(item => [item.id, item.value]))
@@ -122,12 +124,12 @@ export const SettingsPage: React.FC = () => {
         </div>
         <div className="flex items-center gap-5 p-4 bg-gray-100 border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
           <div className="w-20 h-20 border-3 border-black bg-white flex items-center justify-center text-black text-3xl font-bold font-headline-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-            AJ
+            <User size={32} />
           </div>
           <div className="flex-1">
-            <p className="text-xl font-bold font-headline-md uppercase tracking-wider">Alex Jensen</p>
-            <p className="text-black font-bold font-label-md uppercase bg-primary inline-block px-2 py-1 border-2 border-black mt-2">Full-Stack Developer & AI Enthusiast</p>
-            <p className="text-gray-900 text-xs font-bold font-body-md mt-2 uppercase tracking-wider">San Francisco, CA · Pro Attendee</p>
+            <p className="text-xl font-bold font-headline-md uppercase tracking-wider">{user?.name || 'GUEST ACCOUNT'}</p>
+            <p className="text-black font-bold font-label-md uppercase bg-primary inline-block px-2 py-1 border-2 border-black mt-2">Enterprise Sponsor / Organizer</p>
+            <p className="text-gray-900 text-xs font-bold font-body-md mt-2 uppercase tracking-wider">AWS Verified</p>
           </div>
           <button onClick={() => addToast('Feature in development', 'warning')} className="flex items-center gap-2 px-6 py-3 bg-white border-3 border-black hover:bg-black hover:text-white font-bold font-headline-md uppercase text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
             Edit <ChevronRight className="w-5 h-5" />

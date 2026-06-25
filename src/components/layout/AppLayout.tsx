@@ -5,12 +5,14 @@ import { ShaderBackground } from './ShaderBackground';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FloatingAssistant } from '../chat/FloatingAssistant';
 import { NotificationPanel } from './NotificationPanel';
-import { Search, AlertTriangle, Menu } from 'lucide-react';
+import { Search, AlertTriangle, Menu, User } from 'lucide-react';
 import { CustomCursor } from '../ui/CustomCursor';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const AppLayout: React.FC = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     // Aggressively remove Kendo UI watermarks that overlap components
@@ -73,8 +75,10 @@ export const AppLayout: React.FC = () => {
           <div className="flex items-center gap-3">
             <NotificationPanel />
             <div className="flex items-center gap-2 px-3 py-2 bg-white border-3 border-black brutalist-card-shadow text-black">
-              <div className="w-7 h-7 rounded-none bg-primary border-2 border-black" />
-              <span className="text-sm font-bold font-headline-md uppercase tracking-wider">Alex Jensen</span>
+              <div className="w-7 h-7 flex items-center justify-center rounded-none bg-primary border-2 border-black">
+                <User size={16} />
+              </div>
+              <span className="text-sm font-bold font-headline-md uppercase tracking-wider">{user?.name || 'GUEST ACCOUNT'}</span>
             </div>
           </div>
         </header>
