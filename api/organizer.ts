@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
-import { dynamoDb } from "./dynamodb";
+import { dynamoDb } from "./dynamodb.js";
 
 const EVENTS_TABLE = process.env.DYNAMODB_EVENTS_TABLE || "NexusEvents";
 const LEADS_TABLE = process.env.DYNAMODB_LEADS_TABLE || "NexusLeads";
