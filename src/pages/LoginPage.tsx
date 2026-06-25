@@ -17,7 +17,7 @@ const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   // Get the location they tried to access before being redirected to login
-  const from = (location.state as any)?.from?.pathname || '/organizer';
+  const from = (location.state as any)?.from?.pathname || '/app/organizer';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -51,8 +51,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
 
     } catch (error: any) {
-      console.error("Bedrock Invoke Error:", error);
-      return res.status(500).json({ error: "Failed to generate AI response from Bedrock", details: error.message });
+      console.warn("Bedrock Invoke Error (Fallback to Mock):", error.message);
+      
+      // Graceful fallback for the hackathon demo if Bedrock isn't configured
+      const mockReplies = [
+        "Based on your profile, you should prioritize the Keynote at 10 AM, followed by the AWS serverless workshop.",
+        "I noticed 3 high-value B2B leads in the main exhibition hall that match your ideal customer profile. Would you like me to map a route?",
+        "Your event ROI is currently tracking 15% higher than average. Great job engaging with the VIP sponsors!",
+      ];
+      
+      return res.status(200).json({ 
+        reply: "(Mock AI) " + mockReplies[Math.floor(Math.random() * mockReplies.length)],
+        model: "mock-fallback"
+      });
     }
   }
 

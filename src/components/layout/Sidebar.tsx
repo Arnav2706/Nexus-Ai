@@ -5,21 +5,21 @@ import { Calendar, Users, Activity, Settings, Cpu, MapPin, Zap, Network, Briefca
 import { useAuth } from '../../contexts/AuthContext';
 
 const navItems = [
-  { name: 'Copilot', path: '/', icon: Cpu },
-  { name: 'Schedule', path: '/schedule', icon: Calendar },
-  { name: 'Map', path: '/map', icon: MapPin },
-  { name: 'Network', path: '/network', icon: Users },
-  { name: 'Insights', path: '/insights', icon: Activity },
-  { name: 'Graph', path: '/graph', icon: Network },
-  { name: 'Memory', path: '/memory', icon: Zap },
-  { name: 'Career', path: '/career', icon: Briefcase },
-  { name: 'Pulse', path: '/pulse', icon: Flame },
-  { name: 'WOW', path: '/wow', icon: Lightbulb },
-  { name: 'Achievements', path: '/achievements', icon: Medal },
-  { name: 'Integrations', path: '/integrations', icon: Blocks },
-  { name: 'Organizer ROI', path: '/organizer', icon: BarChart },
-  { name: 'Sponsor Portal', path: '/sponsor', icon: Store },
-  { name: 'Settings', path: '/settings', icon: Settings },
+  { name: 'Copilot', path: '/app', icon: Cpu },
+  { name: 'Schedule', path: '/app/schedule', icon: Calendar },
+  { name: 'Map', path: '/app/map', icon: MapPin },
+  { name: 'Network', path: '/app/network', icon: Users },
+  { name: 'Insights', path: '/app/insights', icon: Activity },
+  { name: 'Graph', path: '/app/graph', icon: Network },
+  { name: 'Memory', path: '/app/memory', icon: Zap },
+  { name: 'Career', path: '/app/career', icon: Briefcase },
+  { name: 'Pulse', path: '/app/pulse', icon: Flame },
+  { name: 'WOW', path: '/app/wow', icon: Lightbulb },
+  { name: 'Achievements', path: '/app/achievements', icon: Medal },
+  { name: 'Integrations', path: '/app/integrations', icon: Blocks },
+  { name: 'Organizer ROI', path: '/app/organizer', icon: BarChart },
+  { name: 'Sponsor Portal', path: '/app/sponsor', icon: Store },
+  { name: 'Settings', path: '/app/settings', icon: Settings },
 ];
 
 interface SidebarProps {

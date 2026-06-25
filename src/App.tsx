@@ -32,8 +32,8 @@ function App() {
       <ToastProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/landing" element={<LandingPage />} />
-            <Route path="/" element={<AppLayout />}>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/app" element={<AppLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="schedule" element={<SchedulePage />} />
               <Route path="map" element={<MapPage />} />
