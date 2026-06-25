@@ -19,35 +19,64 @@ const initialMessages = [
 export const FloatingAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<any[]>(initialMessages);
-
   const [inputText, setInputText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSend = () => {
-    if (!inputText.trim()) return;
+  const handleSend = async () => {
+    if (!inputText.trim() || isLoading) return;
     
+    const userText = inputText;
     const userMsg = {
       authorId: MY_ID,
       author: { id: MY_ID, name: 'You' },
-      text: inputText,
+      text: userText,
       timestamp: new Date(),
       id: messages.length,
     };
     
     setMessages(prev => [...prev, userMsg]);
     setInputText('');
+    setIsLoading(true);
     
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/copilot/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: userText,
+          context: {
+            page: 'Sponsor Portal',
+            time: new Date().toISOString()
+          }
+        })
+      });
+
+      const data = await res.json();
+      
       setMessages(prev => [
         ...prev,
         {
           authorId: BOT_ID,
           author: { id: BOT_ID, name: 'Nexus AI' },
-          text: "I suggest asking him about his latest WASM work — it aligns perfectly with your startup focus!",
+          text: data.reply || "Sorry, I couldn't process that request.",
           timestamp: new Date(),
           id: prev.length,
         }
       ]);
-    }, 900);
+    } catch (err) {
+      setMessages(prev => [
+        ...prev,
+        {
+          authorId: BOT_ID,
+          author: { id: BOT_ID, name: 'Nexus AI Error' },
+          text: "Connection to AWS Bedrock failed.",
+          timestamp: new Date(),
+          id: prev.length,
+        }
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -113,9 +142,14 @@ export const FloatingAssistant: React.FC = () => {
               />
               <button 
                 onClick={handleSend}
-                className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0 hover:bg-primary/90 transition-colors"
+                disabled={isLoading}
+                className="w-10 h-10 rounded-full bg-primary flex items-center justify-center shrink-0 hover:bg-primary/90 transition-colors disabled:opacity-50"
               >
-                <Send className="w-5 h-5 text-black" />
+                {isLoading ? (
+                  <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <Send className="w-5 h-5 text-black" />
+                )}
               </button>
             </div>
           </motion.div>
