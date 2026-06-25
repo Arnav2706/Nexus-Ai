@@ -46,7 +46,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
       </AnimatePresence>
 
       <motion.div 
-        className={`fixed inset-y-0 left-0 border-r-3 border-black bg-white flex flex-col p-4 z-50 text-black overflow-y-auto transform transition-all duration-300 md:relative md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'} ${isMinimized ? 'w-20' : 'w-64'}`}
+        className={`fixed inset-y-0 left-0 border-r-3 border-black bg-white flex flex-col p-4 z-50 text-black overflow-visible transform transition-all duration-300 md:relative md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'} ${isMinimized ? 'w-20' : 'w-64'}`}
       >
         <div className="flex items-center justify-between mb-8 mt-2">
           <Link to="/" className={`flex items-center gap-3 ${isMinimized ? 'hidden' : 'flex'}`}>
@@ -71,7 +71,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
           </div>
         </div>
 
-      <nav className="flex-1 space-y-3">
+      <nav className="flex-1 space-y-3 overflow-y-auto overflow-x-hidden scrollbar-hide pb-4">
         {navItems.map((item) => (
           <NavLink
             key={item.name}
