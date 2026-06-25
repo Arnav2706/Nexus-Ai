@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
+import { BedrockRuntimeClient, ConverseCommand } from "@aws-sdk/client-bedrock-runtime";
 
 // Initialize Bedrock Client
 const bedrockClient = new BedrockRuntimeClient({
@@ -15,38 +15,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ error: "Prompt is required" });
       }
 
-      // We use Anthropic Claude 3 Haiku via Bedrock for fast, cheap inference
-      const modelId = "anthropic.claude-3-haiku-20240307-v1:0";
+      // We use Amazon Nova Lite via Bedrock
+      const modelId = "amazon.nova-lite-v1:0"; // or "us.amazon.nova-lite-v1:0" depending on region
 
       const systemPrompt = `You are the Nexus-AI Copilot, an expert professional networking and event scheduling assistant.
       Context: ${JSON.stringify(context || {})}
       Provide concise, highly actionable advice to help the user maximize their event ROI.`;
 
-      const payload = {
-        anthropic_version: "bedrock-2023-05-31",
-        max_tokens: 500,
-        temperature: 0.7,
-        system: systemPrompt,
+      const command = new ConverseCommand({
+        modelId,
+        system: [{ text: systemPrompt }],
         messages: [
           {
             role: "user",
-            content: prompt
+            content: [{ text: prompt }]
           }
-        ]
-      };
-
-      const command = new InvokeModelCommand({
-        modelId,
-        contentType: "application/json",
-        accept: "application/json",
-        body: JSON.stringify(payload),
+        ],
+        inferenceConfig: {
+          maxTokens: 500,
+          temperature: 0.7,
+        }
       });
 
       const response = await bedrockClient.send(command);
-      const responseBody = JSON.parse(new TextDecoder().decode(response.body));
-
+      
       return res.status(200).json({ 
-        reply: responseBody.content[0].text,
+        reply: response.output?.message?.content?.[0]?.text || "No response generated.",
         model: modelId
       });
 
